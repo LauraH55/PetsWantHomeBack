@@ -67,6 +67,16 @@ class Animal
      */
     private $updatedAt;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=Race::class, inversedBy="animals")
+     */
+    private $race;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Shelter::class, inversedBy="animals")
+     */
+    private $shelter;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -188,6 +198,30 @@ class Animal
     public function setUpdatedAt(?\DateTimeInterface $updatedAt): self
     {
         $this->updatedAt = $updatedAt;
+
+        return $this;
+    }
+
+    public function getRace(): ?Race
+    {
+        return $this->race;
+    }
+
+    public function setRace(?Race $race): self
+    {
+        $this->race = $race;
+
+        return $this;
+    }
+
+    public function getShelter(): ?Shelter
+    {
+        return $this->shelter;
+    }
+
+    public function setShelter(?Shelter $shelter): self
+    {
+        $this->shelter = $shelter;
 
         return $this;
     }
