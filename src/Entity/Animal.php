@@ -33,11 +33,6 @@ class Animal
     private $gender;
 
     /**
-     * @ORM\Column(type="smallint")
-     */
-    private $species;
-
-    /**
      * @ORM\Column(type="smallint", nullable=true)
      */
     private $cohabitation;

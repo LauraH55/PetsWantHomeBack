@@ -39,6 +39,11 @@ class Race
      */
     private $animals;
 
+    /**
+     * @ORM\Column(type="smallint")
+     */
+    private $species;
+
     public function __construct()
     {
         $this->animals = new ArrayCollection();
@@ -111,6 +116,18 @@ class Race
                 $animal->setRace(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getSpecies(): ?int
+    {
+        return $this->species;
+    }
+
+    public function setSpecies(int $species): self
+    {
+        $this->species = $species;
 
         return $this;
     }
