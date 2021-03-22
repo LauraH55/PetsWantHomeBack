@@ -17,11 +17,12 @@ use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 class AppFixtures extends Fixture
 {
-
+    private $passwordEncoder;
     private $connection;
 
-    public function __construct(Connection $connection)
+    public function __construct(UserPasswordEncoderInterface $passwordEncoder, Connection $connection)
     {
+        $this->passwordEncoder = $passwordEncoder;
         // Connection to MySQL
         $this->connection = $connection;
     }
@@ -50,6 +51,18 @@ class AppFixtures extends Fixture
         $faker = Faker\Factory::create('fr_FR');
         // We give a provider to Faker
         $faker->addProvider(new AnimalProvider());
+
+        // Shelter
+        $shelter = new Shelter();
+        //$encodedPassword = $this->passwordEncoder->encodePassword($shelter, 'shelter');
+        $shelter->setName('Refuge 1');
+        $shelter->setAddress('2 rue des gentianes 05000 Gap');
+        $shelter->setPhoneNumber('0635262245');
+        $shelter->setEmail('shelter@shelter.com');
+        $shelter->setPicture('images/shelter.jpg');
+        $shelter->setPassword('$argon2id$v=19$m=65536,t=4,p=1$zFDMcyTCfQnlHqWMOsC+sw$hfCVAVPCKyK0U6W3HVXSnyxm/W3zNHUj7mWThYCbof8');
+
+        $manager->persist($shelter);
 
 
         $catSpeciesObject = [];
