@@ -54,6 +54,11 @@ class Shelter
      */
     private $animals;
 
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $password;
+
     public function __construct()
     {
         $this->animals = new ArrayCollection();
@@ -162,6 +167,18 @@ class Shelter
                 $animal->setShelter(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getPassword(): ?string
+    {
+        return $this->password;
+    }
+
+    public function setPassword(string $password): self
+    {
+        $this->password = $password;
 
         return $this;
     }
