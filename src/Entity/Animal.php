@@ -72,6 +72,12 @@ class Animal
      */
     private $shelter;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=Species::class, inversedBy="animal")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $species;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -109,18 +115,6 @@ class Animal
     public function setGender(int $gender): self
     {
         $this->gender = $gender;
-
-        return $this;
-    }
-
-    public function getSpecies(): ?int
-    {
-        return $this->species;
-    }
-
-    public function setSpecies(int $species): self
-    {
-        $this->species = $species;
 
         return $this;
     }
@@ -217,6 +211,18 @@ class Animal
     public function setShelter(?Shelter $shelter): self
     {
         $this->shelter = $shelter;
+
+        return $this;
+    }
+
+    public function getSpecies(): ?Species
+    {
+        return $this->species;
+    }
+
+    public function setSpecies(?Species $species): self
+    {
+        $this->species = $species;
 
         return $this;
     }

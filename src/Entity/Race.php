@@ -40,7 +40,8 @@ class Race
     private $animals;
 
     /**
-     * @ORM\Column(type="smallint")
+     * @ORM\ManyToOne(targetEntity=Species::class, inversedBy="race")
+     * @ORM\JoinColumn(nullable=false)
      */
     private $species;
 
@@ -120,15 +121,16 @@ class Race
         return $this;
     }
 
-    public function getSpecies(): ?int
+    public function getSpecies(): ?Species
     {
         return $this->species;
     }
 
-    public function setSpecies(int $species): self
+    public function setSpecies(?Species $species): self
     {
         $this->species = $species;
 
         return $this;
     }
+
 }
