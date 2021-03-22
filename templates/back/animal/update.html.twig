@@ -1,0 +1,14 @@
+{% extends "base.html.twig" %}
+
+{% block title %}
+    Modifier un animal
+{% endblock %}
+
+{% block body %}
+
+<h1>Modifier un animal</h1>
+<h2>{{ animal.name}}</h2>
+
+{{ include('back/animal/_form.html.twig') }}
+
+{% endblock %}
