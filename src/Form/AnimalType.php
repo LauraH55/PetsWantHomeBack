@@ -30,17 +30,12 @@ class AnimalType extends AbstractType
         $builder
             ->add('name', TextType::class, [
                 'label' => 'Nom',
-                'constraints' => new NotBlank(),
             ])
             ->add('birthdate', DateType::class, [
                 'label' => 'Date de naissance',
-                'constraints' => new NotBlank(),
             ])
             ->add('gender', ChoiceType::class, [
                 'label' => 'Genre',
-                'constraints' => [
-                    new NotBlank(),
-                ],
                 'choices' => [
                     'Mâle' => 1,
                     'Femelle' => 2,
@@ -51,9 +46,6 @@ class AnimalType extends AbstractType
 
             ->add('cohabitation', ChoiceType::class, [
                 'label' => 'L\'animal s\'entend bien avec',
-                'constraints' => [
-                    new NotBlank(),
-                ],
                 'choices' => [
                     'Enfants' => 1,
                     'Chats' => 2,
@@ -63,25 +55,13 @@ class AnimalType extends AbstractType
                 'multiple' => false,
                 'expanded' => true,
             ])
-/*             ->add('picture', FileType::class,  [
+            ->add('picture', FileType::class,  [
                 'label' => 'Photo de l\'animal',
-                'constraints' => new NotBlank(),
-                 'constraints' => [
-                        new File([
-                            'maxSize' => '4096k',
-                            'mimeTypes' => [
-                                'image/png',
-                                'image/jpeg',
-                            ],
-                            'mimeTypesMessage' => 'Le fichier n\'est pas au bon format (formats acceptés: .png, .jpg, .jpeg)',
-                        ]),
-                    ] 
-            ]) */
+                'required'=> false,
+                'data_class' => null,
+            ])
             ->add('status', ChoiceType::class, [
                     'label' => 'L\'animal est',
-                    'constraints' => [
-                        new NotBlank(),
-                    ],
                     'choices' => [
                         'À adopter' => 1,
                         'Adopté' => 2,
@@ -92,10 +72,6 @@ class AnimalType extends AbstractType
                     'expanded' => true,
             ]) 
                 ->add('description', TextareaType::class, [
-                    'constraints' => [
-                        new NotBlank(),
-                        new Length(['min' => 10]),
-                    ],
                     'label' => 'Description de l\'animal'
                 ])
                 ->add('species', EntityType::class, [

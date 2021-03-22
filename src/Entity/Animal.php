@@ -2,9 +2,14 @@
 
 namespace App\Entity;
 
-use App\Repository\AnimalRepository;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\AnimalRepository;
+use Symfony\Component\Mime\MimeTypes;
 use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Validator\Constraints\NotBlank;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Validator\Constraints\Lenght;
+
 
 /**
  * @ORM\Entity(repositoryClass=AnimalRepository::class)
@@ -23,6 +28,8 @@ class Animal
     /**
      * @ORM\Column(type="string", length=100)
      * 
+     * @Assert\NotBlank
+     * 
      * @Groups("animal_list")
      */
     private $name;
@@ -30,12 +37,16 @@ class Animal
     /**
      * @ORM\Column(type="datetime")
      * 
+     * @Assert\NotBlank
+     *  
      * @Groups("animal_list")
      */
     private $birthdate;
 
     /**
      * @ORM\Column(type="smallint")
+     * 
+     * @Assert\NotBlank
      * 
      * @Groups("animal_list")
      */
@@ -44,12 +55,17 @@ class Animal
     /**
      * @ORM\Column(type="smallint", nullable=true)
      * 
-     * @Groups("animal_list")
+     * @Assert\NotBlank
+     *     
+     * @Groups("animal_list") 
      */
     private $cohabitation;
 
     /**
      * @ORM\Column(type="text")
+     * 
+     * @Assert\NotBlank(message="L'image doit être au format PNG ou JPEG, et ne pas dépasser 4096k.")
+     * @Assert\File(mimeTypes={ "image/png", "image/jpeg" })
      * 
      * @Groups("animal_list")
      */
@@ -58,12 +74,16 @@ class Animal
     /**
      * @ORM\Column(type="smallint")
      * 
+     * @Assert\NotBlank
+     * 
      * @Groups("animal_list")
      */
     private $status;
 
     /**
      * @ORM\Column(type="text")
+     * 
+     * @Assert\NotBlank
      * 
      * @Groups("animal_list")
      */
@@ -101,8 +121,15 @@ class Animal
      * @ORM\ManyToOne(targetEntity=Species::class, inversedBy="animal")
      * @ORM\JoinColumn(nullable=false)
      * 
+     * @Assert\NotBlank
+     * 
      */
     private $species;
+
+    public function __construct()
+    {
+        $this->createdAt = new \DateTime();
+    }
 
     public function getId(): ?int
     {

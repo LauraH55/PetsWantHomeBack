@@ -42,7 +42,7 @@ class AnimalController extends AbstractController
             $entityManager->persist($animal);
             $entityManager->flush();
 
-            return $this->redirectToRoute('back_movie_list');
+            return $this->redirectToRoute('back_animal_list');
         }
 
         // Rendu/affichage du form

@@ -11,10 +11,15 @@
 	<a href="{{ path('back_animal_create')}}" class="btn btn-success">Ajouter un animal</a>
 </p>
 
-		{% for animal in animals %}
-			<li>{{ animal.name }}
-			{{ animal.gender }}
-            <a class="btn btn-sm btn-primary" href="{{ path('back_animal_update', {id: animal.id}) }}">Modifier</a></li>
-			{% endfor %}
+{% for animal in animals %}
 
-{% endblock %}
+	<li>{{ animal.name }}
+		{% if animal.gender == 1 %}
+			- Mâle
+			<a class="btn btn-sm btn-primary" href="{{ path('back_animal_update', {id: animal.id}) }}">Modifier</a>
+		</li>
+	{% elseif animal.gender == 2 %}
+		- Femelle
+		<a class="btn btn-sm btn-primary" href="{{ path('back_animal_update', {id: animal.id}) }}">Modifier</a>
+	</li>
+{% endif %}{% endfor %}{% endblock %}
