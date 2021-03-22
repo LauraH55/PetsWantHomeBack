@@ -7,6 +7,7 @@ use Symfony\Component\Security\Core\User\UserInterface;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity(repositoryClass=ShelterRepository::class)
@@ -22,6 +23,7 @@ class Shelter
 
     /**
      * @ORM\Column(type="string", length=100)
+     * 
      */
     private $name;
 

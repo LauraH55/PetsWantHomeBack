@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use App\Repository\AnimalRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity(repositoryClass=AnimalRepository::class)
@@ -14,67 +15,92 @@ class Animal
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
+     * 
+     * @Groups("animal_list")
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=100)
+     * 
+     * @Groups("animal_list")
      */
     private $name;
 
     /**
      * @ORM\Column(type="datetime")
+     * 
+     * @Groups("animal_list")
      */
     private $birthdate;
 
     /**
      * @ORM\Column(type="smallint")
+     * 
+     * @Groups("animal_list")
      */
     private $gender;
 
     /**
      * @ORM\Column(type="smallint", nullable=true)
+     * 
+     * @Groups("animal_list")
      */
     private $cohabitation;
 
     /**
      * @ORM\Column(type="text")
+     * 
+     * @Groups("animal_list")
      */
     private $picture;
 
     /**
      * @ORM\Column(type="smallint")
+     * 
+     * @Groups("animal_list")
      */
     private $status;
 
     /**
      * @ORM\Column(type="text")
+     * 
+     * @Groups("animal_list")
      */
     private $description;
 
     /**
      * @ORM\Column(type="datetime")
+     * 
+     * @Groups("animal_list")
      */
     private $createdAt;
 
     /**
      * @ORM\Column(type="datetime", nullable=true)
+     * 
+     * @Groups("animal_list")
      */
     private $updatedAt;
 
     /**
      * @ORM\ManyToOne(targetEntity=Race::class, inversedBy="animals")
+     * 
+     * @Groups("animal_list")
      */
     private $race;
 
     /**
      * @ORM\ManyToOne(targetEntity=Shelter::class, inversedBy="animals")
+     * 
+     * @Groups("animal_list")
      */
     private $shelter;
 
     /**
      * @ORM\ManyToOne(targetEntity=Species::class, inversedBy="animal")
      * @ORM\JoinColumn(nullable=false)
+     * 
      */
     private $species;
 
