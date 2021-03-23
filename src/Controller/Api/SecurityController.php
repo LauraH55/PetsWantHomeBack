@@ -9,15 +9,10 @@ use Symfony\Component\Routing\Annotation\Route;
 class SecurityController extends AbstractController
 {
     /**
-     * @Route("/api/login", name="api_login")
+     * @Route("/api/logout", name="api_logout")
      */
-    public function login(): Response
+    public function logout()
     {
-        $shelter = $this->getUser();
-
-        return $this->json([
-            'email' => $shelter->getEmail(),
-            //'roles' => $shelter->getRoles(),
-        ]);
+        throw new \LogicException('This method can be blank - it will be intercepted by the logout key on your firewall.');
     }
 }
