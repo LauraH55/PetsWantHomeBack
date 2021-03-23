@@ -19,6 +19,83 @@ class AnimalRepository extends ServiceEntityRepository
         parent::__construct($registry, Animal::class);
     }
 
+
+    // We create a function with custom request to find animal by their status to adopt
+    public function findAllByStatusToAdopt()
+    {
+
+        $entityManager = $this->getEntityManager();
+
+        $query = $entityManager->createQuery(
+            'SELECT a
+            FROM App\Entity\Animal a
+            WHERE a.status = 1'
+        );
+
+        return $query->getResult();
+    }
+
+    // We create a function with custom request to find animal by their status adopted
+    public function findAllByStatusAdopted()
+    {
+
+        $entityManager = $this->getEntityManager();
+
+        $query = $entityManager->createQuery(
+            'SELECT a
+            FROM App\Entity\Animal a
+            WHERE a.status = 2'
+        );
+
+        return $query->getResult();
+    }
+
+    // [V2] We create a function with custom request to find animal by their status lost
+    public function findAllByStatusLost()
+    {
+
+        $entityManager = $this->getEntityManager();
+
+        $query = $entityManager->createQuery(
+            'SELECT a
+                FROM App\Entity\Animal a
+                WHERE a.status = 3'
+        );
+
+        return $query->getResult();
+    }
+
+    // [V2] We create a function with custom request to find animal by their status adopted
+    public function findAllByStatusFound()
+    {
+
+        $entityManager = $this->getEntityManager();
+
+        $query = $entityManager->createQuery(
+            'SELECT a
+            FROM App\Entity\Animal a
+            WHERE a.status = 4'
+        );
+
+        return $query->getResult();
+    }
+
+    // We create a function to order animal by their status
+    public function listOrderByStatus()
+    {
+        $entityManager = $this->getEntityManager();
+
+        $query = $entityManager->createQuery(
+            'SELECT a
+            FROM App\Entity\Animal a
+            ORDER BY a.status ASC'
+        );
+
+        return $query->getResult();
+    }
+
+
+
     // /**
     //  * @return Animal[] Returns an array of Animal objects
     //  */

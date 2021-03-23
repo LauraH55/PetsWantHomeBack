@@ -17,9 +17,11 @@
 		{% if animal.gender == 1 %}
 			- Mâle
 			<a class="btn btn-sm btn-primary" href="{{ path('back_animal_update', {id: animal.id}) }}">Modifier</a>
+			<a class="btn btn-danger" href="{{ path('back_animal_archive', {id: animal.id}) }}">{% if (animal.status == 1) or (animal.status == 3) or (animal.status == 4) %}Archiver{% elseif animal.status == 2 %}Désarchiver{% endif %}</a>
 		</li>
 	{% elseif animal.gender == 2 %}
 		- Femelle
 		<a class="btn btn-sm btn-primary" href="{{ path('back_animal_update', {id: animal.id}) }}">Modifier</a>
+		<a class="btn btn-danger" href="{{ path('back_animal_archive', {id: animal.id}) }}">{% if (animal.status == 1) or (animal.status == 3) or (animal.status == 4) %}Archiver{% elseif animal.status == 2 %}Désarchiver{% endif %}</a>
 	</li>
 {% endif %}{% endfor %}{% endblock %}
