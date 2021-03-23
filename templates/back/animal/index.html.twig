@@ -8,7 +8,7 @@
 <h1>Gestion des animaux</h1>
 
 <p>
-	<a href="{{ path('back_animal_create')}}" class="btn btn-success">Ajouter un animal</a>
+	<a href="{{ path('back_animal_create')}}" class="btn create">Ajouter un animal</a>
 </p>
 
 {% for animal in animals %}
@@ -16,12 +16,12 @@
 	<li>{{ animal.name }}
 		{% if animal.gender == 1 %}
 			- Mâle
-			<a class="btn btn-sm btn-primary" href="{{ path('back_animal_update', {id: animal.id}) }}">Modifier</a>
-			<a class="btn btn-danger" href="{{ path('back_animal_archive', {id: animal.id}) }}">{% if (animal.status == 1) or (animal.status == 3) or (animal.status == 4) %}Archiver{% elseif animal.status == 2 %}Désarchiver{% endif %}</a>
+			<a class="btn btn-sm update" href="{{ path('back_animal_update', {id: animal.id}) }}">Modifier</a>
+			<a class="btn archive" href="{{ path('back_animal_archive', {id: animal.id}) }}">{% if (animal.status == 1) or (animal.status == 3) or (animal.status == 4) %}Archiver{% elseif animal.status == 2 %}Désarchiver{% endif %}</a>
 		</li>
 	{% elseif animal.gender == 2 %}
 		- Femelle
-		<a class="btn btn-sm btn-primary" href="{{ path('back_animal_update', {id: animal.id}) }}">Modifier</a>
-		<a class="btn btn-danger" href="{{ path('back_animal_archive', {id: animal.id}) }}">{% if (animal.status == 1) or (animal.status == 3) or (animal.status == 4) %}Archiver{% elseif animal.status == 2 %}Désarchiver{% endif %}</a>
+		<a class="btn btn-sm update" href="{{ path('back_animal_update', {id: animal.id}) }}">Modifier</a>
+		<a class="btn archive" href="{{ path('back_animal_archive', {id: animal.id}) }}">{% if (animal.status == 1) or (animal.status == 3) or (animal.status == 4) %}Archiver{% elseif animal.status == 2 %}Désarchiver{% endif %}</a>
 	</li>
 {% endif %}{% endfor %}{% endblock %}

@@ -54,7 +54,7 @@ class AnimalController extends AbstractController
     /**
      * @Route("/back/animal/{id<\d+>}/update", name="back_animal_update", methods={"GET","POST"})
      */
-    public function edit(Request $request, Animal $animal): Response
+    public function update(Request $request, Animal $animal): Response
     {
         $form = $this->createForm(AnimalType::class, $animal);
 
