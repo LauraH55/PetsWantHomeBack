@@ -4,9 +4,14 @@ namespace App\Controller\Api;
 
 use App\Entity\Shelter;
 use App\Repository\ShelterRepository;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Serializer\SerializerInterface;
+use Symfony\Component\Validator\Validator\ValidatorInterface;
+use Symfony\Component\Serializer\Normalizer\AbstractNormalizer;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 /**
  * API Shelter
@@ -44,5 +49,46 @@ class ShelterController extends AbstractController
         }
 
         return $this->json($shelter, 200, []);
+    }
+
+    /**
+     * Edit shelter (PUT et PATCH)
+     * 
+     * @Route("/api/shelter/{id<\d+>}/update", name="api_shelter_update_put", methods={"PUT"})
+     * @Route("/api/shelter/{id<\d+>}/update", name="api_shelter_update_patch", methods={"PATCH"})
+     */
+    public function shelterUpdate(Shelter $shelter = null, EntityManagerInterface $em, SerializerInterface $serializer, Request $request, ValidatorInterface $validator)
+    {
+        // 1. We want to modify the refuge whose id is transmitted via the URL
+        // 404 page error ?
+        if ($shelter === null) {
+            // We return a JSON message + a 404 status
+            return $this->json(['error' => 'Désolé ce refuge n\'existe pas.'], Response::HTTP_NOT_FOUND);
+        }
+
+        // Our JSON which is in the body
+        $jsonContent = $request->getContent();
+
+        $serializer->deserialize(
+            $jsonContent,
+            Shelter::class,
+            'json',
+            // We have this additional argument which tells the serializer which existing entity to modify
+            [AbstractNormalizer::OBJECT_TO_POPULATE => $shelter]
+        );
+
+        // Validate the deserialize entity
+        $errors = $validator->validate($shelter);
+        // Generate errors
+        if (count($errors) > 0) {
+            // We return the error table in Json to the front with a status code 422
+            return $this->json($errors, Response::HTTP_UNPROCESSABLE_ENTITY);
+        }
+
+        // On flush $shelter which has been modified by the Serializer
+        $em->flush();
+
+        return $this->json(['message' => 'Refuge modifié.'], Response::HTTP_OK);
+        
     }
 }
