@@ -4,9 +4,9 @@ namespace App\Controller\Api;
 
 use App\Entity\Animal;
 use App\Repository\AnimalRepository;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 /**
  * API Animals
@@ -48,5 +48,5 @@ class AnimalController extends AbstractController
         return $this->json($animal, 200, [], ['groups' => 'animal_list']);
     }
 
-
+    
 }
