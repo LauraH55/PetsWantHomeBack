@@ -11,7 +11,19 @@
 	<a href="{{ path('back_animal_create')}}" class="btn create">Ajouter un animal</a>
 </p>
 
-{% for animal in animals %}
+
+<table class="table">
+  <thead>
+    <tr>
+	  <th scope="col">#</th>
+      <th scope="col">Nom</th>
+      <th scope="col">Genre</th>
+      <th scope="col">Date de naissance</th>
+      <th scope="col">Race</th>
+	  <th scope="col"><a href="{{ path('back_animal_create')}}" class="btn create">Ajouter un animal</a></th>
+    </tr>
+  </thead>
+{# {% for animal in animals %}
 
 	<li>{{ animal.name }}
 		{% if animal.gender == 1 %}
@@ -24,4 +36,30 @@
 		<a class="btn btn-sm update" href="{{ path('back_animal_update', {id: animal.id}) }}">Modifier</a>
 		<a class="btn archive" href="{{ path('back_animal_archive', {id: animal.id}) }}">{% if (animal.status == 1) or (animal.status == 3) or (animal.status == 4) %}Archiver{% elseif animal.status == 2 %}Désarchiver{% endif %}</a>
 	</li>
-{% endif %}{% endfor %}{% endblock %}
+{% endif %}{% endfor %}{% endblock %} #}
+
+
+
+  <tbody>
+    {% for animal in animals %}
+	<tr>
+     <th scope="row"></th>
+      <td>{{ animal.name }}</td>
+      <td>{% if animal.gender == 1 %}Mâle{% elseif animal.gender == 2 %}Femelle{% endif %}</td>
+      <td>{{ animal.birthdate|date("m/d/Y") }}</td>
+	  <td>{{ animal.race.name }}</td>
+	  <td><a class="btn update" href="{{ path('back_animal_update', {id: animal.id}) }}">Modifier</a>
+		<a class="btn archive" href="{{ path('back_animal_archive', {id: animal.id}) }}">{% if (animal.status == 1) or (animal.status == 3) or (animal.status == 4) %}Archiver{% elseif animal.status == 2 %}Désarchiver{% endif %}</a></td>
+
+    </tr> {% endfor %}
+	</tbody>
+</table>
+	
+{% endblock %}
+
+
+
+
+
+
+ 
