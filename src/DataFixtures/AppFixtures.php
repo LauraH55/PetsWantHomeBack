@@ -4,6 +4,7 @@ namespace App\DataFixtures;
 
 use Faker;
 use App\Entity\Race;
+use App\Entity\User;
 use App\Entity\Animal;
 use App\Entity\Shelter;
 use App\Entity\Species;
@@ -63,6 +64,14 @@ class AppFixtures extends Fixture
         $shelter->setPassword('$argon2id$v=19$m=65536,t=4,p=1$zFDMcyTCfQnlHqWMOsC+sw$hfCVAVPCKyK0U6W3HVXSnyxm/W3zNHUj7mWThYCbof8');
 
         $manager->persist($shelter);
+
+        // Utilisateurs
+        $user = new User();
+        $user->setEmail('shelter@shelter.com');
+        $encodedPassword = $this->passwordEncoder->encodePassword($user, 'shelter');
+        $user->setPassword($encodedPassword);
+        $user->setRoles(['ROLE_MANAGER']);
+        $manager->persist($user);
 
 
         $catSpeciesObject = [];
