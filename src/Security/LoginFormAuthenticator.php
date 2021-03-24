@@ -99,7 +99,7 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator implements P
         }
 
         // Option 2: default destination to be defined
-        return new RedirectResponse($this->urlGenerator->generate('api_home'));
+        return new RedirectResponse($this->urlGenerator->generate('api_animals'));
     }
 
     protected function getLoginUrl()

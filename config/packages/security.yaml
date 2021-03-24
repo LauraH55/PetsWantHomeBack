@@ -30,9 +30,9 @@ security:
         authenticators:
           - App\Security\LoginFormAuthenticator
       logout:
-        path: app_logout
+        path: api_logout
         # where to redirect after logout
-        # target: app_any_route
+        # target: api_animals
     # Authentication JWT for API
     api_anonymous:
       pattern: ^/api/users
@@ -58,10 +58,10 @@ security:
   # Note: Only the *first* access control that matches will be used
   access_control:
     - { path: ^/api/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
-    # - { path: ^/api/animals, methods: [GET], roles: IS_AUTHENTICATED_ANONYMOUSLY }
+    - { path: ^/api/animals, roles: IS_AUTHENTICATED_ANONYMOUSLY }
     # - { path: ^/api/animal, methods: [GET], roles: IS_AUTHENTICATED_ANONYMOUSLY }
     # - { path: ^/api/logout, roles: ROLE_SHELTER }
-    - { path: ^/api, roles: IS_AUTHENTICATED_FULLY }
+    # - { path: ^/api, roles: IS_AUTHENTICATED_FULLY }
 
   role_hierarchy:
     ROLE_SHELTER: ROLE_USER
