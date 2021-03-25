@@ -1,4 +1,7 @@
-{{ form_start(form, {attr: {novalidate: 'novalidate'}}) }}
+<form>{{ form_start(form, {attr: {novalidate: 'novalidate'}}) }}
     {{ form_widget(form) }}
-    <button type="submit" class="btn btn-success">Enregistrer</button>
-{{ form_end(form) }}
+    {{ form_row(form.species)}}
+    {{ form_row(form.races.species) = "cat" }}
+    {% endif %}
+    <button type="submit" class="btn create">Enregistrer</button>
+{{ form_end(form) }}</form>

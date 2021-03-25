@@ -84,7 +84,6 @@ class AnimalType extends AbstractType
                     'class' => Race::class,
                     'choice_label' => 'name',      
                     'multiple' => false,
-                    'expanded' => true,
                 ]);
     }
                 

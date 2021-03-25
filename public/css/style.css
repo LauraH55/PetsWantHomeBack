@@ -59,8 +59,8 @@ body {
 }
 
 img .logo {
-    height: 2rem +1.5;
-  }
+    height: 2rem;
+}
 
 tr {
     background-color: white;
@@ -94,4 +94,9 @@ footer {
     text-align: center;
     font-size: 0.7em;
     padding: 0.5rem;
+}
+
+form {
+    background-color:white;
+    padding: 1rem;
 }
