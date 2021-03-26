@@ -69,7 +69,7 @@ class AppFixtures extends Fixture
         $shelter->setPhoneNumber('0635262245');
         $shelter->setEmail('shelter@shelter.com');
         $shelter->setPicture('images/shelter.jpg');
-        $shelter->setPassword('$argon2id$v=19$m=65536,t=4,p=1$zFDMcyTCfQnlHqWMOsC+sw$hfCVAVPCKyK0U6W3HVXSnyxm/W3zNHUj7mWThYCbof8');
+        /* $shelter->setPassword('$argon2id$v=19$m=65536,t=4,p=1$zFDMcyTCfQnlHqWMOsC+sw$hfCVAVPCKyK0U6W3HVXSnyxm/W3zNHUj7mWThYCbof8'); */
 
         $manager->persist($shelter);
 
@@ -79,7 +79,7 @@ class AppFixtures extends Fixture
         $catSpecies = new Species();
         $catSpecies->setCreatedAt(new \DateTime());
         // The function unique() make our result always unique
-        $catSpecies->setName('cat');
+        $catSpecies->setName('Chat');
 
         // We stock our data for later
         $catSpeciesObject[] = $catSpecies;
@@ -93,7 +93,7 @@ class AppFixtures extends Fixture
         $dogSpecies = new Species();
         $dogSpecies->setCreatedAt(new \DateTime());
         // The function unique() make our result always unique
-        $dogSpecies->setName('dog');
+        $dogSpecies->setName('Chien');
 
         // We stock our data for later
         $dogSpeciesObject[] = $dogSpecies;
@@ -107,7 +107,7 @@ class AppFixtures extends Fixture
         $nacSpecies = new Species();
         $nacSpecies->setCreatedAt(new \DateTime());
         // The function unique() make our result always unique
-        $nacSpecies->setName('nac');
+        $nacSpecies->setName('Nac');
 
         // We stock our data for later
         $nacSpeciesObject[] = $nacSpecies;

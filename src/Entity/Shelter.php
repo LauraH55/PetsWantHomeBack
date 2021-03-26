@@ -58,9 +58,14 @@ class Shelter
     private $animals;
 
     /**
+     * @ORM\OneToOne(targetEntity=User::class, inversedBy="shelter", cascade={"persist", "remove"})
+     */
+    private $user;
+
+    /**
      * @ORM\Column(type="string", length=255)
      */
-    private $password;
+    /* private $password; */
 
     public function __construct()
     {
@@ -174,7 +179,7 @@ class Shelter
         return $this;
     }
 
-    public function getPassword(): ?string
+    /* public function getPassword(): ?string
     {
         return $this->password;
     }
@@ -182,6 +187,18 @@ class Shelter
     public function setPassword(string $password): self
     {
         $this->password = $password;
+
+        return $this;
+    } */
+
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(?User $user): self
+    {
+        $this->user = $user;
 
         return $this;
     }

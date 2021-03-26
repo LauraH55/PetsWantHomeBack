@@ -34,6 +34,11 @@ class User implements UserInterface
      */
     private $password;
 
+    /**
+     * @ORM\OneToOne(targetEntity=Shelter::class, mappedBy="user", cascade={"persist", "remove"})
+     */
+    private $shelter;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -113,5 +118,27 @@ class User implements UserInterface
     {
         // If you store any temporary, sensitive data on the user, clear it here
         // $this->plainPassword = null;
+    }
+
+    public function getShelter(): ?Shelter
+    {
+        return $this->shelter;
+    }
+
+    public function setShelter(?Shelter $shelter): self
+    {
+        // unset the owning side of the relation if necessary
+        if ($shelter === null && $this->shelter !== null) {
+            $this->shelter->setUser(null);
+        }
+
+        // set the owning side of the relation if necessary
+        if ($shelter !== null && $shelter->getUser() !== $this) {
+            $shelter->setUser($this);
+        }
+
+        $this->shelter = $shelter;
+
+        return $this;
     }
 }

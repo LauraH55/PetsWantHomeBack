@@ -36,6 +36,7 @@ class AnimalType extends AbstractType
             ])
             ->add('birthdate', DateType::class, [
                 'label' => 'Date de naissance',
+                'years' => range(date('Y'), date('Y') - 25),
             ])
             ->add('gender', ChoiceType::class, [
                 'label' => 'Genre',
