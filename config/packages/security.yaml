@@ -1,6 +1,6 @@
 security:
   encoders:
-    # complaintxt = in clear / auto = take the best available on the system
+ # complaintxt = in clear / auto = take the best available on the system
     # in 2021 either bcrypt or argon2 
     App\Entity\Shelter:
       algorithm: auto

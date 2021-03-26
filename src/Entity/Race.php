@@ -17,6 +17,7 @@ class Race
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
+     * 
      * @Groups("animal_list")
      * 
      */
@@ -24,6 +25,7 @@ class Race
 
     /**
      * @ORM\Column(type="string", length=100)
+     * 
      * @Groups("animal_list")
      */
     private $name;

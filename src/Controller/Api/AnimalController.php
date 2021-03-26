@@ -48,5 +48,5 @@ class AnimalController extends AbstractController
         return $this->json($animal, 200, [], ['groups' => 'animal_list']);
     }
 
-    
+
 }

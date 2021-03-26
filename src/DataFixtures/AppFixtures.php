@@ -60,7 +60,7 @@ class AppFixtures extends Fixture
         $user->setPassword($encodedPassword);
         $user->setRoles(['ROLE_SHELTER']);
         $manager->persist($user);
-
+      
         // Shelter
         $shelter = new Shelter();
         //$encodedPassword = $this->passwordEncoder->encodePassword($shelter, 'shelter');

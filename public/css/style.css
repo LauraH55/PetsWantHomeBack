@@ -1,0 +1,114 @@
+body {
+    background-color: #F6F4D2;
+    color: #a44a3f;
+    width: 100%
+}
+
+
+/* Archive's button */
+
+.archive {
+    background-color: #F19C79;
+    color: white;
+    border: thin solid #a44a3f;
+    text-shadow: 1px 1px 2px #a44a3f;
+
+}
+
+.archive:hover {
+    background-color: #a44a3f;
+}
+
+
+/* Update's button */
+
+.update {
+    background-color: #CBDFBD;
+    color: white;
+    border: thin solid #80ac60;
+    text-shadow: 1px 1px 2px #80ac60;
+}
+
+.update:hover {
+    background-color: #80ac60;
+}
+
+/* Create's button */
+
+.create {
+    background-color: #D4E09B;
+    color: white;
+    border: thin solid #869634;
+    text-shadow: 1px 1px 2px #869634;
+}
+
+.create:hover {
+    background-color: #869634;
+}
+
+/* Back to list's button */
+
+.back {
+    background-color: #a44a3f;
+    color:white;
+    margin: 2% 0 2% 0;
+}
+
+.back:hover {
+    background-color: #F19C79;
+}
+
+/* Nav */
+
+.nav-color {
+    background-color: #CBDFBD;
+}
+
+.nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    height: 2rem * 3;
+    font-family: 'Avenir', sans-serif;
+    font-size: 0.8em;
+}
+
+nav img .logo {
+    background-color: white;
+    height: 2rem;
+}
+
+/* Table */
+
+tr {
+    background-color: white;
+
+}
+
+td {
+    color: #a44a3f;
+
+}
+
+/* Form */
+
+.form {
+    background-color: white;
+    width: 100%;
+    padding: 2rem;
+    margin: auto;
+}
+
+/* Titles */
+
+h1 {
+    padding: 1% 0 1% 0;
+    text-align: center;
+}
+
+h2 {
+    padding-bottom: 1%;
+    text-align: center;
+    margin: auto;
+}
