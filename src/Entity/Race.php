@@ -8,7 +8,6 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
 
-
 /**
  * @ORM\Entity(repositoryClass=RaceRepository::class)
  */
@@ -43,7 +42,7 @@ class Race
 
     /**
      * @ORM\OneToMany(targetEntity=Animal::class, mappedBy="race")
-     * 
+     *
      */
     private $animals;
 

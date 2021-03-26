@@ -4,6 +4,7 @@ namespace App\DataFixtures;
 
 use Faker;
 use App\Entity\Race;
+use App\Entity\User;
 use App\Entity\Animal;
 use App\Entity\Shelter;
 use App\Entity\Species;
@@ -52,6 +53,14 @@ class AppFixtures extends Fixture
         // We give a provider to Faker
         $faker->addProvider(new AnimalProvider());
 
+        // Utilisateurs
+        $user = new User();
+        $user->setEmail('shelter@shelter.com');
+        $encodedPassword = $this->passwordEncoder->encodePassword($user, 'shelter');
+        $user->setPassword($encodedPassword);
+        $user->setRoles(['ROLE_SHELTER']);
+        $manager->persist($user);
+      
         // Shelter
         $shelter = new Shelter();
         //$encodedPassword = $this->passwordEncoder->encodePassword($shelter, 'shelter');
