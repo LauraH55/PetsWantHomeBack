@@ -41,6 +41,8 @@ class AppFixtures extends Fixture
         $animals = $this->connection->executeQuery('TRUNCATE TABLE animal');
         $animals = $this->connection->executeQuery('TRUNCATE TABLE race');
         $animals = $this->connection->executeQuery('TRUNCATE TABLE shelter');
+        $animals = $this->connection->executeQuery('TRUNCATE TABLE species');
+        $animals = $this->connection->executeQuery('TRUNCATE TABLE user');
     }
 
     public function load(ObjectManager $manager)
