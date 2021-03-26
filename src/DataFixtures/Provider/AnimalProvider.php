@@ -370,7 +370,7 @@ class AnimalProvider
 
     ];
 
-    private $image = 'default_image_01.png';
+    private $image = 'akita.jpg';
 
     public function species()
     {
