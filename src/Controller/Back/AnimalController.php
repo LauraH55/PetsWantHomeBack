@@ -18,10 +18,10 @@ class AnimalController extends AbstractController
      */
     public function list(AnimalRepository $animalRepository): Response
     {
-
+        // Here we get take our animals with the function in AnimalRepository to find them ordered by their status
         $animals = $animalRepository->listOrderByStatus();
 
-        return $this->render('back/animal/index.html.twig', [
+        return $this->render('back/animal/list.html.twig', [
             'animals' => $animals,
         ]);
     }
@@ -31,21 +31,23 @@ class AnimalController extends AbstractController
      */
     public function create(Request $request, EntityManagerInterface $entityManager): Response
     {
+        // Instance of our Object
         $animal = new Animal();
 
+        // We create a form
         $form = $this->createForm(AnimalType::class, $animal);
 
         $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
 
+        if ($form->isSubmitted() && $form->isValid()) {
+            // If the form is send and valid, we save our data and send in the database
             $entityManager->persist($animal);
             $entityManager->flush();
 
             return $this->redirectToRoute('back_animal_list');
         }
 
-        // Rendu/affichage du form
         return $this->render('back/animal/create.html.twig', [
             'form' => $form->createView(),
         ]);
@@ -62,7 +64,7 @@ class AnimalController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
 
-
+            // We send ou update in database
             $this->getDoctrine()->getManager()->flush();
 
             return $this->redirectToRoute('back_animal_list');

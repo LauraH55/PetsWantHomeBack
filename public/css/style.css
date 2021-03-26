@@ -4,6 +4,9 @@ body {
     width: 100%
 }
 
+
+/* Archive's button */
+
 .archive {
     background-color: #F19C79;
     color: white;
@@ -17,6 +20,8 @@ body {
 }
 
 
+/* Update's button */
+
 .update {
     background-color: #CBDFBD;
     color: white;
@@ -27,6 +32,8 @@ body {
 .update:hover {
     background-color: #80ac60;
 }
+
+/* Create's button */
 
 .create {
     background-color: #D4E09B;
@@ -39,10 +46,19 @@ body {
     background-color: #869634;
 }
 
-.background {
-    color: #F6F4D2;
-    color: white;
+/* Back to list's button */
+
+.back {
+    background-color: #a44a3f;
+    color:white;
+    margin: 2% 0 2% 0;
 }
+
+.back:hover {
+    background-color: #F19C79;
+}
+
+/* Nav */
 
 .nav-color {
     background-color: #CBDFBD;
@@ -58,9 +74,12 @@ body {
     font-size: 0.8em;
 }
 
-img .logo {
+nav img .logo {
+    background-color: white;
     height: 2rem;
 }
+
+/* Table */
 
 tr {
     background-color: white;
@@ -72,31 +91,24 @@ td {
 
 }
 
-footer {
-    background-color: #a44a3f;
-    font-family: 'Avenir', sans-serif;
-    font-size: 0.7em;
+/* Form */
+
+.form {
+    background-color: white;
     width: 100%;
-}
-
-.footer-container {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
     padding: 2rem;
+    margin: auto;
 }
 
-.footer-container-image {
-    height: 8em;
-}
+/* Titles */
 
-.footer-copyright {
+h1 {
+    padding: 1% 0 1% 0;
     text-align: center;
-    font-size: 0.7em;
-    padding: 0.5rem;
 }
 
-form {
-    background-color:white;
-    padding: 1rem;
+h2 {
+    padding-bottom: 1%;
+    text-align: center;
+    margin: auto;
 }

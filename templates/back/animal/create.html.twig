@@ -4,10 +4,14 @@
     Ajouter un animal
 {% endblock %}
 
+{% block subtitle %}
+<h2>Ajout d'un animal</h2>
+{% endblock %}
+
 {% block body %}
 
-<h1>Ajout d'un animal</h1>
-
 {{ include('back/animal/_form.html.twig') }}
+
+<a class="btn back" href="{{ path('back_animal_list') }}">Retour à la liste</a>
 
 {% endblock %}

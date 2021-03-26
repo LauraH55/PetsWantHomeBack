@@ -7,6 +7,7 @@ use App\Repository\AnimalRepository;
 use Symfony\Component\Mime\MimeTypes;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints\NotBlank;
+// We use Assert in annotations to make constraints on fields of the entity to validate form AnimalType
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Validator\Constraints\Lenght;
 

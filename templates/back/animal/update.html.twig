@@ -4,11 +4,12 @@
     Modifier un animal
 {% endblock %}
 
+{% block subtitle %}<h2>Modification de {{ animal.name }}</h2>{% endblock %}
+
 {% block body %}
 
-<h1>Modification d'un animal</h1>
-<h2>{{ animal.name }}</h2>
-
 {{ include('back/animal/_form.html.twig') }}
+
+<a class="btn back" href="{{ path('back_animal_list') }}">Retour à la liste</a>
 
 {% endblock %}
