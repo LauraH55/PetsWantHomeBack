@@ -62,11 +62,6 @@ class Shelter
      */
     private $user;
 
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
-    /* private $password; */
-
     public function __construct()
     {
         $this->animals = new ArrayCollection();
@@ -178,18 +173,6 @@ class Shelter
 
         return $this;
     }
-
-    /* public function getPassword(): ?string
-    {
-        return $this->password;
-    }
-
-    public function setPassword(string $password): self
-    {
-        $this->password = $password;
-
-        return $this;
-    } */
 
     public function getUser(): ?User
     {

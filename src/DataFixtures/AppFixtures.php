@@ -53,25 +53,28 @@ class AppFixtures extends Fixture
         // We give a provider to Faker
         $faker->addProvider(new AnimalProvider());
 
-        // Utilisateurs
-        $user = new User();
-        $user->setEmail('shelter@shelter.com');
-        $encodedPassword = $this->passwordEncoder->encodePassword($user, 'shelter');
-        $user->setPassword($encodedPassword);
-        $user->setRoles(['ROLE_SHELTER']);
-        $manager->persist($user);
-      
-        // Shelter
-        $shelter = new Shelter();
-        //$encodedPassword = $this->passwordEncoder->encodePassword($shelter, 'shelter');
-        $shelter->setName('Refuge 1');
-        $shelter->setAddress('2 rue des gentianes 05000 Gap');
-        $shelter->setPhoneNumber('0635262245');
-        $shelter->setEmail('shelter@shelter.com');
-        $shelter->setPicture('images/shelter.jpg');
-        /* $shelter->setPassword('$argon2id$v=19$m=65536,t=4,p=1$zFDMcyTCfQnlHqWMOsC+sw$hfCVAVPCKyK0U6W3HVXSnyxm/W3zNHUj7mWThYCbof8'); */
 
-        $manager->persist($shelter);
+        // Users
+        $chatsteignes = new User();
+        $chatsteignes->setEmail('chats-teignes@chat.com');
+        $encodedPassword = $this->passwordEncoder->encodePassword($chatsteignes, 'chatsteignes');
+        $chatsteignes->setPassword($encodedPassword);
+        $chatsteignes->setRoles(['ROLE_SHELTER']);
+        $manager->persist($chatsteignes);
+
+        $patounes = new User();
+        $patounes->setEmail('le-refuge-des-patounes@patounes.com');
+        $encodedPassword = $this->passwordEncoder->encodePassword($patounes, 'patounes');
+        $patounes->setPassword($encodedPassword);
+        $patounes->setRoles(['ROLE_SHELTER']);
+        $manager->persist($patounes);
+
+        $mordant = new User();
+        $mordant->setEmail('refuge-mordant@refuge.com');
+        $encodedPassword = $this->passwordEncoder->encodePassword($mordant, 'mordant');
+        $mordant->setPassword($encodedPassword);
+        $mordant->setRoles(['ROLE_SHELTER']);
+        $manager->persist($mordant);
 
 
         $catSpeciesObject = [];
@@ -127,7 +130,7 @@ class AppFixtures extends Fixture
             $cats->setCreatedAt(new \DateTime());
             // The function unique() make our result always unique
             $cats->setName($faker->unique()->catRace());
-            $cats->setSpecies($catSpecies); 
+            $cats->setSpecies($catSpecies);
 
             // We stock our data for later
             $catList[] = $cats;
@@ -168,7 +171,7 @@ class AppFixtures extends Fixture
             // We fill the fields of our entity
             $nacs->setCreatedAt(new \DateTime());
             $nacs->setName($faker->unique()->nacRace());
-            $nacs->setSpecies($nacSpecies); 
+            $nacs->setSpecies($nacSpecies);
 
             // We stock our data for later
             $nacList[] = $nacs;
@@ -179,89 +182,191 @@ class AppFixtures extends Fixture
 
         // Cats for Animal Table
 
+        $catAnimals = [];
+
         for ($i = 1; $i <= self::NB_ANIMALS; $i++) {
 
-            $animal = new Animal();
+            $catAnimal = new Animal();
             // We fill the fields of our entity
-            $animal->setName($faker->animalName());
-            $animal->setBirthdate($faker->dateTimeBetween('-20 years'));
-            $animal->setGender($faker->numberBetween($min = 1, $max = 2));
+            $catAnimal->setName($faker->unique()->animalName());
+            $catAnimal->setBirthdate($faker->dateTimeBetween('-20 years'));
+            $catAnimal->setGender($faker->numberBetween($min = 1, $max = 2));
             // The function numberBetween() allow to set a number only between the min and max values indicated
-            $animal->setCohabitation($faker->numberBetween($min = 1, $max = 4));
-            $animal->setPicture($faker->image());
-            $animal->setStatus($faker->numberBetween($min = 1, $max = 4));
-            $animal->setDescription($faker->text());
-            $animal->setCreatedAt(new \DateTime());
-            $animal->setSpecies($catSpecies);
+            $catAnimal->setCohabitation($faker->numberBetween($min = 1, $max = 4));
+            $catAnimal->setPicture($faker->image());
+            $catAnimal->setStatus($faker->numberBetween($min = 1, $max = 4));
+            $catAnimal->setDescription($faker->text());
+            $catAnimal->setCreatedAt(new \DateTime());
+            $catAnimal->setSpecies($catSpecies);
 
-             // With shuffle we make random data but also unique
+            // With shuffle we make random data but also unique
             shuffle($catList);
             for ($r = 0; $r < self::NB_RACES; $r++) {
                 // We search in our shuffled array
                 $randomRace = $catList[$r];
-                $animal->setRace($randomRace);
-            } 
+                $catAnimal->setRace($randomRace);
+            }
+
+            $catAnimals[] = $catAnimal;
 
             // We persist it
-            $manager->persist($animal);
+            $manager->persist($catAnimal);
         }
 
         // Cats for Animal Table
 
+        $dogAnimals = [];
+
         for ($i = 1; $i <= self::NB_ANIMALS; $i++) {
 
-            $animal = new Animal();
+            $dogAnimal = new Animal();
             // We fill the fields of our entity
-            $animal->setName($faker->animalName());
-            $animal->setBirthdate($faker->dateTimeBetween('-20 years'));
-            $animal->setGender($faker->numberBetween($min = 1, $max = 2));
-            $animal->setCohabitation($faker->numberBetween($min = 1, $max = 4));
-            $animal->setPicture($faker->image());
-            $animal->setStatus($faker->numberBetween($min = 1, $max = 4));
-            $animal->setDescription($faker->text());
-            $animal->setCreatedAt(new \DateTime());
-            $animal->setSpecies($dogSpecies);
+            $dogAnimal->setName($faker->unique()->animalName());
+            $dogAnimal->setBirthdate($faker->dateTimeBetween('-20 years'));
+            $dogAnimal->setGender($faker->numberBetween($min = 1, $max = 2));
+            $dogAnimal->setCohabitation($faker->numberBetween($min = 1, $max = 4));
+            $dogAnimal->setPicture($faker->image());
+            $dogAnimal->setStatus($faker->numberBetween($min = 1, $max = 4));
+            $dogAnimal->setDescription($faker->text());
+            $dogAnimal->setCreatedAt(new \DateTime());
+            $dogAnimal->setSpecies($dogSpecies);
 
-             // With shuffle we make random data but also unique
+            // With shuffle we make random data but also unique
             shuffle($dogList);
             for ($r = 0; $r < self::NB_RACES; $r++) {
 
                 $randomRace = $dogList[$r];
-                $animal->setRace($randomRace);
-            } 
+                $dogAnimal->setRace($randomRace);
+            }
+
+            $dogAnimals[] = $dogAnimal;
 
             // We persist it
-            $manager->persist($animal);
+            $manager->persist($dogAnimal);
         }
 
         // Cats for Animal Table
 
+        $nacAnimals = [];
+
         for ($i = 1; $i <= self::NB_ANIMALS; $i++) {
 
-            $animal = new Animal();
+            $nacAnimal = new Animal();
             // We fill the fields of our entity
-            $animal->setName($faker->animalName());
-            $animal->setBirthdate($faker->dateTimeBetween('-20 years'));
-            $animal->setGender($faker->numberBetween($min = 1, $max = 2));
-            $animal->setCohabitation($faker->numberBetween($min = 1, $max = 4));
-            $animal->setPicture($faker->image());
-            $animal->setStatus($faker->numberBetween($min = 1, $max = 4));
-            $animal->setDescription($faker->text());
-            $animal->setCreatedAt(new \DateTime());
-            $animal->setSpecies($nacSpecies);
+            $nacAnimal->setName($faker->unique()->animalName());
+            $nacAnimal->setBirthdate($faker->dateTimeBetween('-20 years'));
+            $nacAnimal->setGender($faker->numberBetween($min = 1, $max = 2));
+            $nacAnimal->setCohabitation($faker->numberBetween($min = 1, $max = 4));
+            $nacAnimal->setPicture($faker->image());
+            $nacAnimal->setStatus($faker->numberBetween($min = 1, $max = 4));
+            $nacAnimal->setDescription($faker->text());
+            $nacAnimal->setCreatedAt(new \DateTime());
+            $nacAnimal->setSpecies($nacSpecies);
 
             // With shuffle we make random data but also unique
-             shuffle($nacList);
+            shuffle($nacList);
             for ($r = 0; $r < self::NB_RACES; $r++) {
 
                 $randomRace = $nacList[$r];
-                $animal->setRace($randomRace);
-            } 
+                $nacAnimal->setRace($randomRace);
+            }
+
+            $nacAnimals[] = $nacAnimal;
 
             // We persist it
-            $manager->persist($animal);
+            $manager->persist($nacAnimal);
         }
 
+        // Shelters
+        $shelterList1 = [];
+
+        $shelter1 = new Shelter();
+        $shelter1->setName('Le Refuge des Patounes');
+        $shelter1->setAddress('2 rue des chatons 17000 La Rochelle');
+        $shelter1->setPhoneNumber('0635262245');
+        $shelter1->setEmail('le-refuge-des-patounes@patounes.com');
+        $shelter1->setPicture('images/shelter.jpg');
+        $shelter1->setUser($patounes);
+
+        shuffle($catAnimals);
+        for ($r = 0; $r < 10; $r++) {
+            $randomAnimal = $catAnimals[$r];
+            $shelter1->addAnimal($randomAnimal);
+        }
+        shuffle($dogAnimals);
+        for ($r = 0; $r < 10; $r++) {
+            $randomAnimal = $dogAnimals[$r];
+            $shelter1->addAnimal($randomAnimal);
+        }
+        shuffle($nacAnimals);
+        for ($r = 0; $r < 10; $r++) {
+            $randomAnimal = $nacAnimals[$r];
+            $shelter1->addAnimal($randomAnimal);
+        }
+
+        $shelterList1[] = $shelter1;
+
+        $manager->persist($shelter1);
+
+        $shelterList2 = [];
+
+        $shelter2 = new Shelter();
+        $shelter2->setName('Les Chats Teignes');
+        $shelter2->setAddress('85 rue des grosminets 54000 Nancy');
+        $shelter2->setPhoneNumber('0666778899');
+        $shelter2->setEmail('chats-teignes@chat.com');
+        $shelter2->setPicture('images/shelter.jpg');
+        $shelter2->setUser($chatsteignes);
+
+        shuffle($catAnimals);
+        for ($r = 0; $r < 10; $r++) {
+            $randomAnimal = $catAnimals[$r];
+            $shelter2->addAnimal($randomAnimal);
+        }
+        shuffle($dogAnimals);
+        for ($r = 0; $r < 10; $r++) {
+            $randomAnimal = $dogAnimals[$r];
+            $shelter2->addAnimal($randomAnimal);
+        }
+        shuffle($nacAnimals);
+        for ($r = 0; $r < 10; $r++) {
+            $randomAnimal = $nacAnimals[$r];
+            $shelter2->addAnimal($randomAnimal);
+        }
+
+        $shelterList2[] = $shelter2;
+
+        $manager->persist($shelter2);
+
+        $shelterList3 = [];
+
+        $shelter3 = new Shelter();
+        $shelter3->setName('Le refuge du Mordant');
+        $shelter3->setAddress('77 avenue du port 54200 Toul');
+        $shelter3->setPhoneNumber('0636224255');
+        $shelter3->setEmail('refuge-mordant@refuge.com');
+        $shelter3->setPicture('images/shelter.jpg');
+        $shelter3->setUser($mordant);
+
+        shuffle($catAnimals);
+        for ($r = 0; $r < 10; $r++) {
+            $randomAnimal = $catAnimals[$r];
+            $shelter3->addAnimal($randomAnimal);
+        }
+        shuffle($dogAnimals);
+        for ($r = 0; $r < 10; $r++) {
+            $randomAnimal = $dogAnimals[$r];
+            $shelter3->addAnimal($randomAnimal);
+        }
+        shuffle($nacAnimals);
+        for ($r = 0; $r < 10; $r++) {
+            $randomAnimal = $nacAnimals[$r];
+            $shelter3->addAnimal($randomAnimal);
+        }
+        
+        $shelterList3[] = $shelter3;
+        
+        $manager->persist($shelter3);
 
         // We flush
         $manager->flush();
