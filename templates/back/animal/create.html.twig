@@ -12,6 +12,6 @@
 
 {{ include('back/animal/_form.html.twig') }}
 
-<a class="btn back" href="{{ path('back_animal_list') }}">Retour à la liste</a>
+<a class="btn back" href="{# {{ path('back_shelter_read', {id: animal.shelter.id }) }} #}">Retour à la liste</a>
 
 {% endblock %}

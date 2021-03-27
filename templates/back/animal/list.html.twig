@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Gestion des animaux
+{% block title %}
 {% endblock %}
 
 {% block body %}
@@ -9,7 +9,7 @@
 		<thead>
 			<h2>Animaux à adopter</h2>
 			<tr>
-				<th scope="col">#</th>
+				<th scope="col"></th>
 				<th scope="col">Nom</th>
 				<th scope="col">Genre</th>
 				<th scope="col">Date de naissance</th>
@@ -19,9 +19,9 @@
 				</th>
 			</tr>
 		</thead>
-
+	
 		<tbody>
-			{% for animal in animals %}
+			{% for animal in shelter.animals %}
 				{# Here we show only the animals with the status 1 "à adopter" #}
 				{% if animal.status == 1 %}
 					<tr>
@@ -54,7 +54,7 @@
 		<thead>
 			<h2>Animaux adoptés</h2>
 			<tr>
-				<th scope="col">#</th>
+				<th scope="col"></th>
 				<th scope="col">Nom</th>
 				<th scope="col">Genre</th>
 				<th scope="col">Date de naissance</th>
@@ -65,7 +65,7 @@
 
 		<tbody>
 
-			{% for animal in animals %}
+			{% for animal in shelter.animals %}
 				{% if animal.status == 2 %}
 					<tr>
 						<th scope="row"></th>

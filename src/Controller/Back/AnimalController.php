@@ -3,8 +3,10 @@
 namespace App\Controller\Back;
 
 use App\Entity\Animal;
+use App\Entity\Shelter;
 use App\Form\AnimalType;
 use App\Repository\AnimalRepository;
+use App\Repository\ShelterRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -13,18 +15,6 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class AnimalController extends AbstractController
 {
-    /**
-     * @Route("/back/animals", name="back_animal_list", methods="GET")
-     */
-    public function list(AnimalRepository $animalRepository): Response
-    {
-        // Here we get take our animals with the function in AnimalRepository to find them ordered by their status
-        $animals = $animalRepository->listOrderByStatus();
-
-        return $this->render('back/animal/list.html.twig', [
-            'animals' => $animals,
-        ]);
-    }
 
     /**
      * @Route("back/animal/create", name="back_animal_create", methods={"GET", "POST"})
@@ -42,10 +32,14 @@ class AnimalController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             // If the form is send and valid, we save our data and send in the database
+            $animal->setShelter($this->getUser());
+
             $entityManager->persist($animal);
+        
             $entityManager->flush();
 
-            return $this->redirectToRoute('back_animal_list');
+
+            return $this->redirectToRoute('back_shelter_read', ['id' => $animal->getShelter()->getId()]);
         }
 
         return $this->render('back/animal/create.html.twig', [
@@ -58,6 +52,11 @@ class AnimalController extends AbstractController
      */
     public function update(Request $request, Animal $animal): Response
     {
+        // Does the User have the right to modify the file of this animal ?
+        // 'update' = voter attributes
+        // $animal = Animal Entity
+        $this->denyAccessUnlessGranted('update', $animal);
+
         $form = $this->createForm(AnimalType::class, $animal);
 
         $form->handleRequest($request);
@@ -67,7 +66,7 @@ class AnimalController extends AbstractController
             // We send ou update in database
             $this->getDoctrine()->getManager()->flush();
 
-            return $this->redirectToRoute('back_animal_list');
+            return $this->redirectToRoute('back_shelter_read');
         }
 
         return $this->render('back/animal/update.html.twig', [
@@ -82,6 +81,11 @@ class AnimalController extends AbstractController
      */
     public function archive(Animal $animal = null)
     {
+        // Does the User have the right to archive this animal's file ?
+        // 'archive' = voter attributes
+        // $animal = Animal Entity
+        $this->denyAccessUnlessGranted('archive', $animal);
+
         // Here we get status of animal{id}
         $status = $animal->getStatus();
       
