@@ -22,6 +22,7 @@ class Animal
      * @ORM\Column(type="integer")
      * 
      * @Groups("animal_list")
+     * @Groups("shelter_list")
      */
     private $id;
 
@@ -31,6 +32,7 @@ class Animal
      * @Assert\NotBlank
      * 
      * @Groups("animal_list")
+     * @Groups("shelter_list")
      */
     private $name;
 
@@ -40,6 +42,7 @@ class Animal
      * @Assert\NotBlank
      *  
      * @Groups("animal_list")
+     * @Groups("shelter_list")
      */
     private $birthdate;
 
@@ -49,6 +52,7 @@ class Animal
      * @Assert\NotBlank
      * 
      * @Groups("animal_list")
+     * @Groups("shelter_list")
      */
     private $gender;
 
@@ -57,7 +61,8 @@ class Animal
      * 
      * @Assert\NotBlank
      *     
-     * @Groups("animal_list") 
+     * @Groups("animal_list")
+     * @Groups("shelter_list")
      */
     private $cohabitation;
 
@@ -70,6 +75,7 @@ class Animal
      * @Assert\File(mimeTypes={ "image/png", "image/jpeg" })
      * 
      * @Groups("animal_list")
+     * @Groups("shelter_list")
      */
     private $picture;
 
@@ -79,6 +85,7 @@ class Animal
      * @Assert\NotBlank
      * 
      * @Groups("animal_list")
+     * @Groups("shelter_list")
      */
     private $status;
 
@@ -88,6 +95,7 @@ class Animal
      * @Assert\NotBlank
      * 
      * @Groups("animal_list")
+     * @Groups("shelter_list")
      */
     private $description;
 
@@ -95,6 +103,7 @@ class Animal
      * @ORM\Column(type="datetime")
      * 
      * @Groups("animal_list")
+     * @Groups("shelter_list")
      */
     private $createdAt;
 
@@ -102,6 +111,7 @@ class Animal
      * @ORM\Column(type="datetime", nullable=true)
      * 
      * @Groups("animal_list")
+     * @Groups("shelter_list")
      */
     private $updatedAt;
 
@@ -109,6 +119,7 @@ class Animal
      * @ORM\ManyToOne(targetEntity=Race::class, inversedBy="animals")
      * 
      * @Groups("animal_list")
+     * @Groups("shelter_list")
      */
     private $race;
 
@@ -116,6 +127,7 @@ class Animal
      * @ORM\ManyToOne(targetEntity=Shelter::class, inversedBy="animals")
      * 
      * @Groups("animal_list")
+     * 
      */
     private $shelter;
 
@@ -124,6 +136,7 @@ class Animal
      * @ORM\JoinColumn(nullable=false)
      * 
      * @Assert\NotBlank
+     * @Groups("shelter_list")
      * 
      */
     private $species;

@@ -19,6 +19,7 @@ class Race
      * @ORM\Column(type="integer")
      * 
      * @Groups("animal_list")
+     * @Groups("shelter_list")
      * 
      */
     private $id;
@@ -27,6 +28,7 @@ class Race
      * @ORM\Column(type="string", length=100)
      * 
      * @Groups("animal_list")
+     * @Groups("shelter_list")
      */
     private $name;
 

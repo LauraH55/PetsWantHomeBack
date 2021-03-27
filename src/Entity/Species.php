@@ -6,6 +6,7 @@ use App\Repository\SpeciesRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity(repositoryClass=SpeciesRepository::class)
@@ -16,11 +17,13 @@ class Species
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
+     * @Groups("shelter_list")
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=100)
+     * @Groups("shelter_list")
      */
     private $name;
 
