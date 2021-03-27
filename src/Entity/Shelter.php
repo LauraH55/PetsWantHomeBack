@@ -18,47 +18,74 @@ class Shelter
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
+     * 
+     * @Groups("shelter_list")
+     * @Groups("animal_list")
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=100)
      * 
+     * @Groups("shelter_list")
+     * @Groups("animal_list")
      */
     private $name;
 
     /**
      * @ORM\Column(type="text")
+     * 
+     * @Groups("shelter_list")
+     * @Groups("animal_list")
      */
     private $address;
 
     /**
      * @ORM\Column(type="string", length=10)
+     * 
+     * @Groups("shelter_list")
+     * @Groups("animal_list")
      */
     private $phoneNumber;
 
     /**
      * @ORM\Column(type="string", length=255, unique=true)
+     * 
+     * @Groups("shelter_list")
+     * @Groups("animal_list")
      */
     private $email;
 
     /**
      * @ORM\Column(type="text", nullable=true)
+     * 
+     * @Groups("shelter_list")
+     * @Groups("animal_list")
      */
     private $picture;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * 
+     * @Groups("shelter_list")
+     * @Groups("animal_list")
      */
     private $rnaNumber;
 
     /**
      * @ORM\OneToMany(targetEntity=Animal::class, mappedBy="shelter")
+     * 
+     * @Groups("shelter_list")
+     * 
+     * 
      */
     private $animals;
 
     /**
      * @ORM\OneToOne(targetEntity=User::class, inversedBy="shelter", cascade={"persist", "remove"})
+     * 
+     * @Groups("shelter_list")
+     * 
      */
     private $user;
 

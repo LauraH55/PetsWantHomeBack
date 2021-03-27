@@ -26,7 +26,7 @@ class ShelterController extends AbstractController
     {
         $shelters = $shelterRepository->findAll();
 
-        return $this->json($shelters, 200, []);
+        return $this->json($shelters, 200, [], ['groups' => 'shelter_list']);
     }
 
     /**
@@ -48,7 +48,7 @@ class ShelterController extends AbstractController
             return $this->json($message, Response::HTTP_NOT_FOUND);
         }
 
-        return $this->json($shelter, 200, []);
+        return $this->json($shelter, 200, [], ['groups' => 'shelter_list']);
     }
 
     /**
