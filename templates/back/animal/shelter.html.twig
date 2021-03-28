@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Gestion des animaux
+{% block title %}
 {% endblock %}
 
 {% block body %}
@@ -9,19 +9,19 @@
 		<thead>
 			<h2>Animaux à adopter</h2>
 			<tr>
-				<th scope="col">#</th>
+				<th scope="col"></th>
 				<th scope="col">Nom</th>
 				<th scope="col">Genre</th>
 				<th scope="col">Date de naissance</th>
 				<th scope="col">Race</th>
 				<th scope="col">
-					<a href="{{ path('back_animal_create')}}" class="btn create">Ajouter un animal</a>
+					<a href="{{ path('back_animal_create', {id: shelter.id })}}" class="btn create">Ajouter un animal</a>
 				</th>
 			</tr>
 		</thead>
-
+	
 		<tbody>
-			{% for animal in animals %}
+			{% for animal in shelter.animals %}
 				{# Here we show only the animals with the status 1 "à adopter" #}
 				{% if animal.status == 1 %}
 					<tr>
@@ -35,9 +35,9 @@
 						{# Here we indicate the date's format we want #}
 						<td>{{ animal.birthdate|date("m/d/Y") }}</td>
 						{# Here we call the field name of race who is also a relation's field in Animal Entity #}
-						<td>{{ animal.race.name }}</td>
+						<td>{% if animal.race is null %}{% elseif animal.race is not null %}{{ animal.race.name }}{% endif %}</td>
 						<td>
-							<a class="btn update" href="{{ path('back_animal_update', {id: animal.id}) }}">Modifier</a>
+							<a class="btn update" href="{{ path('back_animal_update', {'shelter_id': animal.shelter.id, 'animal_id': animal.id}) }}">Modifier</a>
 							<a class="btn archive" href="{{ path('back_animal_archive', {id: animal.id}) }}">
               {# We configurate our button "Archiver/Desarchiver" to show it according to the animal's status #}
 								{% if (animal.status == 1) or (animal.status == 3) or (animal.status == 4) %}Archiver{% elseif animal.status == 2 %}Désarchiver
@@ -54,7 +54,7 @@
 		<thead>
 			<h2>Animaux adoptés</h2>
 			<tr>
-				<th scope="col">#</th>
+				<th scope="col"></th>
 				<th scope="col">Nom</th>
 				<th scope="col">Genre</th>
 				<th scope="col">Date de naissance</th>
@@ -65,7 +65,7 @@
 
 		<tbody>
 
-			{% for animal in animals %}
+			{% for animal in shelter.animals %}
 				{% if animal.status == 2 %}
 					<tr>
 						<th scope="row"></th>
@@ -75,9 +75,9 @@
 							{% endif %}
 						</td>
 						<td>{{ animal.birthdate|date("m/d/Y") }}</td>
-						<td>{{ animal.race.name }}</td>
+						<td>{% if animal.race is null %}{% elseif animal.race is not null %}{{ animal.race.name }}{% endif %}</td>
 						<td>
-							<a class="btn update" href="{{ path('back_animal_update', {id: animal.id}) }}">Modifier</a>
+							<a class="btn update" href="{{ path('back_animal_update', {'shelter_id': animal.shelter.id, 'animal_id': animal.id}) }}">Modifier</a>
 							<a class="btn archive" href="{{ path('back_animal_archive', {id: animal.id}) }}">
 								{% if (animal.status == 1) or (animal.status == 3) or (animal.status == 4) %}Archiver{% elseif animal.status == 2 %}Désarchiver
 								{% endif %}

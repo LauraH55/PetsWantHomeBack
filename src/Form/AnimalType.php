@@ -5,25 +5,16 @@ namespace App\Form;
 use App\Entity\Race;
 use App\Entity\Animal;
 use App\Entity\Species;
-use App\Entity\AnimalRepository;
-use App\Repository\RaceRepository;
-use App\Repository\SpeciesRepository;
-use Symfony\Component\Mime\MimeTypes;
 use Symfony\Component\Form\AbstractType;
-use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
-use Symfony\Component\Validator\Constraints\File;
-use Symfony\Component\Validator\Constraints\Length;
-use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
-use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
-use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+
 
 class AnimalType extends AbstractType
 {
@@ -80,7 +71,7 @@ class AnimalType extends AbstractType
                 'expanded' => true,
             ])
             ->add('description', TextareaType::class, [
-                'label' => 'Description de l\'animal'
+                'label' => 'Description de l\'animal',
             ])
             ->add('species', EntityType::class, [
                 // The EntityType allow to associate the relation between entity's data in the form and save it
@@ -89,12 +80,29 @@ class AnimalType extends AbstractType
                 'expanded' => true,
                 'choice_label' => 'name',
             ])
-
+          
             ->add('race', EntityType::class, [
+                'placeholder' => 'Vous pouvez sélectionner une race',
                 'class' => Race::class,
                 'choice_label' => 'name',
                 'multiple' => false,
+                'empty_data' => '',
             ]);
+            
+            /* ->addEventListener(FormEvents::PRE_SET_DATA, function (FormEvent $event) {
+                $animal = $event->getData();
+                $form = $event->getForm();
+                if ($animal != null && ($animal->getSpecies() != null || $animal->getRace() != null)) 
+                {
+                    $form->add('race', EntityType::class, [
+                        'placeholder' => 'Vous pouvez sélectionner une race',
+                        'class' => Race::class,
+                        'choice_label' => 'name',
+                        'multiple' => false,
+                        'empty_data' => '']);
+                
+                }}); */  
+            
     }
 
 

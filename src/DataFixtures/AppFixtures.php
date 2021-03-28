@@ -31,7 +31,7 @@ class AppFixtures extends Fixture
     // Here we set up our values
     const NB_ANIMALS = 30;
     const NB_SPECIES = 3;
-    const NB_RACES = 9;
+    const NB_RACES = 65;
 
     private function truncate()
     {
@@ -165,7 +165,7 @@ class AppFixtures extends Fixture
         // New pets's Races for Race Table
 
         // An array to stock our new pet's races
-        $nacList = [];
+        /* $nacList = [];
 
         for ($i = 0; $i < self::NB_RACES; $i++) {
 
@@ -180,7 +180,7 @@ class AppFixtures extends Fixture
 
             // We persist it
             $manager->persist($nacs);
-        };
+        }; */
 
         // Cats for Animal Table
 
@@ -195,7 +195,7 @@ class AppFixtures extends Fixture
             $catAnimal->setGender($faker->numberBetween($min = 1, $max = 2));
             // The function numberBetween() allow to set a number only between the min and max values indicated
             $catAnimal->setCohabitation($faker->numberBetween($min = 1, $max = 4));
-            $catAnimal->setPicture($faker->image());
+            $catAnimal->setPicture($faker->unique()->catImage());
             $catAnimal->setStatus($faker->numberBetween($min = 1, $max = 4));
             $catAnimal->setDescription($faker->text());
             $catAnimal->setCreatedAt(new \DateTime());
@@ -227,7 +227,7 @@ class AppFixtures extends Fixture
             $dogAnimal->setBirthdate($faker->dateTimeBetween('-20 years'));
             $dogAnimal->setGender($faker->numberBetween($min = 1, $max = 2));
             $dogAnimal->setCohabitation($faker->numberBetween($min = 1, $max = 4));
-            $dogAnimal->setPicture($faker->image());
+            $dogAnimal->setPicture($faker->unique()->dogImage());
             $dogAnimal->setStatus($faker->numberBetween($min = 1, $max = 4));
             $dogAnimal->setDescription($faker->text());
             $dogAnimal->setCreatedAt(new \DateTime());
@@ -259,19 +259,19 @@ class AppFixtures extends Fixture
             $nacAnimal->setBirthdate($faker->dateTimeBetween('-20 years'));
             $nacAnimal->setGender($faker->numberBetween($min = 1, $max = 2));
             $nacAnimal->setCohabitation($faker->numberBetween($min = 1, $max = 4));
-            $nacAnimal->setPicture($faker->image());
+            $nacAnimal->setPicture($faker->unique()->nacImage());
             $nacAnimal->setStatus($faker->numberBetween($min = 1, $max = 4));
             $nacAnimal->setDescription($faker->text());
             $nacAnimal->setCreatedAt(new \DateTime());
             $nacAnimal->setSpecies($nacSpecies);
 
             // With shuffle we make random data but also unique
-            shuffle($nacList);
+            /* shuffle($nacList);
             for ($r = 0; $r < self::NB_RACES; $r++) {
 
                 $randomRace = $nacList[$r];
                 $nacAnimal->setRace($randomRace);
-            }
+            } */
 
             $nacAnimals[] = $nacAnimal;
 

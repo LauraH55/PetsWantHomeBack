@@ -19,6 +19,23 @@ class RaceRepository extends ServiceEntityRepository
         parent::__construct($registry, Race::class);
     }
 
+    // A function to find races by their species
+
+    public function findAllBySpecies()
+    {
+
+        $entityManager = $this->getEntityManager();
+
+        $query = $entityManager->createQuery(
+            'SELECT r
+            FROM App\Entity\Race r
+            JOIN App\Entity\Species s
+            WHERE r.species = s.id'
+        );
+
+        return $query->getResult();
+    }
+
     // /**
     //  * @return Race[] Returns an array of Race objects
     //  */

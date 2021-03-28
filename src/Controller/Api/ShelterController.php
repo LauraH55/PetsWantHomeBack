@@ -41,7 +41,7 @@ class ShelterController extends AbstractController
             // Optional, message for the front
             $message = [
                 'status' => Response::HTTP_NOT_FOUND,
-                'error' => 'Désolé ce refuge n\'exsite pas.',
+                'error' => 'Désolé ce refuge n\'existe pas.',
             ];
 
             // We define a custom message and an HTTP 404 status code
