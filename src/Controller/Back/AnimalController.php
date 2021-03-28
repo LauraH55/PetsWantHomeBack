@@ -72,7 +72,7 @@ class AnimalController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-
+    
             // We send ou update in database
             $this->getDoctrine()->getManager()->flush();
 
