@@ -13,14 +13,14 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 class ShelterController extends AbstractController
 {
     /**
-     * @Route("/back/shelter/{id}", name="back_shelter_read", methods="GET")
+     * @Route("/back/shelter/{id<\d+>}", name="back_shelter_read", methods="GET")
      */
-    public function read(ShelterRepository $shelterRepository, Shelter $shelter, AnimalRepository $animalRepository): Response
+    public function read(Shelter $shelter, AnimalRepository $animalRepository): Response
     {
 
         $animals = $animalRepository->listOrderByStatus();
 
-        return $this->render('back/animal/list.html.twig', [
+        return $this->render('back/animal/shelter.html.twig', [
             'shelter' => $shelter,
         ]);
     }

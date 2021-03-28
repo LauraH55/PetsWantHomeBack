@@ -31,7 +31,7 @@ class AppFixtures extends Fixture
     // Here we set up our values
     const NB_ANIMALS = 30;
     const NB_SPECIES = 3;
-    const NB_RACES = 9;
+    const NB_RACES = 10;
 
     private function truncate()
     {

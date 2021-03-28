@@ -24,6 +24,9 @@ use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Symfony\Component\Form\FormEvent;
+use Symfony\Component\Form\FormEvents;
+
 
 class AnimalType extends AbstractType
 {
@@ -80,7 +83,7 @@ class AnimalType extends AbstractType
                 'expanded' => true,
             ])
             ->add('description', TextareaType::class, [
-                'label' => 'Description de l\'animal'
+                'label' => 'Description de l\'animal',
             ])
             ->add('species', EntityType::class, [
                 // The EntityType allow to associate the relation between entity's data in the form and save it
@@ -89,12 +92,14 @@ class AnimalType extends AbstractType
                 'expanded' => true,
                 'choice_label' => 'name',
             ])
-
+          
             ->add('race', EntityType::class, [
+                'placeholder' => 'Vous pouvez sélectionner une race',
                 'class' => Race::class,
                 'choice_label' => 'name',
                 'multiple' => false,
-            ]);
+                'empty_data' => '',
+            ]); 
     }
 
 

@@ -15,7 +15,7 @@
 				<th scope="col">Date de naissance</th>
 				<th scope="col">Race</th>
 				<th scope="col">
-					<a href="{{ path('back_animal_create')}}" class="btn create">Ajouter un animal</a>
+					<a href="{{ path('back_animal_create', {id: shelter.id })}}" class="btn create">Ajouter un animal</a>
 				</th>
 			</tr>
 		</thead>
@@ -37,7 +37,7 @@
 						{# Here we call the field name of race who is also a relation's field in Animal Entity #}
 						<td>{{ animal.race.name }}</td>
 						<td>
-							<a class="btn update" href="{{ path('back_animal_update', {id: animal.id}) }}">Modifier</a>
+							<a class="btn update" href="{{ path('back_animal_update', {'shelter_id': animal.shelter.id, 'animal_id': animal.id}) }}">Modifier</a>
 							<a class="btn archive" href="{{ path('back_animal_archive', {id: animal.id}) }}">
               {# We configurate our button "Archiver/Desarchiver" to show it according to the animal's status #}
 								{% if (animal.status == 1) or (animal.status == 3) or (animal.status == 4) %}Archiver{% elseif animal.status == 2 %}Désarchiver
@@ -77,7 +77,7 @@
 						<td>{{ animal.birthdate|date("m/d/Y") }}</td>
 						<td>{{ animal.race.name }}</td>
 						<td>
-							<a class="btn update" href="{{ path('back_animal_update', {id: animal.id}) }}">Modifier</a>
+							<a class="btn update" href="{{ path('back_animal_update', {'shelter_id': animal.shelter.id, 'animal_id': animal.id}) }}">Modifier</a>
 							<a class="btn archive" href="{{ path('back_animal_archive', {id: animal.id}) }}">
 								{% if (animal.status == 1) or (animal.status == 3) or (animal.status == 4) %}Archiver{% elseif animal.status == 2 %}Désarchiver
 								{% endif %}

@@ -261,16 +261,15 @@ class AnimalProvider
 
         'Lapin',
         'Lapin nain',
+        'Furet',
         'Poule',
         'Perroquet',
         'Oiseau',
         'Caméléon',
-        'Serpent',
         'Souris',
         'Rat',
         'Reptile',
-        'Poisson',
-
+        
     ];
 
     private $animalName = [
