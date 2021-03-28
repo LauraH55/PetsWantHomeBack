@@ -35,7 +35,7 @@
 						{# Here we indicate the date's format we want #}
 						<td>{{ animal.birthdate|date("m/d/Y") }}</td>
 						{# Here we call the field name of race who is also a relation's field in Animal Entity #}
-						<td>{{ animal.race.name }}</td>
+						<td>{% if animal.race is null %}{% elseif animal.race is not null %}{{ animal.race.name }}{% endif %}</td>
 						<td>
 							<a class="btn update" href="{{ path('back_animal_update', {'shelter_id': animal.shelter.id, 'animal_id': animal.id}) }}">Modifier</a>
 							<a class="btn archive" href="{{ path('back_animal_archive', {id: animal.id}) }}">
@@ -75,7 +75,7 @@
 							{% endif %}
 						</td>
 						<td>{{ animal.birthdate|date("m/d/Y") }}</td>
-						<td>{{ animal.race.name }}</td>
+						<td>{% if animal.race is null %}{% elseif animal.race is not null %}{{ animal.race.name }}{% endif %}</td>
 						<td>
 							<a class="btn update" href="{{ path('back_animal_update', {'shelter_id': animal.shelter.id, 'animal_id': animal.id}) }}">Modifier</a>
 							<a class="btn archive" href="{{ path('back_animal_archive', {id: animal.id}) }}">
