@@ -312,7 +312,7 @@ class AnimalProvider
         'cats/angora-turc.jpg',
         'cats/bengal.jpg',
         'cats/birman.jpg',
-        'cats/back-cat.jpg',
+        'cats/black-cat.jpg',
         'cats/bleu-russe.jpg',
         'cats/burmilla.jpg',
         'cats/ceylan.jpg',
