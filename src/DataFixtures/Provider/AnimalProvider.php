@@ -408,6 +408,7 @@ class AnimalProvider
     private $image = 'default_image_01.png';
 
 
+
     // Here we make all our functions to return our data from the provider to use in AppFixtures
 
     public function species()
