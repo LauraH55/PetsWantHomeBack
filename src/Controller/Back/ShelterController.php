@@ -17,7 +17,7 @@ class ShelterController extends AbstractController
      */
     public function read(Shelter $shelter, AnimalRepository $animalRepository): Response
     {
-
+        /* $this->denyAccessUnlessGranted('read', $animal); */
         $animals = $animalRepository->listOrderByStatus();
 
         return $this->render('back/animal/shelter.html.twig', [

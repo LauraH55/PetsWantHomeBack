@@ -13,6 +13,7 @@ use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 
 
@@ -23,10 +24,10 @@ class AnimalType extends AbstractType
         // With our builder, we configurate our form's fields we want in based on our entity's fields.
         $builder
             ->add('name', TextType::class, [
-                'label' => 'Nom',
+                'label' => 'Nom :',
             ])
             ->add('birthdate', DateType::class, [
-                'label' => 'Date de naissance',
+                'label' => 'Date de naissance :',
                 'years' => range(date('Y'), date('Y') - 25),
             ])
             ->add('gender', ChoiceType::class, [
@@ -41,26 +42,28 @@ class AnimalType extends AbstractType
                 // Here we choose the view of the field, expanded => true show all array's data by checkboxes
                 'expanded' => true,
             ])
-            ->add('cohabitation', ChoiceType::class, [
-                'label' => 'L\'animal s\'entend bien avec',
-                'choices' => [
-                    'Enfants' => 1,
-                    'Chats' => 2,
-                    'Chiens' => 3,
-                    'Tous' => 4,
-                    'Ne sait pas' => 5,
-                ],
-                'multiple' => false,
-                'expanded' => true,
+            ->add('catCohabitation', CheckboxType::class, [
+                'label' => 'Chats'
+            ])
+            ->add('dogCohabitation', CheckboxType::class, [
+                'label' => 'Chiens'
+            ])
+            ->add('nacCohabitation', CheckboxType::class, [
+                'label' => 'Nacs'
+            ])
+            ->add('childCohabitation', CheckboxType::class, [
+                'label' => 'Enfants'
+            ])
+            ->add('unknownCohabitation', CheckboxType::class, [
+                'label' => 'Non Précisé'
             ])
             ->add('picture', FileType::class,  [
                 // File type allow to download a file, here we configurate the FileType in annotations in the entity Animal
                 'label' => 'Photo de l\'animal',
-                'required' => false,
                 'data_class' => null,
             ])
             ->add('status', ChoiceType::class, [
-                'label' => 'L\'animal est',
+                'label' => 'L\'animal est :',
                 'choices' => [
                     'À adopter' => 1,
                     'Adopté' => 2,
@@ -71,10 +74,11 @@ class AnimalType extends AbstractType
                 'expanded' => true,
             ])
             ->add('description', TextareaType::class, [
-                'label' => 'Description de l\'animal',
+                'label' => 'Description de l\'animal :',
             ])
             ->add('species', EntityType::class, [
                 // The EntityType allow to associate the relation between entity's data in the form and save it
+                'label' => 'Espèce :',
                 'class' => Species::class,
                 'multiple' => false,
                 'expanded' => true,
@@ -82,7 +86,8 @@ class AnimalType extends AbstractType
             ])
           
             ->add('race', EntityType::class, [
-                'placeholder' => 'Vous pouvez sélectionner une race',
+                'label' => 'Race :',
+                'placeholder' => '-Vous pouvez sélectionner une race-',
                 'class' => Race::class,
                 'choice_label' => 'name',
                 'multiple' => false,

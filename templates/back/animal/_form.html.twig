@@ -1,9 +1,26 @@
 <div class="form">
 
 	{{ form_start(form, {attr: {novalidate: 'novalidate'}}) }}
-	{{ form_widget(form) }}
+	{{ form_row(form.name)}}
+	{{ form_row(form.birthdate)}}
+	{{ form_row(form.status)}}
+	{{ form_row(form.gender)}}
+	{{ form_row(form.species)}}
+	{{ form_row(form.race)}}
+	<p>L'animal s'entend bien avec :</p>
+	{{ form_row(form.catCohabitation)}}
+	{{ form_row(form.dogCohabitation)}}
+	{{ form_row(form.nacCohabitation)}}
+	{{ form_row(form.childCohabitation)}}
+	{{ form_row(form.unknownCohabitation)}}
+	{{ form_row(form.description)}}
+	{{ form_row(form.picture, {
+        attr: {
+            'placeholder': 'Selectionnez une photo'
+			
+        }
+    }) }}
 	<button type="submit" class="btn btn-block create">Enregistrer</button>
-
 	{{ form_end(form) }}
 
 </div>

@@ -14,7 +14,7 @@ class AnimalVoter extends Voter
     {
     
         // if the attribute isn't one we support, return false
-        if (!in_array($attribute, ['update', 'archive'])) {
+        if (!in_array($attribute, ['update', 'archive', 'read'])) {
             return false;
         }
 
@@ -46,6 +46,10 @@ class AnimalVoter extends Voter
 
         // ... (check conditions and return true to grant permission) ...
         switch ($attribute) {
+            case 'read':
+                // Is the user the author of the animal file?
+                return $user === $subject->getUser();
+                break;
             case 'update':
                 // Is the user the author of the animal file?
                 return $user === $subject->getUser();
