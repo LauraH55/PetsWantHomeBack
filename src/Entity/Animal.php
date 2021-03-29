@@ -57,16 +57,6 @@ class Animal
     private $gender;
 
     /**
-     * @ORM\Column(type="smallint", nullable=true)
-     * 
-     * @Assert\NotBlank
-     *     
-     * @Groups("animal_list")
-     * @Groups("shelter_list")
-     */
-    private $cohabitation;
-
-    /**
      * @ORM\Column(type="text")
      * 
      * Here we config our FileType for the form to add an animal with MimeTypes
@@ -142,6 +132,46 @@ class Animal
      */
     private $species;
 
+    /**
+     * @ORM\Column(type="boolean", nullable=true)
+     * 
+     * @Groups("animal_list")
+     * @Groups("shelter_list")
+     */
+    private $catCohabitation;
+
+    /**
+     * @ORM\Column(type="boolean", nullable=true)
+     * 
+     * @Groups("animal_list")
+     * @Groups("shelter_list")
+     */
+    private $dogCohabitation;
+
+    /**
+     * @ORM\Column(type="boolean", nullable=true)
+     * 
+     * @Groups("animal_list")
+     * @Groups("shelter_list")
+     */
+    private $nacCohabitation;
+
+    /**
+     * @ORM\Column(type="boolean", nullable=true)
+     * 
+     * @Groups("animal_list")
+     * @Groups("shelter_list")
+     */
+    private $unknownCohabitation;
+
+    /**
+     * @ORM\Column(type="boolean", nullable=true)
+     * 
+     * @Groups("animal_list")
+     * @Groups("shelter_list")
+     */
+    private $childCohabitation;
+
     public function __construct()
     {
         $this->createdAt = new \DateTime();
@@ -184,18 +214,6 @@ class Animal
     public function setGender(int $gender): self
     {
         $this->gender = $gender;
-
-        return $this;
-    }
-
-    public function getCohabitation(): ?int
-    {
-        return $this->cohabitation;
-    }
-
-    public function setCohabitation(?int $cohabitation): self
-    {
-        $this->cohabitation = $cohabitation;
 
         return $this;
     }
@@ -292,6 +310,66 @@ class Animal
     public function setSpecies(?Species $species): self
     {
         $this->species = $species;
+
+        return $this;
+    }
+
+    public function getCatCohabitation(): ?bool
+    {
+        return $this->catCohabitation;
+    }
+
+    public function setCatCohabitation(?bool $catCohabitation): self
+    {
+        $this->catCohabitation = $catCohabitation;
+
+        return $this;
+    }
+
+    public function getDogCohabitation(): ?bool
+    {
+        return $this->dogCohabitation;
+    }
+
+    public function setDogCohabitation(?bool $dogCohabitation): self
+    {
+        $this->dogCohabitation = $dogCohabitation;
+
+        return $this;
+    }
+
+    public function getNacCohabitation(): ?bool
+    {
+        return $this->nacCohabitation;
+    }
+
+    public function setNacCohabitation(?bool $nacCohabitation): self
+    {
+        $this->nacCohabitation = $nacCohabitation;
+
+        return $this;
+    }
+
+    public function getUnknownCohabitation(): ?bool
+    {
+        return $this->unknownCohabitation;
+    }
+
+    public function setUnknownCohabitation(?bool $unknownCohabitation): self
+    {
+        $this->unknownCohabitation = $unknownCohabitation;
+
+        return $this;
+    }
+
+    public function getChildCohabitation(): ?bool
+    {
+        return $this->childCohabitation;
+    }
+
+    public function setChildCohabitation(?bool $childCohabitation): self
+    {
+        $this->childCohabitation = $childCohabitation;
 
         return $this;
     }

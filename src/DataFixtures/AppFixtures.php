@@ -194,7 +194,11 @@ class AppFixtures extends Fixture
             $catAnimal->setBirthdate($faker->dateTimeBetween('-20 years'));
             $catAnimal->setGender($faker->numberBetween($min = 1, $max = 2));
             // The function numberBetween() allow to set a number only between the min and max values indicated
-            $catAnimal->setCohabitation($faker->numberBetween($min = 1, $max = 4));
+            $catAnimal->setCatCohabitation($faker->boolean());
+            $catAnimal->setDogCohabitation($faker->boolean());
+            $catAnimal->setNacCohabitation($faker->boolean());
+            $catAnimal->setChildCohabitation($faker->boolean());
+            $catAnimal->setUnknownCohabitation($faker->boolean());
             $catAnimal->setPicture($faker->unique()->catImage());
             $catAnimal->setStatus($faker->numberBetween($min = 1, $max = 4));
             $catAnimal->setDescription($faker->text());
@@ -226,7 +230,11 @@ class AppFixtures extends Fixture
             $dogAnimal->setName($faker->unique()->animalName());
             $dogAnimal->setBirthdate($faker->dateTimeBetween('-20 years'));
             $dogAnimal->setGender($faker->numberBetween($min = 1, $max = 2));
-            $dogAnimal->setCohabitation($faker->numberBetween($min = 1, $max = 4));
+            $dogAnimal->setCatCohabitation($faker->boolean());
+            $dogAnimal->setDogCohabitation($faker->boolean());
+            $dogAnimal->setNacCohabitation($faker->boolean());
+            $dogAnimal->setChildCohabitation($faker->boolean());
+            $dogAnimal->setUnknownCohabitation($faker->boolean());
             $dogAnimal->setPicture($faker->unique()->dogImage());
             $dogAnimal->setStatus($faker->numberBetween($min = 1, $max = 4));
             $dogAnimal->setDescription($faker->text());
@@ -258,7 +266,11 @@ class AppFixtures extends Fixture
             $nacAnimal->setName($faker->unique()->animalName());
             $nacAnimal->setBirthdate($faker->dateTimeBetween('-20 years'));
             $nacAnimal->setGender($faker->numberBetween($min = 1, $max = 2));
-            $nacAnimal->setCohabitation($faker->numberBetween($min = 1, $max = 4));
+            $nacAnimal->setCatCohabitation($faker->boolean());
+            $nacAnimal->setDogCohabitation($faker->boolean());
+            $nacAnimal->setNacCohabitation($faker->boolean());
+            $nacAnimal->setChildCohabitation($faker->boolean());
+            $nacAnimal->setUnknownCohabitation($faker->boolean());
             $nacAnimal->setPicture($faker->unique()->nacImage());
             $nacAnimal->setStatus($faker->numberBetween($min = 1, $max = 4));
             $nacAnimal->setDescription($faker->text());
