@@ -291,17 +291,17 @@ class AppFixtures extends Fixture
         $shelter1->setUser($patounes);
 
         shuffle($catAnimals);
-        for ($r = 0; $r < 10; $r++) {
+        for ($r = 0; $r < 30; $r++) {
             $randomAnimal = $catAnimals[$r];
             $shelter1->addAnimal($randomAnimal);
         }
         shuffle($dogAnimals);
-        for ($r = 0; $r < 10; $r++) {
+        for ($r = 0; $r < 30; $r++) {
             $randomAnimal = $dogAnimals[$r];
             $shelter1->addAnimal($randomAnimal);
         }
         shuffle($nacAnimals);
-        for ($r = 0; $r < 10; $r++) {
+        for ($r = 0; $r < 30; $r++) {
             $randomAnimal = $nacAnimals[$r];
             $shelter1->addAnimal($randomAnimal);
         }
