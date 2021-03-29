@@ -65,7 +65,7 @@ class AnimalController extends AbstractController
         // Does the User have the right to modify the file of this animal ?
         // 'update' = voter attributes
         // $animal = Animal Entity
-        $this->denyAccessUnlessGranted('update', $animal);
+        /* $this->denyAccessUnlessGranted('update', $animal); */
 
         $form = $this->createForm(AnimalType::class, $animal);
 
