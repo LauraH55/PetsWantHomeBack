@@ -137,6 +137,7 @@ class Animal
      * 
      * @Assert\NotBlank
      * @Groups("shelter_list")
+     * @Groups("animal_list")
      * 
      */
     private $species;

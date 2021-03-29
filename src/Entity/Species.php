@@ -18,12 +18,14 @@ class Species
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
      * @Groups("shelter_list")
+     * @Groups("animal_list")
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=100)
      * @Groups("shelter_list")
+     * @Groups("animal_list")
      */
     private $name;
 
