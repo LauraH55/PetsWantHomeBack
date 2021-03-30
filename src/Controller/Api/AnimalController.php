@@ -13,6 +13,17 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
  */
 class AnimalController extends AbstractController
 {
+
+    /**
+     * @Route("/api/home", name="api_home", methods="GET")
+     */
+    public function home(AnimalRepository $animalRepository): Response
+    {
+        $animals = $animalRepository->randomAnimals();
+
+        return $this->json($animals, 200, [], ['groups' => 'animal_list']);
+    }
+
     /**
      * Read all animal List 
      * @Route("/api/animals", name="api_animal_list", methods="GET")

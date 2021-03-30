@@ -94,6 +94,18 @@ class AnimalRepository extends ServiceEntityRepository
         return $query->getResult();
     }
 
+    public function randomAnimals()
+    {
+
+        $entityManager = $this->getEntityManager();
+
+        $query = $entityManager
+            ->createQuery("SELECT a FROM App\Entity\Animal a ORDER BY RAND()")
+            ->setMaxResults(9);
+
+        return $query->getResult();
+    }
+
 
 
     // /**
