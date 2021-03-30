@@ -67,9 +67,7 @@ class ShelterController extends AbstractController
 
         $shelter = $serializer->deserialize($jsonContent, Shelter::class, 'json');
 
-        // @todo Valider l'entité => gestion affichage des erreurs en JSON
-
-
+    
         $errors = $validator->validate($shelter);
 
         if (count($errors) > 0) {
