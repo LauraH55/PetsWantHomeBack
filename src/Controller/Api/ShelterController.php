@@ -52,6 +52,50 @@ class ShelterController extends AbstractController
     }
 
     /**
+     * Create shelter
+     * We need Request and Serialize
+     * @Route("/api/shelter/create", name="api_shelter_create", methods="POST")
+     */
+    public function create(Request $request, SerializerInterface $serializer, EntityManagerInterface $entityManager, ValidatorInterface $validator)
+    {
+        // Retrieve the content of the request, i.e. the JSON
+        $jsonContent = $request->getContent();
+
+        // We deserialize this JSON into a Shelter entity, thanks to the Serializer
+        // We transform the JSON which is text into an object of type App\Entity\Shelter
+        // @see https://symfony.com/doc/current/components/serializer.html#deserializing-an-object
+
+        $shelter = $serializer->deserialize($jsonContent, Shelter::class, 'json');
+
+    
+        $errors = $validator->validate($shelter);
+
+        if (count($errors) > 0) {
+
+            // The array of errors is returned as JSON
+            // With an error status 422
+            // @see https://fr.wikipedia.org/wiki/Liste_des_codes_HTTP
+            return $this->json($errors, Response::HTTP_UNPROCESSABLE_ENTITY);
+
+        }
+
+        // We save the shelter (if submitted is valid ...)
+        // We save the shelter
+        $entityManager->persist($shelter);
+        $entityManager->flush();
+
+        // We redirect to api_shelter_read
+        return $this->redirectToRoute(
+            'api_shelter_read',
+            ['id' => $shelter->getId()],
+            // It's cool to use class constants!
+            // => it helps reading the code and thinking about an object
+            Response::HTTP_CREATED
+        );
+
+    }
+
+    /**
      * Edit shelter (PUT et PATCH)
      * 
      * @Route("/api/shelter/{id<\d+>}/update", name="api_shelter_update_put", methods={"PUT"})
