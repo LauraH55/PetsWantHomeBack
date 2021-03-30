@@ -59,6 +59,7 @@ class ShelterController extends AbstractController
      */
     public function create(Request $request, SerializerInterface $serializer, EntityManagerInterface $entityManager, ValidatorInterface $validator)
     {
+
         // Retrieve the content of the request, i.e. the JSON
         $jsonContent = $request->getContent();
 
@@ -68,7 +69,6 @@ class ShelterController extends AbstractController
 
         $shelter = $serializer->deserialize($jsonContent, Shelter::class, 'json');
 
-    
         $errors = $validator->validate($shelter);
 
         if (count($errors) > 0) {
@@ -81,7 +81,8 @@ class ShelterController extends AbstractController
         }
         
         $user = $this->getUser();
-    
+        
+
         $shelter->setUser($user);
         // We save the shelter (if submitted is valid ...)
         // We save the shelter

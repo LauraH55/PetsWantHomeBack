@@ -24,8 +24,11 @@ class AnimalController extends AbstractController
      */
     public function create(Shelter $shelter, Request $request, EntityManagerInterface $entityManager): Response
     {
+
         // Instance of our Object
         $animal = new Animal();
+
+        /* $this->denyAccessUnlessGranted('create', $animal); */
 
         $id= $request->request->get('id'); 
          
@@ -65,7 +68,7 @@ class AnimalController extends AbstractController
         // Does the User have the right to modify the file of this animal ?
         // 'update' = voter attributes
         // $animal = Animal Entity
-        /* $this->denyAccessUnlessGranted('update', $animal); */
+        /* $this->denyAccessUnlessGranted('update', $animal); */ 
 
         $form = $this->createForm(AnimalType::class, $animal);
 
@@ -96,7 +99,7 @@ class AnimalController extends AbstractController
         // Does the User have the right to archive this animal's file ?
         // 'archive' = voter attributes
         // $animal = Animal Entity
-        /* $this->denyAccessUnlessGranted('archive', $animal); */
+        /* $this->denyAccessUnlessGranted('archive', $animal); */ 
 
         // Here we get status of animal{id}
         $status = $animal->getStatus();

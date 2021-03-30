@@ -59,7 +59,7 @@ class UserController extends AbstractController
      * @Route("/api/user/{id<\d+>}/update", name="api_user_update_put", methods={"PUT"})
      * @Route("/api/user/{id<\d+>}/update", name="api_user_update_patch", methods={"PATCH"})
      */
-    public function userUpdate(User $user = null, EntityManagerInterface $em, SerializerInterface $serializer, Request $request, ValidatorInterface $validator, $data)
+    public function update(User $user = null, EntityManagerInterface $em, SerializerInterface $serializer, Request $request, ValidatorInterface $validator, $data)
     {
         // 1. We want to modify the refuge whose id is transmitted via the URL
         // 404 page error ?

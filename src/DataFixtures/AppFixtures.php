@@ -170,7 +170,7 @@ class AppFixtures extends Fixture
             $catAnimal = new Animal();
             // We fill the fields of our entity
             $catAnimal->setName($faker->unique()->animalName());
-            $catAnimal->setBirthdate($faker->dateTimeBetween('-20 years'));
+            $catAnimal->setBirthdate($faker->dateTimeBetween('-16 years'));
             $catAnimal->setGender($faker->numberBetween($min = 1, $max = 2));
             // The function numberBetween() allow to set a number only between the min and max values indicated
             $catAnimal->setCatCohabitation($faker->boolean());
@@ -207,7 +207,7 @@ class AppFixtures extends Fixture
             $dogAnimal = new Animal();
             // We fill the fields of our entity
             $dogAnimal->setName($faker->unique()->animalName());
-            $dogAnimal->setBirthdate($faker->dateTimeBetween('-20 years'));
+            $dogAnimal->setBirthdate($faker->dateTimeBetween('-16 years'));
             $dogAnimal->setGender($faker->numberBetween($min = 1, $max = 2));
             $dogAnimal->setCatCohabitation($faker->boolean());
             $dogAnimal->setDogCohabitation($faker->boolean());
@@ -243,7 +243,7 @@ class AppFixtures extends Fixture
             $nacAnimal = new Animal();
             // We fill the fields of our entity
             $nacAnimal->setName($faker->unique()->animalName());
-            $nacAnimal->setBirthdate($faker->dateTimeBetween('-20 years'));
+            $nacAnimal->setBirthdate($faker->dateTimeBetween('-16 years'));
             $nacAnimal->setGender($faker->numberBetween($min = 1, $max = 2));
             $nacAnimal->setCatCohabitation($faker->boolean());
             $nacAnimal->setDogCohabitation($faker->boolean());
