@@ -38,7 +38,7 @@ security:
       pattern: ^/api/users
       anonymous: true
     api:
-      pattern: ^/api/(.+)/(update|delete)
+      pattern: ^/api/(.+)/(update|delete|create)
       stateless: true
       guard:
         authenticators:

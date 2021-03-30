@@ -2,6 +2,7 @@
 
 namespace App\Controller\Api;
 
+use App\Entity\User;
 use App\Entity\Shelter;
 use App\Repository\ShelterRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -78,20 +79,19 @@ class ShelterController extends AbstractController
             return $this->json($errors, Response::HTTP_UNPROCESSABLE_ENTITY);
 
         }
-
+        
+        $user = $this->getUser();
+    
+        $shelter->setUser($user);
         // We save the shelter (if submitted is valid ...)
         // We save the shelter
         $entityManager->persist($shelter);
         $entityManager->flush();
 
         // We redirect to api_shelter_read
-        return $this->redirectToRoute(
-            'api_shelter_read',
-            ['id' => $shelter->getId()],
-            // It's cool to use class constants!
-            // => it helps reading the code and thinking about an object
-            Response::HTTP_CREATED
-        );
+        return $this->json([
+            'shelter' => $shelter,
+        ], Response::HTTP_CREATED);
 
     }
 
