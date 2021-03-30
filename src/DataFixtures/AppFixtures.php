@@ -278,7 +278,7 @@ class AppFixtures extends Fixture
         $shelter1->setAddress('2 rue des chatons 17000 La Rochelle');
         $shelter1->setPhoneNumber('0635262245');
         $shelter1->setEmail('le-refuge-des-patounes@patounes.com');
-        $shelter1->setPicture('images/shelter.jpg');
+        $shelter1->setPicture('shelters/shelter1.jpg');
         $shelter1->setUser($patounes);
 
         shuffle($catAnimals);
@@ -308,7 +308,7 @@ class AppFixtures extends Fixture
         $shelter2->setAddress('85 rue des grosminets 54000 Nancy');
         $shelter2->setPhoneNumber('0666778899');
         $shelter2->setEmail('chats-teignes@chat.com');
-        $shelter2->setPicture('images/shelter.jpg');
+        $shelter2->setPicture('shelters/shelter2.jpg');
         $shelter2->setUser($chatsteignes);
 
         shuffle($catAnimals);
@@ -338,7 +338,7 @@ class AppFixtures extends Fixture
         $shelter3->setAddress('77 avenue du port 54200 Toul');
         $shelter3->setPhoneNumber('0636224255');
         $shelter3->setEmail('refuge-mordant@refuge.com');
-        $shelter3->setPicture('images/shelter.jpg');
+        $shelter3->setPicture('shelters/shelter3.jpg');
         $shelter3->setUser($mordant);
 
         shuffle($catAnimals);
