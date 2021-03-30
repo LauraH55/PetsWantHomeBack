@@ -14,21 +14,48 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 
+
+
+
 class UserController extends AbstractController
 {
     /**
-     * @Route("/api/user", name="api_user")
+     * @Route("/api/register", name="api_register", methods={"POST"})
      */
-    public function index(): Response
+    public function register(EntityManagerInterface $entityManager, UserPasswordEncoderInterface $passwordEncoder, Request $request, ValidatorInterface $validator, SerializerInterface $serializer)
     {
-        return $this->render('api/user/index.html.twig', [
-            'controller_name' => 'UserController',
-        ]);
+        $jsonContent = $request->getContent();
+        
+        $user = $serializer->deserialize($jsonContent, User::class, 'json');
+
+        $errors = $validator->validate($user);
+
+        if (count($errors) > 0) {
+
+            // The array of errors is returned as JSON
+            // With an error status 422
+            // @see https://fr.wikipedia.org/wiki/Liste_des_codes_HTTP
+            return $this->json($errors, Response::HTTP_UNPROCESSABLE_ENTITY);
+        }
+        // This is where we encode the User password (found in $ user)
+        $hashedPassword = $passwordEncoder->encodePassword($user, $user->getPassword());
+        // We reassign the password encoded in the User
+        $user->setPassword($hashedPassword);
+        $user->setRoles(['ROLE_SHELTER']);
+        // We save the user (if submitted is valid ...)
+        // We save the user
+        $entityManager->persist($user);
+        $entityManager->flush();
+          
+        return $this->json([
+                'user' => $user
+            ], Response::HTTP_CREATED);
     }
+
 
     /**
      * Edit user (PUT et PATCH)
-     * 
+     *
      * @Route("/api/user/{id<\d+>}/update", name="api_user_update_put", methods={"PUT"})
      * @Route("/api/user/{id<\d+>}/update", name="api_user_update_patch", methods={"PATCH"})
      */
@@ -64,6 +91,33 @@ class UserController extends AbstractController
         $em->flush();
 
         return $this->json(['message' => 'Informations de connexion modifiées.'], Response::HTTP_OK);
-        
+    }
+
+    /**
+     * Delete a user / shelter
+     * 
+     * @Route("/api/user/{id}/delete", name="api_user_delete", methods={"DELETE"})
+     */
+    public function delete(User $user = null, EntityManagerInterface $entityManager): Response
+    {
+    
+        if ($user === null) {
+
+            // Optional, message for the front
+            $message = [
+                'status' => Response::HTTP_NOT_FOUND,
+                'error' => 'Utilisateur non trouvé.',
+            ];
+            // We define a custom message and an HTTP 404 status code
+            return $this->json($message, Response::HTTP_NOT_FOUND);
+        }
+
+        $entityManager->remove($user);
+        $entityManager->flush();
+
+        return $this->json(
+            ['message' => 'L\'utilisateur a bien été supprimé'],
+            Response::HTTP_OK
+        );
     }
 }

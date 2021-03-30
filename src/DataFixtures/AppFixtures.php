@@ -161,27 +161,6 @@ class AppFixtures extends Fixture
             $manager->persist($dogs);
         };
 
-
-        // New pets's Races for Race Table
-
-        // An array to stock our new pet's races
-        /* $nacList = [];
-
-        for ($i = 0; $i < self::NB_RACES; $i++) {
-
-            $nacs = new Race();
-            // We fill the fields of our entity
-            $nacs->setCreatedAt(new \DateTime());
-            $nacs->setName($faker->unique()->nacRace());
-            $nacs->setSpecies($nacSpecies);
-
-            // We stock our data for later
-            $nacList[] = $nacs;
-
-            // We persist it
-            $manager->persist($nacs);
-        }; */
-
         // Cats for Animal Table
 
         $catAnimals = [];
