@@ -111,7 +111,7 @@ class UserController extends AbstractController
             // We define a custom message and an HTTP 404 status code
             return $this->json($message, Response::HTTP_NOT_FOUND);
         }
-
+        
         $entityManager->remove($user);
         $entityManager->flush();
 
