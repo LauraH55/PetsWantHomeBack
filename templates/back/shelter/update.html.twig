@@ -1,0 +1,15 @@
+{% extends "base.html.twig" %}
+
+{% block title %}
+    Modifier le refuge
+{% endblock %}
+
+{% block subtitle %}<h2>Modification du refuge</h2>{% endblock %}
+
+{% block body %}
+
+{{ include('back/shelter/_form.html.twig') }}
+
+<a class="btn back" href="{{ path('back_shelter_read', {id: shelter.id }) }}">Retour à la liste</a>
+
+{% endblock %}
