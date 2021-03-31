@@ -9,6 +9,7 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=ShelterRepository::class)
@@ -30,6 +31,8 @@ class Shelter
     /**
      * @ORM\Column(type="string", length=100)
      * 
+     * @Assert\NotBlank
+     * 
      * @Groups("shelter_list")
      * @Groups("animal_list")
      */
@@ -37,6 +40,8 @@ class Shelter
 
     /**
      * @ORM\Column(type="text")
+     * 
+     * @Assert\NotBlank
      * 
      * @Groups("shelter_list")
      * @Groups("animal_list")
@@ -46,6 +51,15 @@ class Shelter
     /**
      * @ORM\Column(type="string", length=10)
      * 
+     * @Assert\Length(
+     *      min = 10,
+     *      max = 10,
+     *      minMessage = "Votre numéro de téléphone est incorrect",
+     *      maxMessage = "Votre numéro de téléphone est incorrect"
+     * )
+     * @Assert\Regex("/^[0-9]*$/", message="Votre numéro de téléphone est incorrect")
+     * @Assert\NotBlank
+     * 
      * @Groups("shelter_list")
      * @Groups("animal_list")
      */
@@ -54,6 +68,8 @@ class Shelter
     /**
      * @ORM\Column(type="string", length=255, unique=true)
      * 
+     * @Assert\NotBlank
+     * 
      * @Groups("shelter_list")
      * @Groups("animal_list")
      */
@@ -61,6 +77,9 @@ class Shelter
 
     /**
      * @ORM\Column(type="text", nullable=true)
+     * 
+     * @Assert\NotBlank(message="L'image doit être au format PNG ou JPEG, et ne pas dépasser 4096k.")
+     * @Assert\File(mimeTypes={ "image/png", "image/jpeg" })
      * 
      * @Groups("shelter_list")
      * @Groups("animal_list")

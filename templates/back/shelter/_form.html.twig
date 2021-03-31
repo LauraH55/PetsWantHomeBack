@@ -1,0 +1,13 @@
+<div class="form">{{ form_start(form, {attr: {novalidate: 'novalidate'}}) }}
+    {{ form_row(form.name)}}
+	{{ form_row(form.address)}}
+	{{ form_row(form.phoneNumber)}}
+	{{ form_row(form.email)}}
+	{{ form_row(form.picture, {
+        attr: {
+            'placeholder': 'Selectionnez une photo'
+			
+        }
+    }) }}
+  <button type="submit" class="btn btn-block create">Enregistrer</button>
+{{ form_end(form) }}</div>

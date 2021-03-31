@@ -1,0 +1,15 @@
+{% extends "base.html.twig" %}
+
+{% block title %}
+    Modifier les identifiants
+{% endblock %}
+
+{% block subtitle %}<h2>Modification les identifiants</h2>{% endblock %}
+
+{% block body %}
+
+{{ include('back/user/_form.html.twig') }}
+
+<a class="btn back" href="{{ path('back_shelter_read', {id: shelter.id }) }}">Retour à la liste</a>
+
+{% endblock %}

@@ -5,6 +5,11 @@
 
 {% block body %}
 
+<a href="{{path ('back_shelter_update', {'shelter_id': shelter.id}) }}" type="button" class="btn btn-block update">Édition du profil</a>
+<a href="{{path ('back_user_update', {'user_id': user.id}) }}" type="button" class="btn btn-block create">Modifier les informations de connexion</a>
+<a href="{{path ('back_user_delete', {id: shelter.id}) }}" onclick="return confirm('Êtes-vous sûr de vouloir supprimer : {{ shelter.name|e('js') }}" type="button" class="btn btn-block archive">Suppression du profil</a>
+
+
 	<table class="table">
 		<thead>
 			<h2>Animaux à adopter</h2>
