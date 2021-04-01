@@ -59,7 +59,7 @@ class AnimalController extends AbstractController
     }
 
     /**
-     * @Entity("shelter", expr="repository.find(shelter_id)")
+     * 
      * @Entity("animal", expr="repository.find(animal_id)")
      * @Route("back/shelter/{shelter_id<\d+>}/animal/{animal_id<\d+>}/update", name="back_animal_update", methods={"GET", "POST"})
      */

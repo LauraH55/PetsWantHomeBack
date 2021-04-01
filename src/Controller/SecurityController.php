@@ -50,13 +50,12 @@ class SecurityController extends AbstractController
         // We will return to the front, what we want
         // To be adapted according to our needs
         $user = $this->getUser();
-        $shelter = $user->getShelter()->getId();
         
 
         return $this->json([
+            'shelter' => $user->getShelter()->getId(),
             'username' => $user->getUsername(),
             'roles' => $user->getRoles(),
-            'shelter' => $shelter
         ]);
     }
 }
