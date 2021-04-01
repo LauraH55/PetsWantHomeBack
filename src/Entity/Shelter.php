@@ -78,8 +78,6 @@ class Shelter
     /**
      * @ORM\Column(type="text", nullable=true)
      * 
-     * @Assert\NotBlank(message="L'image doit être au format PNG ou JPEG, et ne pas dépasser 4096k.")
-     * @Assert\File(mimeTypes={ "image/png", "image/jpeg" })
      * 
      * @Groups("shelter_list")
      * @Groups("animal_list")

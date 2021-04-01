@@ -6,14 +6,20 @@ use App\Entity\User;
 use App\Entity\Animal;
 use App\Entity\Shelter;
 use App\Form\AnimalType;
+use App\Service\UploaderHelper;
 use App\Repository\AnimalRepository;
 use App\Repository\ShelterRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Symfony\Component\HttpKernel\Exception\HttpException;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Entity;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\File\Exception\FileException;
+
 
 class AnimalController extends AbstractController
 {
@@ -22,7 +28,7 @@ class AnimalController extends AbstractController
      * @Entity("shelter", expr="repository.find(id)")
      * @Route("back/shelter/{id<\d+>}/animal/create", name="back_animal_create", methods={"GET", "POST"})
      */
-    public function create(Shelter $shelter, Request $request, EntityManagerInterface $entityManager): Response
+    public function create(Shelter $shelter, Request $request, EntityManagerInterface $entityManager, UploaderHelper $uploaderHelper): Response
     {
 
         // Instance of our Object
@@ -40,6 +46,16 @@ class AnimalController extends AbstractController
 
 
         if ($form->isSubmitted() && $form->isValid()) {
+
+            $animal = $form->getData();
+
+            $uploadedFile = $form->get('picture')->getData();
+            
+
+            if ($uploadedFile) {
+                $newFilename = $uploaderHelper->uploadImage($uploadedFile);
+                $animal->setPicture($newFilename);
+            } 
            
            $animal->setShelter($shelter);
            /*  dd($animal); */
@@ -59,11 +75,11 @@ class AnimalController extends AbstractController
     }
 
     /**
-     * 
+     * @Entity("shelter", expr="repository.find(shelter_id)")
      * @Entity("animal", expr="repository.find(animal_id)")
      * @Route("back/shelter/{shelter_id<\d+>}/animal/{animal_id<\d+>}/update", name="back_animal_update", methods={"GET", "POST"})
      */
-    public function update(Shelter $shelter, Animal $animal, Request $request): Response
+    public function update(Shelter $shelter, Animal $animal, Request $request, UploaderHelper $uploaderHelper): Response
     {
         // Does the User have the right to modify the file of this animal ?
         // 'update' = voter attributes
@@ -75,6 +91,16 @@ class AnimalController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+
+            $animal = $form->getData();
+
+            $uploadedFile = $form->get('picture')->getData();
+            
+
+            if ($uploadedFile) {
+                $newFilename = $uploaderHelper->uploadImage($uploadedFile);
+                $animal->setPicture($newFilename);
+            }   
     
             // We send ou update in database
             $this->getDoctrine()->getManager()->flush();

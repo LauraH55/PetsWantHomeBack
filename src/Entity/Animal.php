@@ -61,9 +61,6 @@ class Animal
      * 
      * Here we config our FileType for the form to add an animal with MimeTypes
      * 
-     * @Assert\NotBlank(message="L'image doit être au format PNG ou JPEG, et ne pas dépasser 4096k.")
-     * @Assert\File(mimeTypes={ "image/png", "image/jpeg" })
-     * 
      * @Groups("animal_list")
      * @Groups("shelter_list")
      */

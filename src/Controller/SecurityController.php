@@ -44,7 +44,7 @@ class SecurityController extends AbstractController
      * 
      * @Route("/api/login", name="api_login", methods={"POST"})
      */
-    public function apiLogin(Shelter $shelter)
+    /* public function apiLogin(Shelter $shelter)
     {   
         // At this stage, the user is considered to be connected to the system
         // We will return to the front, what we want
@@ -57,5 +57,5 @@ class SecurityController extends AbstractController
             'username' => $user->getUsername(),
             'roles' => $user->getRoles(),
         ]);
-    }
+    } */
 }

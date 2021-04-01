@@ -5,12 +5,14 @@ namespace App\Controller\Back;
 use App\Entity\User;
 use App\Entity\Shelter;
 use App\Form\ShelterType;
+use App\Service\UploaderHelper;
 use App\Repository\AnimalRepository;
 use App\Repository\ShelterRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Entity;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
@@ -39,7 +41,7 @@ class ShelterController extends AbstractController
      * @Entity("shelter", expr="repository.find(shelter_id)")
      * @Route("back/shelter/{shelter_id<\d+>}/update", name="back_shelter_update", methods={"GET", "POST"})
      */
-    public function update(Shelter $shelter = null, Request $request): Response
+    public function update(Shelter $shelter = null, Request $request, UploaderHelper $uploaderHelper): Response
     {
         // Does the User have the right to modify the file of this shelter ?
         // 'update' = voter attributes
@@ -51,6 +53,14 @@ class ShelterController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+
+            $uploadedFile = $form->get('picture')->getData();
+            
+
+            if ($uploadedFile) {
+                $newFilename = $uploaderHelper->uploadImage($uploadedFile);
+                $shelter->setPicture($newFilename);
+            } 
     
             // We send ou update in database
             $this->getDoctrine()->getManager()->flush();
