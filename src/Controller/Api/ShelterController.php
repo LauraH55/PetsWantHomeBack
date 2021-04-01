@@ -81,7 +81,7 @@ class ShelterController extends AbstractController
 
         }
 
-        $uploadedFile = $shelter->get('picture')->getData();
+        $uploadedFile = $shelter->getPicture('picture')->getData();
             
 
         if ($uploadedFile) {
