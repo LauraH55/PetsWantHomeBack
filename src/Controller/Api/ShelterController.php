@@ -80,13 +80,6 @@ class ShelterController extends AbstractController
             return $this->json($errors, Response::HTTP_UNPROCESSABLE_ENTITY);
 
         }
-
-        $uploadedFile = $shelter->getPicture()->getData();           
-
-        if ($uploadedFile) {
-            $newFilename = $uploaderHelper->uploadImage($uploadedFile);
-            $shelter->setPicture($newFilename);
-        } 
         
         $user = $this->getUser();
         
