@@ -35,8 +35,7 @@ class JWTCreatedListener
         if ($this->security->getUser()->getShelter()) {
             $payload['shelter_id'] = $this->security->getUser()->getShelter()->getId();
         }
-
-
+        
         $event->setData($payload);
     }
 }
