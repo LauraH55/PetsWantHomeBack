@@ -4,6 +4,7 @@ namespace App\Controller\Api;
 
 use App\Entity\User;
 use App\Entity\Shelter;
+use App\Service\UploaderHelper;
 use App\Repository\ShelterRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -57,7 +58,7 @@ class ShelterController extends AbstractController
      * We need Request and Serialize
      * @Route("/api/shelter/create", name="api_shelter_create", methods="POST")
      */
-    public function create(Request $request, SerializerInterface $serializer, EntityManagerInterface $entityManager, ValidatorInterface $validator)
+    public function create(Request $request, SerializerInterface $serializer, EntityManagerInterface $entityManager, ValidatorInterface $validator, UploaderHelper $uploaderHelper)
     {
 
         // Retrieve the content of the request, i.e. the JSON
@@ -79,6 +80,14 @@ class ShelterController extends AbstractController
             return $this->json($errors, Response::HTTP_UNPROCESSABLE_ENTITY);
 
         }
+
+        $uploadedFile = $shelter->get('picture')->getData();
+            
+
+        if ($uploadedFile) {
+            $newFilename = $uploaderHelper->uploadImage($uploadedFile);
+            $shelter->setPicture($newFilename);
+        } 
         
         $user = $this->getUser();
         
