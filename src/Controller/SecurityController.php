@@ -44,19 +44,18 @@ class SecurityController extends AbstractController
      * 
      * @Route("/api/login", name="api_login", methods={"POST"})
      */
-    public function apiLogin(Shelter $shelter)
+    /* public function apiLogin(Shelter $shelter)
     {   
         // At this stage, the user is considered to be connected to the system
         // We will return to the front, what we want
         // To be adapted according to our needs
         $user = $this->getUser();
-        $shelter = $user->getShelter()->getId();
         
 
         return $this->json([
+            'shelter' => $user->getShelter()->getId(),
             'username' => $user->getUsername(),
             'roles' => $user->getRoles(),
-            'shelter' => $shelter
         ]);
-    }
+    } */
 }

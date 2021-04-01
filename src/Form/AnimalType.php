@@ -60,7 +60,8 @@ class AnimalType extends AbstractType
             ->add('picture', FileType::class,  [
                 // File type allow to download a file, here we configurate the FileType in annotations in the entity Animal
                 'label' => 'Photo de l\'animal',
-                'data_class' => null,
+                'mapped' => false,
+                'required' => false,
             ])
             ->add('status', ChoiceType::class, [
                 'label' => 'L\'animal est :',

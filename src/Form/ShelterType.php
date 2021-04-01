@@ -5,6 +5,7 @@ namespace App\Form;
 use App\Entity\Shelter;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Validator\Constraints\File;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -32,7 +33,8 @@ class ShelterType extends AbstractType
             ->add('picture', FileType::class,  [
                 // File type allow to download a file, here we configurate the FileType in annotations in the entity Shelter
                 'label' => 'Photo du refuge :',
-                'data_class' => null,
+                'mapped' => false,
+                'required' => false,
             ])
             /* V2
             ->add('rnaNumber') */
