@@ -36,6 +36,8 @@ class User implements UserInterface
      * @var string The hashed password
      * @ORM\Column(type="string")
      * 
+     * @Assert\Regex("^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[-+!*$@%_])([-+!*$@%_\w]{8,15})$", message="Veuillez entrer un mot de passe valide")
+     * 
      * @Assert\NotBlank
      * 
      */
