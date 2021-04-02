@@ -61,40 +61,17 @@ class ShelterController extends AbstractController
     public function create(Request $request, SerializerInterface $serializer, EntityManagerInterface $entityManager, ValidatorInterface $validator, UploaderHelper $uploaderHelper)
     {
 
-        /* // Retrieve the content of the request, i.e. the JSON
-        $jsonContent = $request->getContent();
-
-        // We deserialize this JSON into a Shelter entity, thanks to the Serializer
-        // We transform the JSON which is text into an object of type App\Entity\Shelter
-        // @see https://symfony.com/doc/current/components/serializer.html#deserializing-an-object
-
-        $shelter = $serializer->deserialize($jsonContent, Shelter::class, 'json');
-
-        $errors = $validator->validate($shelter);
-
-        if (count($errors) > 0) {
-
-            // The array of errors is returned as JSON
-            // With an error status 422
-            // @see https://fr.wikipedia.org/wiki/Liste_des_codes_HTTP
-            return $this->json($errors, Response::HTTP_UNPROCESSABLE_ENTITY);
-
-        } 
-        
-        $shelter->handleRequest($request);*/
-    
         $shelter = new Shelter;
 
-        if ($shelter->isSubmitted() && $shelter->isValid()) {
-            
-            $uploadedFile = $shelter->get('picture')->getData();
+        // retrieves an instance of UploadedFile identified by picture
+        $uploadedFile = $request->files->get('picture');
             
 
-            if ($uploadedFile) {
-                $newFilename = $uploaderHelper->uploadImage($uploadedFile);
-                $shelter->setPicture($newFilename);
-            }
+        if ($uploadedFile) {
+            $newFilename = $uploaderHelper->uploadImage($uploadedFile);
+            $shelter->setPicture($newFilename);
         }
+        
         
         $user = $this->getUser();
         
