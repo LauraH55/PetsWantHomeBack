@@ -46,6 +46,13 @@ body {
     background-color: #869634;
 }
 
+/* Create's button with margin for connexion form */
+
+.submit {
+    margin-top: 1rem;
+}
+
+
 /* Back to list's button */
 
 .back {
