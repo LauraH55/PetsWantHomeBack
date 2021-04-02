@@ -55,7 +55,7 @@ class AnimalType extends AbstractType
                 'label' => 'Enfants'
             ])
             ->add('unknownCohabitation', CheckboxType::class, [
-                'label' => 'Non Précisé'
+                'label' => 'Non Testé / Ne sais pas'
             ])
             ->add('picture', FileType::class,  [
                 // File type allow to download a file, here we configurate the FileType in annotations in the entity Animal

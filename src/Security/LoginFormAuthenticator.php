@@ -30,6 +30,7 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator implements P
     private $urlGenerator;
     private $csrfTokenManager;
     private $passwordEncoder;
+    private $security;
 
     public function __construct(EntityManagerInterface $entityManager, UrlGeneratorInterface $urlGenerator, CsrfTokenManagerInterface $csrfTokenManager, UserPasswordEncoderInterface $passwordEncoder)
     {
@@ -92,14 +93,23 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator implements P
 
     public function onAuthenticationSuccess(Request $request, TokenInterface $token, string $providerKey)
     {
+        /** @var User $user */
+        $user = $token->getUser();
+
+        if ($user->getShelter() == true) {
+            $url = $this->urlGenerator->generate('back_shelter_read', ['id'=> $user->getShelter()->getId()]);
+    
+            return new RedirectResponse($url);
+        } 
+        
         // Option 1: we have in session the route we wanted to go to
         // before login
         if ($targetPath = $this->getTargetPath($request->getSession(), $providerKey)) {
             return new RedirectResponse($targetPath);
         }
-
+        
         // Option 2: default destination to be defined
-        return new RedirectResponse($this->urlGenerator->generate('api_animals'));
+        return new RedirectResponse($this->urlGenerator->generate('back_shelter_read', ['id'=> $this->security->getUser()->getShelter()->getId()]));
     }
 
     protected function getLoginUrl()
