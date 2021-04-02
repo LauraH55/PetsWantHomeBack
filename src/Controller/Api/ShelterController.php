@@ -82,7 +82,7 @@ class ShelterController extends AbstractController
         }
 
 
-        /* $jsonContent->handleRequest($request); */
+        $shelter->handleRequest($request);
 
         if ($shelter->isSubmitted() && $shelter->isValid()) {
             
