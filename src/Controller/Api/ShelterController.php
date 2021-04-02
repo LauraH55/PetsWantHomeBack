@@ -70,6 +70,9 @@ class ShelterController extends AbstractController
         if ($uploadedFile) {
             $newFilename = $uploaderHelper->uploadImage($uploadedFile);
             $shelter->setPicture($newFilename);
+
+            
+            return Response::HTTP_OK;
         }
         
         
