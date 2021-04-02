@@ -61,7 +61,7 @@ class ShelterController extends AbstractController
     public function create(Request $request, SerializerInterface $serializer, EntityManagerInterface $entityManager, ValidatorInterface $validator, UploaderHelper $uploaderHelper)
     {
 
-        // Retrieve the content of the request, i.e. the JSON
+        /* // Retrieve the content of the request, i.e. the JSON
         $jsonContent = $request->getContent();
 
         // We deserialize this JSON into a Shelter entity, thanks to the Serializer
@@ -79,10 +79,11 @@ class ShelterController extends AbstractController
             // @see https://fr.wikipedia.org/wiki/Liste_des_codes_HTTP
             return $this->json($errors, Response::HTTP_UNPROCESSABLE_ENTITY);
 
-        }
-
-
-        $shelter->handleRequest($request);
+        } 
+        
+        $shelter->handleRequest($request);*/
+    
+        $shelter = new Shelter;
 
         if ($shelter->isSubmitted() && $shelter->isValid()) {
             
