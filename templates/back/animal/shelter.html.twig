@@ -5,9 +5,12 @@
 
 {% block body %}
 
-<a href="{{path ('back_shelter_update', {'shelter_id': shelter.id}) }}" type="button" class="btn btn-block update">Édition du profil</a>
-<a href="{{path ('back_user_update', {'user_id': user.id}) }}" type="button" class="btn btn-block create">Modifier les informations de connexion</a>
-<a href="{{path ('back_user_delete', {id: shelter.id}) }}" onclick="return confirm('Êtes-vous sûr de vouloir supprimer : {{ shelter.name|e('js') }}" type="button" class="btn btn-block archive">Suppression du profil</a>
+<div class="form"><a href="{{path ('back_shelter_update', {'shelter_id': shelter.id}) }}" type="button" class="btn btn-block update">Édition du profil</a>
+<a href="{{path ('back_user_update',{'shelter_id': shelter.id, 'user_id': shelter.user.id}) }}" type="button" class="btn btn-block create">Modifier les informations de connexion</a>
+<form action="{{ path('back_shelter_delete', {id: shelter.id}) }}" onsubmit="return confirm('Supprimer le compte gérant #{{ shelter.name }} ?')" class="btn-block" method="POST">
+<input type="hidden" name="_method" value="DELETE"/>
+<input type="hidden" name="token" value="{{ csrf_token('delete-shelter') }}"/>
+<button type="submit" class="btn btn-block archive" >Suppression du profil</button></div>
 
 
 	<table class="table">

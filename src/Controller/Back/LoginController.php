@@ -14,8 +14,9 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 class LoginController extends AbstractController
 {
     /**
+     * @Entity("shelter", expr="repository.find(shelter_id)")
      * @Entity("user", expr="repository.find(user_id)")
-     * @Route("back/user/{user_id<\d+>}/update", name="back_user_update", methods={"GET", "POST"})
+     * @Route("back/shelter/{shelter_id<\d+>}/user/{user_id<\d+>}/update", name="back_user_update", methods={"GET", "POST"})
      */
     public function update(User $user = null, Shelter $shelter = null, Request $request): Response
     {

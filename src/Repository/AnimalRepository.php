@@ -19,7 +19,6 @@ class AnimalRepository extends ServiceEntityRepository
         parent::__construct($registry, Animal::class);
     }
 
-
     // We create a function with custom request to find animal by their status to adopt
     public function findAllByStatusToAdopt()
     {

@@ -16,6 +16,7 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Entity;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 
 class ShelterController extends AbstractController
 {
@@ -76,30 +77,39 @@ class ShelterController extends AbstractController
 
     /**
      * Delete a user / shelter
-     * @Route("/back/shelter/{id}/delete", name="back_user_delete", methods={"DELETE"})
+     * @Route("/back/shelter/{id<\d+>}/delete", name="back_shelter_delete", methods={"DELETE"})
      */
-    public function delete(User $user = null, EntityManagerInterface $entityManager): Response
+    public function delete(Shelter $shelter, Request $request, EntityManagerInterface $entityManager): Response
     {
     
-        if ($user === null) {
+        $em = $this->getDoctrine()->getManager();
 
-            // Optional, message for the front
-            $message = [
-                'status' => Response::HTTP_NOT_FOUND,
-                'error' => 'Utilisateur non trouvé.',
-            ];
-            // We define a custom message and an HTTP 404 status code
-            return $this->json($message, Response::HTTP_NOT_FOUND);
+        if(!$shelter)
+        {
+            throw $this->createNotFoundException('No ID found');
         }
 
-        $entityManager->remove($user);
-        $entityManager->flush();
+       /*  $user = $this->getDoctrine()->getManager()->getRepository('AppBundle:Shelter')->Find($id)->getUser()->getId(); */
+
+       $submittedToken = $request->request->get('token');
+
+        // 'delete-movie' is the same value used in the template to generate the token
+        if (! $this->isCsrfTokenValid('delete-shelter', $submittedToken)) {
+            // On jette une 403
+            throw $this->createAccessDeniedException('Are you token to me !??!??');
+        }
+
+
+        $em->remove($shelter);
+        $em->flush();
 
         //!TODO => Renvoyer vers la route register du FRONT quand on saura comment faire + vérifier une fois connecté que la méthode fonctionne
 
-        return $this->json(
+
+        return $this->redirect('http://petswanthome.surge.sh');
+        /* return $this->json(
             ['message' => 'L\'utilisateur a bien été supprimé'],
             Response::HTTP_OK
-        );
+        ); */
     }
 }
