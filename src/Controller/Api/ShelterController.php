@@ -66,7 +66,6 @@ class ShelterController extends AbstractController
 
         // retrieves an instance of UploadedFile identified by picture
         $uploadedFile = $request->files->get('picture');
-        dd($uploadedFile);
 
         
         if ($uploadedFile) {
