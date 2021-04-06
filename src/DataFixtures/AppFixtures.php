@@ -214,9 +214,9 @@ class AppFixtures extends Fixture
             $dogAnimal->setNacCohabitation($faker->boolean());
             $dogAnimal->setChildCohabitation($faker->boolean());
             $dogAnimal->setUnknownCohabitation($faker->boolean());
-            $dogAnimal->setPicture($faker->unique()->dogDescription());
+            $dogAnimal->setPicture($faker->unique()->dogImage());
             $dogAnimal->setStatus($faker->numberBetween($min = 1, $max = 4));
-            $dogAnimal->setDescription($faker->text());
+            $dogAnimal->setDescription($faker->unique()->dogDescription());
             $dogAnimal->setCreatedAt(new \DateTime());
             $dogAnimal->setSpecies($dogSpecies);
 
