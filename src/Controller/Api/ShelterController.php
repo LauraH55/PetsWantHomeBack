@@ -14,6 +14,7 @@ use Symfony\Component\Serializer\SerializerInterface;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 use Symfony\Component\Serializer\Normalizer\AbstractNormalizer;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\ParameterBag;
 
 /**
  * API Shelter
@@ -58,26 +59,23 @@ class ShelterController extends AbstractController
      * We need Request and Serialize
      * @Route("/api/shelter/create", name="api_shelter_create", methods="POST")
      */
-    public function create(Request $request, SerializerInterface $serializer, EntityManagerInterface $entityManager, ValidatorInterface $validator, UploaderHelper $uploaderHelper)
+    public function create(Request $request, EntityManagerInterface $entityManager, UploaderHelper $uploaderHelper)
     {
 
         $shelter = new Shelter;
 
         // retrieves an instance of UploadedFile identified by picture
         $uploadedFile = $request->files->get('picture');
-            
+        dd($uploadedFile);
 
+        
         if ($uploadedFile) {
             $newFilename = $uploaderHelper->uploadImage($uploadedFile);
             $shelter->setPicture($newFilename);
 
-            
-            return Response::HTTP_OK;
         }
         
-        
         $user = $this->getUser();
-        
 
         $shelter->setUser($user);
         // We save the shelter (if submitted is valid ...)
