@@ -63,6 +63,7 @@ class ShelterController extends AbstractController
     {
 
         $shelter = new Shelter;
+        $user = $this->getUser();
 
         // retrieves an instance of UploadedFile identified by picture
         $uploadedFile = $request->files->get('picture');
@@ -73,8 +74,6 @@ class ShelterController extends AbstractController
             $shelter->setPicture($newFilename);
 
         }
-        
-        $user = $this->getUser();
 
         $shelter->setUser($user);
         // We save the shelter (if submitted is valid ...)
