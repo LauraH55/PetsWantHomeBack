@@ -22,15 +22,26 @@ class ShelterController extends AbstractController
 {
 
     /**
-     * @Route("/back/shelter/{id<\d+>}", name="back_shelter_read", methods="GET")
+     * @Route("/back/mainsite", name="back_mainsite", methods="GET")
      */
-    public function read(Shelter $shelter, User $user, AnimalRepository $animalRepository): Response
+    public function backToMainsite(){
+
+        return $this->redirect('http://petswanthome.surge.sh');
+    }
+
+
+    /**
+     * @Entity("user", expr="repository.findShelterByUserId(shelter_id)")
+     * @Route("/back/shelter/{shelter_id<\d+>}", name="back_shelter_read", methods="GET")
+     */
+    public function read(): Response
     {
 
         /* $this->denyAccessUnlessGranted('read', $shelter); */
 
         /* $this->denyAccessUnlessGranted('read', $animal); */
-        $animals = $animalRepository->listOrderByStatus();
+        $user = $this->getUser();
+        $shelter = $user->getShelter();
 
         return $this->render('back/animal/shelter.html.twig', [
             'shelter' => $shelter,
@@ -66,7 +77,7 @@ class ShelterController extends AbstractController
             // We send ou update in database
             $this->getDoctrine()->getManager()->flush();
 
-            return $this->redirectToRoute('back_shelter_read', ['id'=> $shelter->getId()]);
+            return $this->redirectToRoute('back_shelter_read', ['shelter_id'=> $shelter->getId()]);
         }
 
         return $this->render('back/shelter/update.html.twig', [

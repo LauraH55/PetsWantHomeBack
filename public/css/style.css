@@ -1,7 +1,7 @@
 body {
     background: rgba(246, 244, 210, 0.5);
     color: #a44a3f;
-    width: 100%
+    width: 100%;
 }
 
 
@@ -9,9 +9,9 @@ body {
 
 .archive {
     background-color: #F19C79;
-    color: white;
+    color: #8c4729;
     border: thin solid #a44a3f;
-    text-shadow: 1px 1px 2px #a44a3f;
+    /* text-shadow: 1px 1px 2px #a44a3f; */
 
 }
 
@@ -24,9 +24,9 @@ body {
 
 .update {
     background-color: #CBDFBD;
-    color: white;
+    color: #8c4729;
     border: thin solid #80ac60;
-    text-shadow: 1px 1px 2px #80ac60;
+    /* text-shadow: 1px 1px 2px #80ac60; */
 }
 
 .update:hover {
@@ -37,9 +37,9 @@ body {
 
 .create {
     background-color: #D4E09B;
-    color: white;
+    color: #8c4729;
     border: thin solid #869634;
-    text-shadow: 1px 1px 2px #869634;
+    /* text-shadow: 1px 1px 2px #869634; */
 }
 
 .create:hover {
@@ -71,6 +71,17 @@ body {
     background-color: #CBDFBD;
 }
 
+nav{
+    height: 5rem;
+}
+
+img{
+    margin-left: 1rem;
+    margin-bottom: 0.6rem;
+    height: 3.5rem;
+    width: 3.5rem;
+} 
+
 .nav {
     display: flex;
     justify-content: space-between;
@@ -81,10 +92,11 @@ body {
     font-size: 0.8em;
 }
 
-nav img .logo {
-    background-color: white;
-    height: 2rem;
+a.nav-link:hover{
+    color:#F19C79;
 }
+
+
 
 /* Table */
 
