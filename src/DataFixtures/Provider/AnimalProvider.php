@@ -419,11 +419,31 @@ class AnimalProvider
         'Adore faire la sieste, très gourmand, veillez à ne pas laisser trainer de nourriture si vous craquez pour cette boule de poil !',
         'Ce chat est malvoyant, il serait donc préférable qu\'il vive en appartement et il faudra le guider. Il est très câlin et joueur !',
         'Chat très bavard et facétieux, aux rituels peu communs, il faudra l\'adopter avec son doudou !',
-        
+        'Très calme, un peu glouton, il faudra surveiller son poids.',
+        'Besoin de beaucoup d\'espace pour se dépenser, il lui faudrait idéalement une famille en maison.',
+        'Il semble à l\'aise en toute circonstance.Il est agréable mais semble avoir traîné un moment donc son poil est un peu terne mais avec une bonne alimentation et une nouvelle vie il devrait s\'embellir d\'avantage !',
+        'Un gros pépère qui aura plein d\'amour à vous donner.',
+        'Chat plutôt timide, il faudra être patient pour le sociabiliser',
+        'Chat discret mais plutôt avenant lorsqu\'on le sollicite, il ne faut pas hésiter à aller vers lui !',
+        'Peut s\'adapter à la vie en appartement comme en maison, très facile à vivre',
+        'Chat très câlin mais qui stresse facilement, il lui faudra un environnement calme.',
+        'Chat reservé mais qui fait néanmoins confiance à l\'humain, il faudra lui laisser le temps de prendre ses marques.',
+        'Chat porteur de FIV+. Des soins spécifiques seront nécessaires. Il lui faudra être seul pour ne pas risquer de transmettre sa maladie',
+        'Chat très joueur ! En demande constante d\'attention et très câlin.',
+        'Il lui faudrait une maison avec un extérieur de préférence.',
+        'Chat qui peut apprécier les caresses mais qui ne supporte pas être porté, il faudra respecter sa personnalité',
+        'Chat craintif qui demandera beaucoup de temps et de patience avant d\'être à l\'aise et donc de se dévoiler complétement, il est très attachant et saura vous récompenser de votre patience !',
+        'Boule de poils qui a juste besoin d\'un coussin confortable, d\'une gamelle pleine et d\'un peu de tendresse.',
+        'Magnifique et très sociable, il vous rendra toute l\'attention que vous lui donnez !',
+        'Il est câlin mais sait dire stop avec ses griffes si on le sollicite un peu trop, soyez prudent et respectueux !',
+        'Ce minou cabossé par la vie recherche sa nouvelle famille, prête à l\'aimer comme il est ! ',
+        'Ronrons h24 avec cette adorable boule de poils !',
+        'Chat très sociable, curieux et très actif, il lui faudra un jardin de préférence !'
+
         
     ];
 
-    private $descriptionDog = [
+    private $dogDescription = [
 
         'Chien affectueux, très joueur, qui adore les balades',
         'Petit chien qui a son caractère, mais qui adore les caresses',
@@ -449,14 +469,28 @@ class AnimalProvider
         'C\'est un jeune chien qui aimerait se dépenser et découvrir le monde avec une famille patiente.',
         'Un brin sensible, il lui faudra un environnement stable et calme. Fait de la protection de ressources sur la nourriture, un travail est à prévoir. Il est réactif en laisse (sur les chiens).',
         'Chien plein de bonne humeur. Doux, calme et bien élevé, il recherche une famille aussi gentille que lui.',
-        'Chien joueur, calme et propre. Il adore les balades et il a du rappel, car il est baladé sans laisse.'
-        
-        
-
-
+        'Chien joueur, calme et propre. Il adore les balades et il a du rappel, car il est baladé sans laisse.',
+        'Bon loulou mais il ne sait pas canaliser son énergie et sa force. Il a besoin d\'une personne expérimentée disposant de beaucoup de temps pour son éducation',
+        'Il est joueur et aime courir donc un jardin serait un plus pour lui mais il sait aussi être tranquille et a vécu en appartement.',
+        'Très agréable en promenade, il est tranquille et doux. A la maison il est sage et peux donc vivre en appartement sans problèmes. C\'est tout de même un chien avec du caractère, et des problèmes de comportement',
+        'Chien propre et ne fait pas de dégâts quand il est seul.',
+        'Une fois en confiance c\'est un chien calme et câlin qui adore les papouilles et les balades.'
 
     ];
 
+    private $nacDescription = [
+
+        'Se laisse caresser mais n\'a pas été habituée à être manipulée, il faudra donc y aller avec patience et douceur.',
+        'Adorable loulou, gentil et joueur',
+        'Adorable, très câlin, supporte bien le contact',
+        'Très sociable, pour des connaisseurs',
+        'Il se laisse manipuler, caresser et porter sans aucun problème.',
+        'Recherche des adoptants sérieux et bienveillants qui sauront prendre soin de lui.',
+        'C\'est une boule d\'amour qui adore la présence de l\'humain, il ne demande que ça !',
+        'Animal facile à vivre, peu d\'entretien',
+        'Bon caractère, n\'aime pas la manipulation',
+        'Être un minimum connaisseur de la race, animal facile à vivre'
+    ];
 
 
     // Here we make all our functions to return our data from the provider to use in AppFixtures
@@ -499,6 +533,21 @@ class AnimalProvider
     public function image()
     {
         return $this->image;
+    }
+
+    public function catDescription()
+    {
+        return $this->catDescription[array_rand($this->catDescription)];
+    }
+
+    public function dogDescription()
+    {
+        return $this->dogDescription[array_rand($this->dogDescription)];
+    }
+
+    public function nacDescription()
+    {
+        return $this->nacDescription[array_rand($this->nacDescription)];
     }
 
     public function animalName()

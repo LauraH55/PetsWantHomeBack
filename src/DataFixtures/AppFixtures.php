@@ -180,7 +180,7 @@ class AppFixtures extends Fixture
             $catAnimal->setUnknownCohabitation($faker->boolean());
             $catAnimal->setPicture($faker->unique()->catImage());
             $catAnimal->setStatus($faker->numberBetween($min = 1, $max = 4));
-            $catAnimal->setDescription($faker->text());
+            $catAnimal->setDescription($faker->unique()->catDescription());
             $catAnimal->setCreatedAt(new \DateTime());
             $catAnimal->setSpecies($catSpecies);
 
@@ -214,7 +214,7 @@ class AppFixtures extends Fixture
             $dogAnimal->setNacCohabitation($faker->boolean());
             $dogAnimal->setChildCohabitation($faker->boolean());
             $dogAnimal->setUnknownCohabitation($faker->boolean());
-            $dogAnimal->setPicture($faker->unique()->dogImage());
+            $dogAnimal->setPicture($faker->unique()->dogDescription());
             $dogAnimal->setStatus($faker->numberBetween($min = 1, $max = 4));
             $dogAnimal->setDescription($faker->text());
             $dogAnimal->setCreatedAt(new \DateTime());
@@ -252,7 +252,7 @@ class AppFixtures extends Fixture
             $nacAnimal->setUnknownCohabitation($faker->boolean());
             $nacAnimal->setPicture($faker->unique()->nacImage());
             $nacAnimal->setStatus($faker->numberBetween($min = 1, $max = 4));
-            $nacAnimal->setDescription($faker->text());
+            $nacAnimal->setDescription($faker->nacDescription());
             $nacAnimal->setCreatedAt(new \DateTime());
             $nacAnimal->setSpecies($nacSpecies);
 
