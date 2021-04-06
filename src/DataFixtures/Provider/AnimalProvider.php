@@ -407,6 +407,56 @@ class AnimalProvider
 
     private $image = 'default_image_01.png';
 
+    private $catDescription = [
+        
+        'Petit chat coquin qui joue avec tout ce qui bouge, pucé et vacciné.',
+        'Chat paresseux et un peu capricieux, il faut le laisser venir de lui-même pour jouer ou le caresser.',
+        'Très énergique, il lui faut de l\'espace pour avoir de quoi faire de l\'activité physique. Appartement déconseillé pour ce chat !',
+        'Très affectueux, il va falloir lui donner beaucoup d\'attention.',
+        'Chat un peu sauvage auquel il faudra laisser le temps de s\'adapter à son environnement et à sa nouvelle famille.',
+        'Adore se cacher dans les moindres recoin et se mettre en mode chasseur, il faudra être vigilant avec ce petit chat espiègle pour pas qu\'il ne se cache dans un endroit risqué !',
+        'Saute partout sans jamais se fatiguer, il vous faudra une bonne dose d\'énergie pour le suivre dans ses quarts d\'heure de folie',
+        'Adore faire la sieste, très gourmand, veillez à ne pas laisser trainer de nourriture si vous craquez pour cette boule de poil !',
+        'Ce chat est malvoyant, il serait donc préférable qu\'il vive en appartement et il faudra le guider. Il est très câlin et joueur !',
+        'Chat très bavard et facétieux, aux rituels peu communs, il faudra l\'adopter avec son doudou !',
+        
+        
+    ];
+
+    private $descriptionDog = [
+
+        'Chien affectueux, très joueur, qui adore les balades',
+        'Petit chien qui a son caractère, mais qui adore les caresses',
+        'Chien qui a besoin d\'espace et de sorties régulières',
+        'Adorable, aime jouer, se balader, mais peut aussi bien rester sur le canapé',
+        'Chien qui a du caractère et qui fait des bêtises s\'il n\'est pas stimulé',
+        'Très énergique, le compagnon idéal des sportifs, il vous accompagnera dans vos sorties running avec plaisir',
+        'Chien calme et posé, très bon caractère, s\'entend bien avec les enfants',
+        'Attention, chien vif, affectueux, il s\'entend avec les enfants, mais attention aux touts petits',
+        'Un peu foufou, très joueur et très gourmand, attention à ne pas laisser traîner de la nourriture',
+        'Chien adorable, mais craintif, il aura besoin d\'être rassuré par sa famille',
+        'Une fois en confiance il est très câlin, voire fusionnel avec son humain.',
+        'Chien de caractère. Il aura besoin d\'un maître connaissant bien les chiens et capable de le gérer.',
+        'Je me révèlerai être parfait pour vivre en maison ou appartement',
+        'Aura besoin d\'adoptants connaisseurs, motivés et prêts à s\'investir dans l\'éducation.',
+        'Ce chien est agréable, câlin, plutôt calme en intérieur et dynamique à l\'extérieur, et il sera à coup sûr le compagnon idéal de toute la famille.',
+        'Ce jeune chien est dynamique et affectueux, il a besoin de temps pour faire confiance mais se montre ensuite sociable et joueur',
+        'Il faudra poursuivre son éducation, il fait encore quelques dégâts lors des absences et se montre protecteur de son environnement',
+        'Le moindre rien me fait peur, je commence tout juste à comprendre que les humains et les promenades ça peut être cool !',
+        'C\'est un chien câlin, joueur, dynamique, qui sera ravi de partir avec vous pour de longues balades',
+        'De nature très expressive, il n\'aime pas la solitude. Terrain bien clos obligatoire car j\'ai tendance à prendre la poudre d\'escampette.',
+        'Très joueuse avec ses congénères elle est à l\'aise en leur présence et l\'aide à prendre confiance.',
+        'C\'est un jeune chien qui aimerait se dépenser et découvrir le monde avec une famille patiente.',
+        'Un brin sensible, il lui faudra un environnement stable et calme. Fait de la protection de ressources sur la nourriture, un travail est à prévoir. Il est réactif en laisse (sur les chiens).',
+        'Chien plein de bonne humeur. Doux, calme et bien élevé, il recherche une famille aussi gentille que lui.',
+        'Chien joueur, calme et propre. Il adore les balades et il a du rappel, car il est baladé sans laisse.'
+        
+        
+
+
+
+    ];
+
 
 
     // Here we make all our functions to return our data from the provider to use in AppFixtures

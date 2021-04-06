@@ -112,6 +112,8 @@ class Shelter
     public function __construct()
     {
         $this->animals = new ArrayCollection();
+        
+        
     }
 
     public function getId(): ?int
