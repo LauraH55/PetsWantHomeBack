@@ -13,17 +13,6 @@
 	<input type="hidden" name="token" value="{{ csrf_token('delete-shelter') }}"/>
 	<button type="submit" class="btn btn-block archive" >Suppression du profil</button>
 </div>
-{# Search Bar #}
-<div class="form">
-	<h5>Rechercher un animal </h5>
-	<form class="form-inline my-2 my-lg-0" action="{{ path('back_shelter_read', {'shelter_id': shelter.id}) }}">
-		<input class="form-control mr-sm-2" type="search" name="search" placeholder="Le nom d'un animal" value="{{ app.request.query.get('search') ?? '' }}" aria-label="Search">
-		<button class="btn btn-block create my-2 my-sm-0 mr-2" type="submit">Rechercher</button>
-	</form>
-</div>
-{% if app.request.query.get('search') is not null %}
-    <h3>Résultats de la recherche pour <i>"{{ app.request.query.get('search') }}"</i></h3>
-{% endif %}
 
 
 	<table class="table">

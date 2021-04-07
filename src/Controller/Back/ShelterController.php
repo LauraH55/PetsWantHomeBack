@@ -29,7 +29,6 @@ class ShelterController extends AbstractController
         return $this->redirect('http://petswanthome.surge.sh');
     }
 
-
     /**
      * @Entity("user", expr="repository.findShelterByUserId(shelter_id)")
      * @Route("/back/shelter/{shelter_id<\d+>}", name="back_shelter_read", methods="GET")
@@ -39,11 +38,8 @@ class ShelterController extends AbstractController
 
         //$this->denyAccessUnlessGranted('read', $shelter);
 
-        // Le paramètre GET à récupérer
-        $search = $request->query->get('search');
-
         $user = $this->getUser();
-        $shelter = $user->getShelter()->findAll($search);
+        $shelter = $user->getShelter();
         
 
         return $this->render('back/animal/shelter.html.twig', [
