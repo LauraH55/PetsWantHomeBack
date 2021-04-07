@@ -97,7 +97,7 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator implements P
         $user = $token->getUser();
 
         if ($user->getShelter() == true) {
-            $url = $this->urlGenerator->generate('back_shelter_read', ['id'=> $user->getShelter()->getId()]);
+            $url = $this->urlGenerator->generate('back_shelter_read', ['shelter_id'=> $user->getShelter()->getId()]);
     
             return new RedirectResponse($url);
         } 
@@ -109,7 +109,7 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator implements P
         }
         
         // Option 2: default destination to be defined
-        return new RedirectResponse($this->urlGenerator->generate('back_shelter_read', ['id'=> $this->security->getUser()->getShelter()->getId()]));
+        return new RedirectResponse($this->urlGenerator->generate('back_shelter_read', ['shelter_id'=> $this->security->getUser()->getShelter()->getId()]));
     }
 
     protected function getLoginUrl()
