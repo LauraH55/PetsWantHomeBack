@@ -25,19 +25,16 @@ class AnimalController extends AbstractController
 {
 
     /**
-     * @Entity("shelter", expr="repository.find(id)")
-     * @Route("back/shelter/{id<\d+>}/animal/create", name="back_animal_create", methods={"GET", "POST"})
+     * @Route("back/animal/create", name="back_animal_create", methods={"GET", "POST"})
      */
-    public function create(Shelter $shelter, Request $request, EntityManagerInterface $entityManager, UploaderHelper $uploaderHelper): Response
+    public function create(Request $request, EntityManagerInterface $entityManager, UploaderHelper $uploaderHelper): Response
     {
-
+        $shelter = $this->getUser()->getShelter();
         // Instance of our Object
         $animal = new Animal();
 
-        // Voters, access control
-        $this->denyAccessUnlessGranted('create', $animal->getShelter());
 
-        $id= $request->request->get('id'); 
+        $id = $request->request->get('id'); 
          
 
         // We create a form
@@ -75,16 +72,16 @@ class AnimalController extends AbstractController
     }
 
     /**
-     * @Entity("shelter", expr="repository.find(shelter_id)")
-     * @Entity("animal", expr="repository.find(animal_id)")
-     * @Route("back/shelter/{shelter_id<\d+>}/animal/{animal_id<\d+>}/update", name="back_animal_update", methods={"GET", "POST"})
+     * @Route("back/animal/{id<\d+>}/update", name="back_animal_update", methods={"GET", "POST"})
      */
-    public function update(Shelter $shelter, Animal $animal, Request $request, UploaderHelper $uploaderHelper): Response
+    public function update(Animal $animal, Request $request, UploaderHelper $uploaderHelper): Response
     {
         // Does the User have the right to modify the file of this animal ?
         // 'update' = voter attributes
         // $animal = Animal Entity
-        $this->denyAccessUnlessGranted('update', $animal);
+        $shelter = $this->getUser()->getShelter();
+
+        $this->denyAccessUnlessGranted('animal_shelter', $animal);
 
         $form = $this->createForm(AnimalType::class, $animal);
 
@@ -92,10 +89,7 @@ class AnimalController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
 
-            $animal = $form->getData();
-
             $uploadedFile = $form->get('picture')->getData();
-            
 
             if ($uploadedFile) {
                 $newFilename = $uploaderHelper->uploadImage($uploadedFile);
@@ -105,7 +99,7 @@ class AnimalController extends AbstractController
             // We send ou update in database
             $this->getDoctrine()->getManager()->flush();
 
-            return $this->redirectToRoute('back_shelter_read', ['id'=> $animal->getShelter()->getId()]);
+            return $this->redirectToRoute('back_shelter_read');
         }
 
         return $this->render('back/animal/update.html.twig', [
@@ -117,15 +111,14 @@ class AnimalController extends AbstractController
     }
 
     /**
-     *
      * @Route("back/animal/{id<\d+>}/archive", name="back_animal_archive", methods={"GET", "POST"})
      */
     public function archive(Animal $animal = null)
     {
         // Does the User have the right to archive this animal's file ?
-        // 'archive' = voter attributes
+        // 'animal_shelter' = voter attributes
         // $animal = Animal Entity
-        $this->denyAccessUnlessGranted('archive', $animal);
+        $this->denyAccessUnlessGranted('animal_shelter', $animal);
 
         // Here we get status of animal{id}
         $status = $animal->getStatus();
@@ -143,7 +136,7 @@ class AnimalController extends AbstractController
             $this->getDoctrine()->getManager()->flush();
         }
 
-        return $this->redirectToRoute('back_shelter_read', ['id'=> $animal->getShelter()->getId()]);
+        return $this->redirectToRoute('back_shelter_read');
 
     }
 }

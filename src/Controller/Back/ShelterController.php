@@ -30,34 +30,33 @@ class ShelterController extends AbstractController
     }
 
     /**
-     * @Entity("user", expr="repository.findShelterByUserId(shelter_id)")
-     * @Route("/back/shelter/{shelter_id<\d+>}", name="back_shelter_read", methods="GET")
+     * @Route("/back/myshelter", name="back_shelter_read", methods="GET")
      */
-    public function read(Shelter $shelter = null, Request $request): Response
+    public function read(Request $request): Response
     {
+        if($this->getUser()){
+            $user = $this->getUser();
+            $shelter = $user->getShelter();
 
-        //$this->denyAccessUnlessGranted('read', $shelter);
-
-        $user = $this->getUser();
-        $shelter = $user->getShelter();
+            return $this->render('back/animal/shelter.html.twig', [
+                'shelter' => $shelter,
+                'user' => $user
+            ]);
+            
+        }
         
-
-        return $this->render('back/animal/shelter.html.twig', [
-            'shelter' => $shelter,
-            'user' => $user
-        ]);
+        return $this->redirectToRoute('app_login');
+        
     }
 
     /**
-     * @Entity("shelter", expr="repository.find(shelter_id)")
-     * @Route("back/shelter/{shelter_id<\d+>}/update", name="back_shelter_update", methods={"GET", "POST"})
+     * @Route("back/shelter/update", name="back_shelter_update", methods={"GET", "POST"})
      */
-    public function update(Shelter $shelter = null, Request $request, UploaderHelper $uploaderHelper): Response
+    public function update(Request $request, UploaderHelper $uploaderHelper): Response
     {
-        // Does the User have the right to modify the file of this shelter ?
-        // 'update' = voter attributes
-        // $shelter = shelter Entity
-        $this->denyAccessUnlessGranted('update', $shelter);
+       
+        $user = $this->getUser();
+        $shelter = $user->getShelter();
 
         $form = $this->createForm(ShelterType::class, $shelter);
 
@@ -76,7 +75,7 @@ class ShelterController extends AbstractController
             // We send ou update in database
             $this->getDoctrine()->getManager()->flush();
 
-            return $this->redirectToRoute('back_shelter_read', ['shelter_id'=> $shelter->getId()]);
+            return $this->redirectToRoute('back_shelter_read');
         }
 
         return $this->render('back/shelter/update.html.twig', [
@@ -98,8 +97,6 @@ class ShelterController extends AbstractController
         {
             throw $this->createNotFoundException('No ID found');
         }
-
-       /*  $user = $this->getDoctrine()->getManager()->getRepository('AppBundle:Shelter')->Find($id)->getUser()->getId(); */
 
        $submittedToken = $request->request->get('token');
 

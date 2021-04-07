@@ -15,7 +15,7 @@ class AnimalVoter extends Voter
     {
     
         // if the attribute isn't one we support, return false
-        if (!in_array($attribute, ['create', 'update', 'archive', 'read'])) {
+        if ($attribute !== 'animal_shelter') {
             return false;
         }
 
@@ -37,6 +37,7 @@ class AnimalVoter extends Voter
     protected function voteOnAttribute($attribute, $subject, TokenInterface $token)
     {
         // The connected User(who is in a Token object, see the Profiler)
+        /**@var User $user */
         $user = $token->getUser();
 
         // if the user is anonymous, do not grant access
@@ -44,29 +45,12 @@ class AnimalVoter extends Voter
             return false;
         }
 
+        /**@var User $user */
+        $shelter = $user->getShelter();
 
-        // ... (check conditions and return true to grant permission) ...
-        switch ($attribute) {
-            case 'create':
-                // Is the user the author of the animal file?
-                return $user === $subject->getUser();
-                break;
-            case 'read':
-                // Is the user the author of the animal file?
-                return $user === $subject->getUser();
-                break;
-            case 'update':
-                // Is the user the author of the animal file?
-                return $user === $subject->getUser();
-                break;
-
-            case 'archive':
-                // Is the user the author of the animal file?
-                return $user === $subject->getUser();
-                break;
-        }
-
-        // Otherwise, we vote no
-        return false;
+        
+        
+        // Is the user the author of the animal file?
+        return $shelter === $subject->getShelter();
     }
 }
