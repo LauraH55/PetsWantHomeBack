@@ -54,34 +54,37 @@ class ShelterController extends AbstractController
      */
     public function update(Request $request, UploaderHelper $uploaderHelper): Response
     {
-       
-        $user = $this->getUser();
-        $shelter = $user->getShelter();
+        if($this->getUser()){
+            $user = $this->getUser();
+            $shelter = $user->getShelter();
 
-        $form = $this->createForm(ShelterType::class, $shelter);
+            $form = $this->createForm(ShelterType::class, $shelter);
 
-        $form->handleRequest($request);
+            $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
+            if ($form->isSubmitted() && $form->isValid()) {
 
-            $uploadedFile = $form->get('picture')->getData();
-            
+                $uploadedFile = $form->get('picture')->getData();
+                
 
-            if ($uploadedFile) {
-                $newFilename = $uploaderHelper->uploadImage($uploadedFile);
-                $shelter->setPicture($newFilename);
-            } 
-    
-            // We send ou update in database
-            $this->getDoctrine()->getManager()->flush();
+                if ($uploadedFile) {
+                    $newFilename = $uploaderHelper->uploadImage($uploadedFile);
+                    $shelter->setPicture($newFilename);
+                } 
+        
+                // We send ou update in database
+                $this->getDoctrine()->getManager()->flush();
 
-            return $this->redirectToRoute('back_shelter_read');
+                return $this->redirectToRoute('back_shelter_read');
+            }
+
+            return $this->render('back/shelter/update.html.twig', [
+                'form' => $form->createView(),
+                'shelter' => $shelter,
+            ]);
         }
-
-        return $this->render('back/shelter/update.html.twig', [
-            'form' => $form->createView(),
-            'shelter' => $shelter,
-        ]);
+        
+        return $this->redirectToRoute('app_login');
     }
 
     /**
