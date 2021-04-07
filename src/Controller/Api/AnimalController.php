@@ -30,7 +30,7 @@ class AnimalController extends AbstractController
      */
     public function animalList(AnimalRepository $animalRepository): Response
     {
-        $animals = $animalRepository->findAll();
+        $animals = $animalRepository->listOrderByCreationDate();
 
         return $this->json($animals, 200, [], ['groups' => 'animal_list']);
     }

@@ -61,7 +61,7 @@ class AnimalController extends AbstractController
             $entityManager->flush();
 
 
-            return $this->redirectToRoute('back_shelter_read', ['id'=> $animal->getShelter()->getId()]);
+            return $this->redirectToRoute('back_shelter_read', ['shelter_id'=> $animal->getShelter()->getId()]);
         }
 
         return $this->render('back/animal/create.html.twig', [
@@ -100,6 +100,7 @@ class AnimalController extends AbstractController
             $this->getDoctrine()->getManager()->flush();
 
             return $this->redirectToRoute('back_shelter_read');
+
         }
 
         return $this->render('back/animal/update.html.twig', [
@@ -137,6 +138,7 @@ class AnimalController extends AbstractController
         }
 
         return $this->redirectToRoute('back_shelter_read');
+
 
     }
 }

@@ -105,6 +105,20 @@ class AnimalRepository extends ServiceEntityRepository
         return $query->getResult();
     }
 
+    // We create a function to order animals by creation date
+    public function listOrderByCreationDate()
+    {
+        $entityManager = $this->getEntityManager();
+
+        $query = $entityManager->createQuery(
+            'SELECT a
+            FROM App\Entity\Animal a
+            ORDER BY a.createdAt DESC'
+        );
+
+        return $query->getResult();
+    }
+
 
 
     // /**
