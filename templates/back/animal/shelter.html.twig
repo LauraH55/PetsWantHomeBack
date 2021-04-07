@@ -5,12 +5,14 @@
 
 {% block body %}
 
-<div class="form"><a href="{{path ('back_shelter_update', {'shelter_id': shelter.id}) }}" type="button" class="btn btn-block update">Édition du profil</a>
-<a href="{{path ('back_user_update',{'shelter_id': shelter.id, 'user_id': shelter.user.id}) }}" type="button" class="btn btn-block create">Modifier les informations de connexion</a>
-<form action="{{ path('back_shelter_delete', {id: shelter.id}) }}" onsubmit="return confirm('Supprimer le compte gérant #{{ shelter.name }} ?')" class="btn-block" method="POST">
-<input type="hidden" name="_method" value="DELETE"/>
-<input type="hidden" name="token" value="{{ csrf_token('delete-shelter') }}"/>
-<button type="submit" class="btn btn-block archive" >Suppression du profil</button></div>
+<div class="form">
+	<a href="{{path ('back_shelter_update') }}" type="button" class="btn btn-block update">Édition du profil</a>
+	<a href="{{path ('back_user_update') }}" type="button" class="btn btn-block create">Modifier les informations de connexion</a>
+	<form action="{{ path('back_shelter_delete', {id: shelter.id}) }}" onsubmit="return confirm('Supprimer le compte gérant #{{ shelter.name }} ?')" class="btn-block" method="POST">
+	<input type="hidden" name="_method" value="DELETE"/>
+	<input type="hidden" name="token" value="{{ csrf_token('delete-shelter') }}"/>
+	<button type="submit" class="btn btn-block archive" >Suppression du profil</button>
+</div>
 
 
 	<table class="table">
@@ -23,7 +25,7 @@
 				<th scope="col">Date de naissance</th>
 				<th scope="col">Race</th>
 				<th scope="col">
-					<a href="{{ path('back_animal_create', {'shelter_id': shelter.id })}}" class="btn create">Ajouter un animal</a>
+					<a href="{{ path('back_animal_create')}}" class="btn create">Ajouter un animal</a>
 				</th>
 			</tr>
 		</thead>
@@ -45,8 +47,8 @@
 						{# Here we call the field name of race who is also a relation's field in Animal Entity #}
 						<td>{% if animal.race is null %}{% elseif animal.race is not null %}{{ animal.race.name }}{% endif %}</td>
 						<td>
-							<a class="btn update" href="{{ path('back_animal_update', {'shelter_id': animal.shelter.id, 'animal_id': animal.id}) }}">Modifier</a>
-							<a class="btn archive" href="{{ path('back_animal_archive', {'animal_id': animal.id}) }}">
+							<a class="btn update" href="{{ path('back_animal_update', {id: animal.id}) }}">Modifier</a>
+							<a class="btn archive" href="{{ path('back_animal_archive', {id: animal.id}) }}">
               {# We configurate our button "Archiver/Desarchiver" to show it according to the animal's status #}
 								{% if (animal.status == 1) or (animal.status == 3) or (animal.status == 4) %}Archiver{% elseif animal.status == 2 %}Désarchiver
 								{% endif %}
@@ -85,8 +87,8 @@
 						<td>{{ animal.birthdate|date("m/d/Y") }}</td>
 						<td>{% if animal.race is null %}{% elseif animal.race is not null %}{{ animal.race.name }}{% endif %}</td>
 						<td>
-							<a class="btn update" href="{{ path('back_animal_update', {'shelter_id': animal.shelter.id, 'animal_id': animal.id}) }}">Modifier</a>
-							<a class="btn archive" href="{{ path('back_animal_archive', {'animal_id': animal.id}) }}">
+							<a class="btn update" href="{{ path('back_animal_update', {id: animal.id}) }}">Modifier</a>
+							<a class="btn archive" href="{{ path('back_animal_archive', {id: animal.id}) }}">
 								{% if (animal.status == 1) or (animal.status == 3) or (animal.status == 4) %}Archiver{% elseif animal.status == 2 %}Désarchiver
 								{% endif %}
 							</a>

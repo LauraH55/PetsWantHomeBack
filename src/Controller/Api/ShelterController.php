@@ -63,20 +63,22 @@ class ShelterController extends AbstractController
     {
         
         $shelterData = $request->request->all();
+
         $shelter = new Shelter();
         $user = $this->getUser();
+
         if($user->getShelter() !== null){
             return $this->json([
                 'error' => "Vous avez déjà un refuge",
             ], Response::HTTP_BAD_REQUEST);
         }
+
         $shelter->setUser($user);
         $shelter->setPhoneNumber($shelterData['phone_number']);
         $shelter->setName($shelterData['name']);
         $shelter->setEmail($shelterData['email']);
         $shelter->setAddress($shelterData['address']);
         
-        /// ....
         
         // retrieves an instance of UploadedFile identified by picture
         $uploadedFile = $request->files->get('picture');
@@ -89,6 +91,7 @@ class ShelterController extends AbstractController
         // We save the shelter
         $entityManager->persist($shelter);
         $entityManager->flush();
+        
 
         // We redirect to api_shelter_read
         return $this->json([

@@ -16,16 +16,12 @@ use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 class LoginController extends AbstractController
 {
     /**
-     * @Entity("shelter", expr="repository.find(shelter_id)")
-     * @Entity("user", expr="repository.find(user_id)")
-     * @Route("back/shelter/{shelter_id<\d+>}/user/{user_id<\d+>}/update", name="back_user_update", methods={"GET", "POST"})
+     * @Route("back/user/update", name="back_user_update", methods={"GET", "POST"})
      */
     public function update(User $user = null, Shelter $shelter = null, Request $request, UserPasswordEncoderInterface $passwordEncoder, LoggerInterface $logger): Response
     {
-        // Does the User have the right to modify the file of this user ?
-        // 'update' = voter attributes
-        // $user = user Entity
-        /* $this->denyAccessUnlessGranted('update', $user); */ 
+        $user = $this->getUser();
+        $shelter = $user->getShelter();
 
         $form = $this->createForm(LoginType::class, $user);
 
