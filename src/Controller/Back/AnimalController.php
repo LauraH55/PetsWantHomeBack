@@ -34,7 +34,8 @@ class AnimalController extends AbstractController
         // Instance of our Object
         $animal = new Animal();
 
-        /* $this->denyAccessUnlessGranted('create', $animal); */
+        // Voters, access control
+        $this->denyAccessUnlessGranted('create', $animal->getShelter());
 
         $id= $request->request->get('id'); 
          
@@ -57,8 +58,7 @@ class AnimalController extends AbstractController
                 $animal->setPicture($newFilename);
             } 
            
-           $animal->setShelter($shelter);
-           /*  dd($animal); */
+            $animal->setShelter($shelter);
             // If the form is send and valid, we save our data and send in the database
             $entityManager->persist($animal);
             $entityManager->flush();
@@ -84,7 +84,7 @@ class AnimalController extends AbstractController
         // Does the User have the right to modify the file of this animal ?
         // 'update' = voter attributes
         // $animal = Animal Entity
-        /* $this->denyAccessUnlessGranted('update', $animal); */ 
+        $this->denyAccessUnlessGranted('update', $animal);
 
         $form = $this->createForm(AnimalType::class, $animal);
 
@@ -118,14 +118,14 @@ class AnimalController extends AbstractController
 
     /**
      *
-     * @Route("/animal/{id<\d+>}/archive", name="back_animal_archive", methods={"GET", "POST"})
+     * @Route("back/animal/{id<\d+>}/archive", name="back_animal_archive", methods={"GET", "POST"})
      */
     public function archive(Animal $animal = null)
     {
         // Does the User have the right to archive this animal's file ?
         // 'archive' = voter attributes
         // $animal = Animal Entity
-        /* $this->denyAccessUnlessGranted('archive', $animal); */ 
+        $this->denyAccessUnlessGranted('archive', $animal);
 
         // Here we get status of animal{id}
         $status = $animal->getStatus();

@@ -34,14 +34,17 @@ class ShelterController extends AbstractController
      * @Entity("user", expr="repository.findShelterByUserId(shelter_id)")
      * @Route("/back/shelter/{shelter_id<\d+>}", name="back_shelter_read", methods="GET")
      */
-    public function read(): Response
+    public function read(Shelter $shelter = null, Request $request): Response
     {
 
-        /* $this->denyAccessUnlessGranted('read', $shelter); */
+        //$this->denyAccessUnlessGranted('read', $shelter);
 
-        /* $this->denyAccessUnlessGranted('read', $animal); */
+        // Le paramètre GET à récupérer
+        $search = $request->query->get('search');
+
         $user = $this->getUser();
-        $shelter = $user->getShelter();
+        $shelter = $user->getShelter()->findAll($search);
+        
 
         return $this->render('back/animal/shelter.html.twig', [
             'shelter' => $shelter,
@@ -58,7 +61,7 @@ class ShelterController extends AbstractController
         // Does the User have the right to modify the file of this shelter ?
         // 'update' = voter attributes
         // $shelter = shelter Entity
-        /* $this->denyAccessUnlessGranted('update', $shelter); */ 
+        $this->denyAccessUnlessGranted('update', $shelter);
 
         $form = $this->createForm(ShelterType::class, $shelter);
 
@@ -114,13 +117,7 @@ class ShelterController extends AbstractController
         $em->remove($shelter);
         $em->flush();
 
-        //!TODO => Renvoyer vers la route register du FRONT quand on saura comment faire + vérifier une fois connecté que la méthode fonctionne
-
-
         return $this->redirect('http://petswanthome.surge.sh');
-        /* return $this->json(
-            ['message' => 'L\'utilisateur a bien été supprimé'],
-            Response::HTTP_OK
-        ); */
+
     }
 }

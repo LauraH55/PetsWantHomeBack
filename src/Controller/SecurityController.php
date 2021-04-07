@@ -9,10 +9,12 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Entity;
 
 class SecurityController extends AbstractController
 {
      /**
+     * @Entity("shelter", expr="repository.find(shelter_id)")
      * @Route("/login", name="app_login", methods={"GET","POST"})
      */
     public function login(AuthenticationUtils $authenticationUtils, User $user = null): Response
@@ -26,7 +28,7 @@ class SecurityController extends AbstractController
         if ($this->getUser()) {    
 
             $user = $this->getUser();
-            return $this->redirectToRoute('back_shelter_read', ['id'=> $user->getShelter()->getId()]);
+            return $this->redirectToRoute('back_shelter_read', ['shelter_id'=> $user->getShelter()->getId()]);
         }
 
         return $this->render('security/login.html.twig', ['last_username' => $lastUsername, 'error' => $error]);

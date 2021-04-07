@@ -8,19 +8,19 @@ use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Security\Core\Authorization\Voter\Voter;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 
-class AnimalVoter extends Voter
+class ShelterVoter extends Voter
 {
-    // Here, modify and archive $animal (App\Entity\Animal)
+    // Here, modify and archive $shelter (App\Entity\Shelter)
     protected function supports($attribute, $subject)
     {
     
         // if the attribute isn't one we support, return false
-        if (!in_array($attribute, ['create', 'update', 'archive', 'read'])) {
+        if (!in_array($attribute, ['create', 'update', 'delete', 'read'])) {
             return false;
         }
 
-        // only vote on `Animal` objects
-        if (!$subject instanceof Animal) {
+        // only vote on `Shelter` objects
+        if (!$subject instanceof Shelter) {
             return false;
         }
         
@@ -48,20 +48,20 @@ class AnimalVoter extends Voter
         // ... (check conditions and return true to grant permission) ...
         switch ($attribute) {
             case 'create':
-                // Is the user the author of the animal file?
+                // Is the user the author of the shelter file?
                 return $user === $subject->getUser();
                 break;
             case 'read':
-                // Is the user the author of the animal file?
+                // Is the user the author of the shelter file?
                 return $user === $subject->getUser();
                 break;
             case 'update':
-                // Is the user the author of the animal file?
+                // Is the user the author of the shelter file?
                 return $user === $subject->getUser();
                 break;
 
-            case 'archive':
-                // Is the user the author of the animal file?
+            case 'delete':
+                // Is the user the author of the shelter file?
                 return $user === $subject->getUser();
                 break;
         }
