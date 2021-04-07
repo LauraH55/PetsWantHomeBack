@@ -25,8 +25,8 @@ class AnimalController extends AbstractController
 {
 
     /**
-     * @Entity("shelter", expr="repository.find(id)")
-     * @Route("back/shelter/{id<\d+>}/animal/create", name="back_animal_create", methods={"GET", "POST"})
+     * @Entity("shelter", expr="repository.find(shelter_id)")
+     * @Route("back/shelter/{shelter_id<\d+>}/animal/create", name="back_animal_create", methods={"GET", "POST"})
      */
     public function create(Shelter $shelter, Request $request, EntityManagerInterface $entityManager, UploaderHelper $uploaderHelper): Response
     {
@@ -64,7 +64,7 @@ class AnimalController extends AbstractController
             $entityManager->flush();
 
 
-            return $this->redirectToRoute('back_shelter_read', ['id'=> $animal->getShelter()->getId()]);
+            return $this->redirectToRoute('back_shelter_read', ['shelter_id'=> $animal->getShelter()->getId()]);
         }
 
         return $this->render('back/animal/create.html.twig', [
@@ -105,7 +105,7 @@ class AnimalController extends AbstractController
             // We send ou update in database
             $this->getDoctrine()->getManager()->flush();
 
-            return $this->redirectToRoute('back_shelter_read', ['id'=> $animal->getShelter()->getId()]);
+            return $this->redirectToRoute('back_shelter_read', ['shelter_id'=> $animal->getShelter()->getId()]);
         }
 
         return $this->render('back/animal/update.html.twig', [
@@ -117,8 +117,9 @@ class AnimalController extends AbstractController
     }
 
     /**
-     *
-     * @Route("/animal/{id<\d+>}/archive", name="back_animal_archive", methods={"GET", "POST"})
+     * @Entity("shelter", expr="repository.find(shelter_id)")
+     * @Entity("animal", expr="repository.find(animal_id)")
+     * @Route("/animal/{animal_id<\d+>}/archive", name="back_animal_archive", methods={"GET", "POST"})
      */
     public function archive(Animal $animal = null)
     {
@@ -143,7 +144,7 @@ class AnimalController extends AbstractController
             $this->getDoctrine()->getManager()->flush();
         }
 
-        return $this->redirectToRoute('back_shelter_read', ['id'=> $animal->getShelter()->getId()]);
+        return $this->redirectToRoute('back_shelter_read', ['shelter_id'=> $animal->getShelter()->getId()]);
 
     }
 }

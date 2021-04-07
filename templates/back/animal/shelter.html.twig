@@ -23,7 +23,7 @@
 				<th scope="col">Date de naissance</th>
 				<th scope="col">Race</th>
 				<th scope="col">
-					<a href="{{ path('back_animal_create', {id: shelter.id })}}" class="btn create">Ajouter un animal</a>
+					<a href="{{ path('back_animal_create', {'shelter_id': shelter.id })}}" class="btn create">Ajouter un animal</a>
 				</th>
 			</tr>
 		</thead>
@@ -46,7 +46,7 @@
 						<td>{% if animal.race is null %}{% elseif animal.race is not null %}{{ animal.race.name }}{% endif %}</td>
 						<td>
 							<a class="btn update" href="{{ path('back_animal_update', {'shelter_id': animal.shelter.id, 'animal_id': animal.id}) }}">Modifier</a>
-							<a class="btn archive" href="{{ path('back_animal_archive', {id: animal.id}) }}">
+							<a class="btn archive" href="{{ path('back_animal_archive', {'animal_id': animal.id}) }}">
               {# We configurate our button "Archiver/Desarchiver" to show it according to the animal's status #}
 								{% if (animal.status == 1) or (animal.status == 3) or (animal.status == 4) %}Archiver{% elseif animal.status == 2 %}Désarchiver
 								{% endif %}
@@ -86,7 +86,7 @@
 						<td>{% if animal.race is null %}{% elseif animal.race is not null %}{{ animal.race.name }}{% endif %}</td>
 						<td>
 							<a class="btn update" href="{{ path('back_animal_update', {'shelter_id': animal.shelter.id, 'animal_id': animal.id}) }}">Modifier</a>
-							<a class="btn archive" href="{{ path('back_animal_archive', {id: animal.id}) }}">
+							<a class="btn archive" href="{{ path('back_animal_archive', {'animal_id': animal.id}) }}">
 								{% if (animal.status == 1) or (animal.status == 3) or (animal.status == 4) %}Archiver{% elseif animal.status == 2 %}Désarchiver
 								{% endif %}
 							</a>
