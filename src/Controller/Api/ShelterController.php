@@ -59,10 +59,20 @@ class ShelterController extends AbstractController
      * We need Request and Serialize
      * @Route("/api/shelter/create", name="api_shelter_create", methods="POST")
      */
-    public function create(Request $request, EntityManagerInterface $entityManager, UploaderHelper $uploaderHelper)
+    public function create(Request $request, EntityManagerInterface $entityManager, UploaderHelper $uploaderHelper, ValidatorInterface $validator)
     {
         
         $shelterData = $request->request->all();
+
+        $errors = $validator->validate($shelterData);
+
+        if (count($errors) > 0) {
+
+            // The array of errors is returned as JSON
+            // With an error status 422
+            // @see https://fr.wikipedia.org/wiki/Liste_des_codes_HTTP
+            return $this->json($errors, Response::HTTP_UNPROCESSABLE_ENTITY);
+        }
 
         $shelter = new Shelter();
         $user = $this->getUser();
