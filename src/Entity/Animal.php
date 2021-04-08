@@ -60,8 +60,6 @@ class Animal
      * @ORM\Column(type="text")
      * 
      * Here we config our FileType for the form to add an animal with MimeTypes
-     * @Assert\File(maxSize = "4096k", mimeTypes = {"image/png", "image/jpeg"}, mimeTypesMessage = "La photo doit faire maximum 4 Mo et être au format JPEG ou PNG")
-     * @Assert\NotBlank
      * 
      * @Groups("animal_list")
      * @Groups("shelter_list")
