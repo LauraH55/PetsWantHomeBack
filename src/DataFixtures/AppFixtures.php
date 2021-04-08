@@ -161,44 +161,45 @@ class AppFixtures extends Fixture
             $manager->persist($dogs);
         };
 
-        // Cats for Animal Table
+        
+        // Nacs for Animal Table
 
-        $catAnimals = [];
+        $nacAnimals = [];
 
         for ($i = 1; $i <= self::NB_ANIMALS; $i++) {
 
-            $catAnimal = new Animal();
+            $nacAnimal = new Animal();
             // We fill the fields of our entity
-            $catAnimal->setName($faker->unique()->animalName());
-            $catAnimal->setBirthdate($faker->dateTimeBetween('-16 years'));
-            $catAnimal->setGender($faker->numberBetween($min = 1, $max = 2));
-            // The function numberBetween() allow to set a number only between the min and max values indicated
-            $catAnimal->setCatCohabitation($faker->boolean());
-            $catAnimal->setDogCohabitation($faker->boolean());
-            $catAnimal->setNacCohabitation($faker->boolean());
-            $catAnimal->setChildCohabitation($faker->boolean());
-            $catAnimal->setUnknownCohabitation($faker->boolean());
-            $catAnimal->setPicture($faker->unique()->catImage());
-            $catAnimal->setStatus($faker->numberBetween($min = 1, $max = 4));
-            $catAnimal->setDescription($faker->unique()->catDescription());
-            $catAnimal->setCreatedAt(new \DateTime());
-            $catAnimal->setSpecies($catSpecies);
+            $nacAnimal->setName($faker->unique()->animalName());
+            $nacAnimal->setBirthdate($faker->dateTimeBetween('-16 years'));
+            $nacAnimal->setGender($faker->numberBetween($min = 1, $max = 2));
+            $nacAnimal->setCatCohabitation($faker->boolean());
+            $nacAnimal->setDogCohabitation($faker->boolean());
+            $nacAnimal->setNacCohabitation($faker->boolean());
+            $nacAnimal->setChildCohabitation($faker->boolean());
+            $nacAnimal->setUnknownCohabitation($faker->boolean());
+            $nacAnimal->setPicture($faker->unique()->nacImage());
+            $nacAnimal->setStatus($faker->numberBetween($min = 1, $max = 4));
+            $nacAnimal->setDescription($faker->nacDescription());
+            $nacAnimal->setCreatedAt(new \DateTime());
+            $nacAnimal->setSpecies($nacSpecies);
 
             // With shuffle we make random data but also unique
-            shuffle($catList);
+            /* shuffle($nacList);
             for ($r = 0; $r < self::NB_RACES; $r++) {
-                // We search in our shuffled array
-                $randomRace = $catList[$r];
-                $catAnimal->setRace($randomRace);
-            }
 
-            $catAnimals[] = $catAnimal;
+                $randomRace = $nacList[$r];
+                $nacAnimal->setRace($randomRace);
+            } */
+
+            $nacAnimals[] = $nacAnimal;
 
             // We persist it
-            $manager->persist($catAnimal);
+            $manager->persist($nacAnimal);
         }
 
-        // Cats for Animal Table
+
+        // Dogs for Animal Table
 
         $dogAnimals = [];
 
@@ -236,38 +237,39 @@ class AppFixtures extends Fixture
 
         // Cats for Animal Table
 
-        $nacAnimals = [];
+        $catAnimals = [];
 
         for ($i = 1; $i <= self::NB_ANIMALS; $i++) {
 
-            $nacAnimal = new Animal();
+            $catAnimal = new Animal();
             // We fill the fields of our entity
-            $nacAnimal->setName($faker->unique()->animalName());
-            $nacAnimal->setBirthdate($faker->dateTimeBetween('-16 years'));
-            $nacAnimal->setGender($faker->numberBetween($min = 1, $max = 2));
-            $nacAnimal->setCatCohabitation($faker->boolean());
-            $nacAnimal->setDogCohabitation($faker->boolean());
-            $nacAnimal->setNacCohabitation($faker->boolean());
-            $nacAnimal->setChildCohabitation($faker->boolean());
-            $nacAnimal->setUnknownCohabitation($faker->boolean());
-            $nacAnimal->setPicture($faker->unique()->nacImage());
-            $nacAnimal->setStatus($faker->numberBetween($min = 1, $max = 4));
-            $nacAnimal->setDescription($faker->nacDescription());
-            $nacAnimal->setCreatedAt(new \DateTime());
-            $nacAnimal->setSpecies($nacSpecies);
+            $catAnimal->setName($faker->unique()->animalName());
+            $catAnimal->setBirthdate($faker->dateTimeBetween('-16 years'));
+            $catAnimal->setGender($faker->numberBetween($min = 1, $max = 2));
+            // The function numberBetween() allow to set a number only between the min and max values indicated
+            $catAnimal->setCatCohabitation($faker->boolean());
+            $catAnimal->setDogCohabitation($faker->boolean());
+            $catAnimal->setNacCohabitation($faker->boolean());
+            $catAnimal->setChildCohabitation($faker->boolean());
+            $catAnimal->setUnknownCohabitation($faker->boolean());
+            $catAnimal->setPicture($faker->unique()->catImage());
+            $catAnimal->setStatus($faker->numberBetween($min = 1, $max = 4));
+            $catAnimal->setDescription($faker->unique()->catDescription());
+            $catAnimal->setCreatedAt(new \DateTime());
+            $catAnimal->setSpecies($catSpecies);
 
             // With shuffle we make random data but also unique
-            /* shuffle($nacList);
+            shuffle($catList);
             for ($r = 0; $r < self::NB_RACES; $r++) {
+                // We search in our shuffled array
+                $randomRace = $catList[$r];
+                $catAnimal->setRace($randomRace);
+            }
 
-                $randomRace = $nacList[$r];
-                $nacAnimal->setRace($randomRace);
-            } */
-
-            $nacAnimals[] = $nacAnimal;
+            $catAnimals[] = $catAnimal;
 
             // We persist it
-            $manager->persist($nacAnimal);
+            $manager->persist($catAnimal);
         }
 
         // Shelters
