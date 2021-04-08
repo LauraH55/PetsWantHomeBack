@@ -26,7 +26,7 @@ class ShelterController extends AbstractController
      */
     public function backToMainsite(){
 
-        return $this->redirect('http://petswanthome.surge.sh');
+        return $this->redirect('http://ec2-34-228-226-181.compute-1.amazonaws.com/');
     }
 
     /**
