@@ -56,7 +56,7 @@ class UserController extends AbstractController
      * @Route("/api/user/{id<\d+>}/update", name="api_user_update_put", methods={"PUT"})
      * @Route("/api/user/{id<\d+>}/update", name="api_user_update_patch", methods={"PATCH"})
      */
-    public function userUpdate(User $user = null, EntityManagerInterface $em, SerializerInterface $serializer, Request $request, ValidatorInterface $validator, $data)
+    public function userUpdate(User $user = null, EntityManagerInterface $em, SerializerInterface $serializer, Request $request, ValidatorInterface $validator)
     {
         // 1. We want to modify the refuge whose id is transmitted via the URL
         // 404 page error ?
@@ -87,7 +87,7 @@ class UserController extends AbstractController
         // On flush $user which has been modified by the Serializer
         $em->flush();
 
-        return $this->json(['message' => 'Informations de connexion modifiées.'], Response::HTTP_OK);
+        return $this->json(['message' => 'Identifiants de connexion modifiées.'], Response::HTTP_OK);
     }
 
     /**

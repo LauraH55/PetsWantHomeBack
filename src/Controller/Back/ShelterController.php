@@ -89,14 +89,16 @@ class ShelterController extends AbstractController
 
     /**
      * Delete a user / shelter
-     * @Route("/back/shelter/{id<\d+>}/delete", name="back_shelter_delete", methods={"DELETE"})
+     * @Route("/back/user/delete", name="back_shelter_delete", methods={"DELETE"})
      */
     public function delete(Shelter $shelter, Request $request, EntityManagerInterface $entityManager): Response
     {
     
         $em = $this->getDoctrine()->getManager();
 
-        if(!$shelter)
+        $user = $this->getUser();
+
+        if(!$this->getUser())
         {
             throw $this->createNotFoundException('No ID found');
         }
@@ -110,10 +112,10 @@ class ShelterController extends AbstractController
         }
 
 
-        $em->remove($shelter);
+        $em->remove($user);
         $em->flush();
 
-        return $this->redirect('http://petswanthome.surge.sh');
+        return $this->redirect('http://http://ec2-34-228-226-181.compute-1.amazonaws.com/');
 
     }
 }
