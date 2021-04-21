@@ -139,6 +139,5 @@ class AnimalController extends AbstractController
 
         return $this->redirectToRoute('back_shelter_read');
 
-
     }
 }

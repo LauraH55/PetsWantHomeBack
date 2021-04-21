@@ -30,7 +30,7 @@ class Species
     private $name;
 
     /**
-     * @ORM\OneToMany(targetEntity=Race::class, mappedBy="species", orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity=Race::class, mappedBy="species", cascade={"persist"}, orphanRemoval=true)
      */
     private $race;
 

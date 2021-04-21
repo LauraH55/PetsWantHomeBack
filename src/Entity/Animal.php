@@ -103,7 +103,7 @@ class Animal
     private $updatedAt;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Race::class, inversedBy="animals")
+     * @ORM\ManyToOne(targetEntity=Race::class, inversedBy="animals", cascade={"persist"})
      * 
      * @Groups("animal_list")
      * @Groups("shelter_list")
@@ -119,7 +119,7 @@ class Animal
     private $shelter;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Species::class, inversedBy="animal")
+     * @ORM\ManyToOne(targetEntity=Species::class, inversedBy="animal", cascade={"persist"})
      * @ORM\JoinColumn(nullable=false)
      * 
      * @Assert\NotBlank
@@ -172,6 +172,7 @@ class Animal
     public function __construct()
     {
         $this->createdAt = new \DateTime();
+        $this->birthdate = new \DateTime();
     }
 
     public function getId(): ?int
