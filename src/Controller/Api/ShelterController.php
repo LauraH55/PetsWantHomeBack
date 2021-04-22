@@ -14,6 +14,7 @@ use Symfony\Component\Serializer\SerializerInterface;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 use Symfony\Component\Serializer\Normalizer\AbstractNormalizer;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Serializer\Normalizer;
 use Symfony\Component\HttpFoundation\ParameterBag;
 
 /**
@@ -115,56 +116,83 @@ class ShelterController extends AbstractController
      * @Route("/api/shelter/update", name="api_shelter_update_put", methods={"PUT"})
      * @Route("/api/shelter/update", name="api_shelter_update_patch", methods={"PATCH"})
      */
-    public function shelterUpdate(EntityManagerInterface $entityManager, UploaderHelper $uploaderHelper, SerializerInterface $serializer, Request $request, ValidatorInterface $validator)
+    public function shelterUpdate(Shelter $shelter = null, EntityManagerInterface $entityManager, SerializerInterface $serializer, Request $request, ValidatorInterface $validator)
     {
 
-        if ($this->getUser()) {
-
-            $user = $this->getUser();
-            $shelter = $user->getShelter();
-
-            $shelterData = $request->request->all();
-
-            $errors = $validator->validate($shelterData);
-
-            if (count($errors) > 0) {
-
-                // The array of errors is returned as JSON
-                // With an error status 422
-                // @see https://fr.wikipedia.org/wiki/Liste_des_codes_HTTP
-                return $this->json($errors, Response::HTTP_UNPROCESSABLE_ENTITY);
-            }
-
-            $shelter->setPhoneNumber($shelterData['phone_number']);
-            $shelter->setName($shelterData['name']);
-            $shelter->setEmail($shelterData['email']);
-            $shelter->setAddress($shelterData['address']);
-
-            // retrieves an instance of UploadedFile identified by picture
-            $uploadedFile = $request->files->get('picture');
-
-            if ($uploadedFile) {
-                $newFilename = $uploaderHelper->uploadImage($uploadedFile);
-                $shelter->setPicture($newFilename);
-            }
-            // We save the shelter
-            $entityManager->persist($shelter);
-            $entityManager->flush();
-
-
-            // We redirect to api_shelter_read
-            return $this->json([
-                'shelter' => $shelter,
-            ], Response::HTTP_CREATED);
-        }
-
-
-        // 1. We want to modify the refuge whose id is transmitted via the URL
-        // 404 page error ?
         if ($this->getUser()->getShelter() === null) {
-            // We return a JSON message + a 404 status
-            return $this->json(['error' => 'Désolé, ce refuge n\'existe pas.'], Response::HTTP_NOT_FOUND);
+            return $this->json(['error' => 'Refuge non trouvé.'], Response::HTTP_NOT_FOUND);
         }
+
+        // Notre JSON qui se trouve dans le body
+        $jsonContent = $request->getContent();
+
+        $shelter = $this->getUser()->getShelter();
+
+        $serializer->deserialize(
+            $jsonContent,
+            Shelter::class,
+            'json',
+            [AbstractNormalizer::OBJECT_TO_POPULATE => $shelter]
+        );
+
+        $errors = $validator->validate($shelter);
+        if (count($errors) > 0) {
+            return $this->json($errors, Response::HTTP_UNPROCESSABLE_ENTITY);
+        }
+
+        $entityManager->flush();
+
+
+        return $this->json(['message' => 'Refuge modifié.'], Response::HTTP_OK);
+
+        
 
     }
+
+
+    /**
+     * Edit shelter Image (POST)
+     * 
+     * @Route("/api/shelter/update/image", name="api_shelter_update_image", methods={"POST"})
+     */
+    public function updateShelterImage(EntityManagerInterface $entityManager, UploaderHelper $uploaderHelper, Request $request, ValidatorInterface $validator)
+    {
+        
+        // We should make an edit function specially for image because in API we couldn't use the methods PUT and PATCH with the multipart/form-data
+             
+        $user = $this->getUser();
+        
+        $shelter = $user->getShelter();
+        
+        $shelterData = $request->request->all();
+        
+        $errors = $validator->validate($shelterData);
+        
+        if (count($errors) > 0) {
+
+            // The array of errors is returned as JSON
+            // With an error status 422
+            // @see https://fr.wikipedia.org/wiki/Liste_des_codes_HTTP
+            return $this->json($errors, Response::HTTP_UNPROCESSABLE_ENTITY);
+        }
+
+        // retrieves an instance of UploadedFile identified by picture
+        $uploadedFile = $request->files->get('picture');
+
+        if ($uploadedFile) {
+            $newFilename = $uploaderHelper->uploadImage($uploadedFile);
+            $shelter->setPicture($newFilename);
+        }
+        // We save the shelter
+        $entityManager->persist($shelter);
+        $entityManager->flush();
+    
+
+        // We redirect to api_shelter_read
+        return $this->json([
+            'shelter' => $shelter,
+        ], Response::HTTP_OK, [], ['groups' => 'shelter_list']);
+    }
+
 }
+
