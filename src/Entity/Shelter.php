@@ -111,8 +111,7 @@ class Shelter
 
     public function __construct()
     {
-        $this->animals = new ArrayCollection();
-        
+        $this->animals = new ArrayCollection();    
         
     }
 
