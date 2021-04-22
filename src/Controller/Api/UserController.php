@@ -38,7 +38,7 @@ class UserController extends AbstractController
         $hashedPassword = $passwordEncoder->encodePassword($user, $user->getPassword());
         // We reassign the password encoded in the User
         $user->setPassword($hashedPassword);
-        $user->setRoles(['ROLE_SHELTER']);
+        $user->setRoles(['ROLE_USER']);
         // We save the user (if submitted is valid ...)
         // We save the user
         $entityManager->persist($user);
@@ -53,11 +53,12 @@ class UserController extends AbstractController
     /**
      * Edit user (PUT et PATCH)
      *
-     * @Route("/api/user/{id<\d+>}/update", name="api_user_update_put", methods={"PUT"})
-     * @Route("/api/user/{id<\d+>}/update", name="api_user_update_patch", methods={"PATCH"})
+     * @Route("/api/user/update", name="api_user_update_put", methods={"PUT"})
+     * @Route("/api/user/update", name="api_user_update_patch", methods={"PATCH"})
      */
-    public function userUpdate(User $user = null, EntityManagerInterface $em, SerializerInterface $serializer, Request $request, ValidatorInterface $validator)
+    public function userUpdate(EntityManagerInterface $em, SerializerInterface $serializer, UserPasswordEncoderInterface $passwordEncoder, Request $request, ValidatorInterface $validator)
     {
+        $user = $this->getUser();
         // 1. We want to modify the refuge whose id is transmitted via the URL
         // 404 page error ?
         if ($user === null) {
@@ -67,7 +68,7 @@ class UserController extends AbstractController
 
         // Our JSON which is in the body
         $jsonContent = $request->getContent();
-
+        
         $serializer->deserialize(
             $jsonContent,
             User::class,
@@ -75,7 +76,7 @@ class UserController extends AbstractController
             // We have this additional argument which tells the serializer which existing entity to modify
             [AbstractNormalizer::OBJECT_TO_POPULATE => $user]
         );
-
+        
         // Validate the deserialize entity
         $errors = $validator->validate($user);
         // Generate errors
@@ -83,6 +84,11 @@ class UserController extends AbstractController
             // We return the error table in Json to the front with a status code 422
             return $this->json($errors, Response::HTTP_UNPROCESSABLE_ENTITY);
         }
+
+        $hashedPassword = $passwordEncoder->encodePassword($user, $user->getPassword());
+        
+        // We reassign the password encoded in the User
+        $user->setPassword($hashedPassword);
 
         // On flush $user which has been modified by the Serializer
         $em->flush();
@@ -93,10 +99,12 @@ class UserController extends AbstractController
     /**
      * Delete a user / shelter
      * 
-     * @Route("/api/user/{id}/delete", name="api_user_delete", methods={"DELETE"})
+     * @Route("/api/user/delete", name="api_user_delete", methods={"DELETE"})
      */
-    public function delete(User $user = null, EntityManagerInterface $entityManager): Response
+    public function delete(EntityManagerInterface $entityManager): Response
     {
+        // we take the current user to delete it.
+        $user = $this->getUser();
     
         if ($user === null) {
 

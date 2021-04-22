@@ -61,7 +61,9 @@ security:
     - { path: ^/api/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
     - { path: ^/api/animals, roles: IS_AUTHENTICATED_ANONYMOUSLY }
     - { path: ^/api/users, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+    - { path: ^/api/shelter/create, methods: [GET, POST], roles: ROLE_USER }
     - { path: ^/api/(.+)/(update|delete|create), methods: [GET, POST], roles: ROLE_SHELTER }
+    
     # - { path: ^/api/logout, roles: ROLE_SHELTER }
     # - { path: ^/api, roles: IS_AUTHENTICATED_FULLY }
 

@@ -61,7 +61,7 @@ class ShelterController extends AbstractController
      */
     public function create(Request $request, EntityManagerInterface $entityManager, UploaderHelper $uploaderHelper, ValidatorInterface $validator)
     {
-        
+
         $shelterData = $request->request->all();
 
         $errors = $validator->validate($shelterData);
@@ -77,7 +77,7 @@ class ShelterController extends AbstractController
         $shelter = new Shelter();
         $user = $this->getUser();
 
-        if($user->getShelter() !== null){
+        if ($user->getShelter() !== null) {
             return $this->json([
                 'error' => "Vous avez déjà un refuge",
             ], Response::HTTP_BAD_REQUEST);
@@ -88,66 +88,83 @@ class ShelterController extends AbstractController
         $shelter->setName($shelterData['name']);
         $shelter->setEmail($shelterData['email']);
         $shelter->setAddress($shelterData['address']);
-        
-        
+        $user->setRoles(['ROLE_SHELTER']);
+
+
         // retrieves an instance of UploadedFile identified by picture
         $uploadedFile = $request->files->get('picture');
-        
+
         if ($uploadedFile) {
             $newFilename = $uploaderHelper->uploadImage($uploadedFile);
             $shelter->setPicture($newFilename);
-
         }
         // We save the shelter
         $entityManager->persist($shelter);
         $entityManager->flush();
-        
+
 
         // We redirect to api_shelter_read
         return $this->json([
             'shelter' => $shelter,
         ], Response::HTTP_CREATED);
-
     }
 
     /**
      * Edit shelter (PUT et PATCH)
      * 
-     * @Route("/api/shelter/{id<\d+>}/update", name="api_shelter_update_put", methods={"PUT"})
-     * @Route("/api/shelter/{id<\d+>}/update", name="api_shelter_update_patch", methods={"PATCH"})
+     * @Route("/api/shelter/update", name="api_shelter_update_put", methods={"PUT"})
+     * @Route("/api/shelter/update", name="api_shelter_update_patch", methods={"PATCH"})
      */
-    public function shelterUpdate(Shelter $shelter = null, EntityManagerInterface $em, SerializerInterface $serializer, Request $request, ValidatorInterface $validator)
+    public function shelterUpdate(EntityManagerInterface $entityManager, UploaderHelper $uploaderHelper, SerializerInterface $serializer, Request $request, ValidatorInterface $validator)
     {
+
+        if ($this->getUser()) {
+
+            $user = $this->getUser();
+            $shelter = $user->getShelter();
+
+            $shelterData = $request->request->all();
+
+            $errors = $validator->validate($shelterData);
+
+            if (count($errors) > 0) {
+
+                // The array of errors is returned as JSON
+                // With an error status 422
+                // @see https://fr.wikipedia.org/wiki/Liste_des_codes_HTTP
+                return $this->json($errors, Response::HTTP_UNPROCESSABLE_ENTITY);
+            }
+
+            $shelter->setPhoneNumber($shelterData['phone_number']);
+            $shelter->setName($shelterData['name']);
+            $shelter->setEmail($shelterData['email']);
+            $shelter->setAddress($shelterData['address']);
+
+            // retrieves an instance of UploadedFile identified by picture
+            $uploadedFile = $request->files->get('picture');
+
+            if ($uploadedFile) {
+                $newFilename = $uploaderHelper->uploadImage($uploadedFile);
+                $shelter->setPicture($newFilename);
+            }
+            // We save the shelter
+            $entityManager->persist($shelter);
+            $entityManager->flush();
+
+
+            // We redirect to api_shelter_read
+            return $this->json([
+                'shelter' => $shelter,
+            ], Response::HTTP_CREATED);
+        }
+
+
         // 1. We want to modify the refuge whose id is transmitted via the URL
         // 404 page error ?
-        if ($shelter === null) {
+        if ($this->getUser()->getShelter() === null) {
             // We return a JSON message + a 404 status
-            return $this->json(['error' => 'Désolé ce refuge n\'existe pas.'], Response::HTTP_NOT_FOUND);
+            return $this->json(['error' => 'Désolé, ce refuge n\'existe pas.'], Response::HTTP_NOT_FOUND);
         }
 
-        // Our JSON which is in the body
-        $jsonContent = $request->getContent();
-
-        $serializer->deserialize(
-            $jsonContent,
-            Shelter::class,
-            'json',
-            // We have this additional argument which tells the serializer which existing entity to modify
-            [AbstractNormalizer::OBJECT_TO_POPULATE => $shelter]
-        );
-
-        // Validate the deserialize entity
-        $errors = $validator->validate($shelter);
-        // Generate errors
-        if (count($errors) > 0) {
-            // We return the error table in Json to the front with a status code 422
-            return $this->json($errors, Response::HTTP_UNPROCESSABLE_ENTITY);
-        }
-
-        // On flush $shelter which has been modified by the Serializer
-        $em->flush();
-
-        return $this->json(['message' => 'Refuge modifié.'], Response::HTTP_OK);
-        
     }
 }
