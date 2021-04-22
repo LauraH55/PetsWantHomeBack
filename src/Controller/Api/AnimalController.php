@@ -12,7 +12,9 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Serializer\SerializerInterface;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
+use Symfony\Component\Serializer\Normalizer\AbstractNormalizer;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 /**
@@ -136,19 +138,49 @@ class AnimalController extends AbstractController
      * @Route("/api/animal/{id<\d+>}/update", name="api_animal_update", methods={"PUT"})
      * @Route("/api/animal/{id<\d+>}/update", name="api_animal_update", methods={"PATCH"})
      */
-    public function update(Animal $animal, Request $request, EntityManagerInterface $entityManager, UploaderHelper $uploaderHelper, ValidatorInterface $validator, RaceRepository $raceRepository, SpeciesRepository $speciesRepository)
+    public function update(Animal $animal = null, Request $request, EntityManagerInterface $entityManager, SerializerInterface $serializer,UploaderHelper $uploaderHelper, ValidatorInterface $validator, RaceRepository $raceRepository, SpeciesRepository $speciesRepository)
     {
 
-        if ($this->getUser()->getShelter() == null) {
-            return $this->json([
-                'error' => "Vous n'avez pas de refuge",
-            ], Response::HTTP_BAD_REQUEST);
+        if ($this->getUser()->getShelter() === null) {
+            return $this->json(['error' => 'Refuge non trouvé.'], Response::HTTP_NOT_FOUND);
         }
 
+        // Notre JSON qui se trouve dans le body
+        $jsonContent = $request->getContent();
+
+        $serializer->deserialize(
+            $jsonContent,
+            Animal::class,
+            'json',
+            [AbstractNormalizer::OBJECT_TO_POPULATE => $animal]
+        );
+
+        $errors = $validator->validate($animal);
+        if (count($errors) > 0) {
+            return $this->json($errors, Response::HTTP_UNPROCESSABLE_ENTITY);
+        }
+
+        $entityManager->flush();
+
+
+        return $this->json(['message' => 'Animal modifié.'], Response::HTTP_OK);
+
+    }
+
+    /**
+     * Edit animal Image (POST)
+     * 
+     * @Route("/api/animal/{id<\d+>}/update/image", name="api_animal_update_image", methods={"POST"})
+     */
+    public function updateAnimalImage(Animal $animal, EntityManagerInterface $entityManager, UploaderHelper $uploaderHelper, Request $request, ValidatorInterface $validator)
+    {
+        
+        // We should make an edit function specially for image because in API we couldn't use the methods PUT and PATCH with the multipart/form-data
+        
         $animalData = $request->request->all();
-
+        
         $errors = $validator->validate($animalData);
-
+        
         if (count($errors) > 0) {
 
             // The array of errors is returned as JSON
@@ -157,21 +189,6 @@ class AnimalController extends AbstractController
             return $this->json($errors, Response::HTTP_UNPROCESSABLE_ENTITY);
         }
 
-        $animal->setName($animalData['name']);
-        $animal->setStatus($animalData['status']);
-        $animal->setBirthdate(new \DateTime($animalData['birthdate']));
-        $animal->setGender($animalData['gender']);
-        $animal->setDescription($animalData['description']);
-          
-        $animal->setSpecies($speciesRepository->find($animalData['species_id']));   
-        $animal->setRace($raceRepository->find($animalData['race_id']));
-
-        $animal->setCatCohabitation($animalData['cat_cohabitation']);
-        $animal->setDogCohabitation($animalData['dog_cohabitation']);
-        $animal->setNacCohabitation($animalData['nac_cohabitation']);
-        $animal->setChildCohabitation($animalData['child_cohabitation']);
-        $animal->setUnknownCohabitation($animalData['unknown_cohabitation']);
-        
         // retrieves an instance of UploadedFile identified by picture
         $uploadedFile = $request->files->get('picture');
 
@@ -182,7 +199,7 @@ class AnimalController extends AbstractController
         // We save the animal
         $entityManager->persist($animal);
         $entityManager->flush();
-
+    
 
         // We redirect to api_animal_read
         return $this->json([
