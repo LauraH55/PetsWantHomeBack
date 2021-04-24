@@ -103,7 +103,7 @@ class Animal
     private $updatedAt;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Race::class, inversedBy="animals", cascade={"persist"})
+     * @ORM\ManyToOne(targetEntity=Race::class, inversedBy="animals")
      * 
      * @Groups("animal_list")
      * @Groups("shelter_list")
@@ -119,7 +119,7 @@ class Animal
     private $shelter;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Species::class, inversedBy="animal", cascade={"persist"})
+     * @ORM\ManyToOne(targetEntity=Species::class, inversedBy="animal")
      * @ORM\JoinColumn(nullable=false)
      * 
      * @Assert\NotBlank

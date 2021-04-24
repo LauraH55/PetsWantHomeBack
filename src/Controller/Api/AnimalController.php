@@ -6,6 +6,7 @@ use DateTime;
 use App\Entity\Animal;
 use App\Service\UploaderHelper;
 use App\Repository\RaceRepository;
+use App\Normalizer\EntityNormalizer;
 use App\Repository\AnimalRepository;
 use App\Repository\SpeciesRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -135,10 +136,10 @@ class AnimalController extends AbstractController
     /**
      * Update an Animal
      * 
-     * @Route("/api/animal/{id<\d+>}/update", name="api_animal_update", methods={"PUT"})
-     * @Route("/api/animal/{id<\d+>}/update", name="api_animal_update", methods={"PATCH"})
+     * @Route("/api/animal/{id<\d+>}/update", name="api_animal_update_put", methods={"PUT"})
+     * @Route("/api/animal/{id<\d+>}/update", name="api_animal_update_patch", methods={"PATCH"})
      */
-    public function update(Animal $animal = null, Request $request, EntityManagerInterface $entityManager, SerializerInterface $serializer,UploaderHelper $uploaderHelper, ValidatorInterface $validator, RaceRepository $raceRepository, SpeciesRepository $speciesRepository)
+    public function update(Animal $animal = null, Request $request, EntityManagerInterface $entityManager, SerializerInterface $serializer, ValidatorInterface $validator)
     {
 
         if ($this->getUser()->getShelter() === null) {
@@ -147,14 +148,14 @@ class AnimalController extends AbstractController
 
         // Notre JSON qui se trouve dans le body
         $jsonContent = $request->getContent();
-
+        
         $serializer->deserialize(
             $jsonContent,
             Animal::class,
             'json',
             [AbstractNormalizer::OBJECT_TO_POPULATE => $animal]
         );
-
+        //dd($animal);
         $errors = $validator->validate($animal);
         if (count($errors) > 0) {
             return $this->json($errors, Response::HTTP_UNPROCESSABLE_ENTITY);
@@ -163,7 +164,7 @@ class AnimalController extends AbstractController
         $entityManager->flush();
 
 
-        return $this->json(['message' => 'Animal modifié.'], Response::HTTP_OK);
+        return $this->json(['message' => 'Animal modifié.'], Response::HTTP_OK, [], ['groups' => 'animal_list']);
 
     }
 
