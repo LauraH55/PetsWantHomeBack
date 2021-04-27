@@ -77,9 +77,9 @@ class AnimalController extends AbstractController
     public function create(Request $request, EntityManagerInterface $entityManager, UploaderHelper $uploaderHelper, ValidatorInterface $validator, RaceRepository $raceRepository, SpeciesRepository $speciesRepository)
     {
 
-        if ($this->getUser()->getShelter() == null) {
+        if ($this->getUser()->getShelter() == null && $this->getUser()->getPrivatePerson() == null) {
             return $this->json([
-                'error' => "Vous n'avez pas de refuge",
+                'error' => "Vous n'avez pas de profil ni de refuge",
             ], Response::HTTP_BAD_REQUEST);
         }
 
@@ -97,9 +97,17 @@ class AnimalController extends AbstractController
 
         $animal = new Animal();
         $user = $this->getUser();
-        $shelter = $user->getShelter();
+
+        if($user->getShelter() !== null){
+            $shelter = $user->getShelter();
+            $animal->setShelter($shelter);
+        }
+
+        if($user->getPrivatePerson() !== null){
+            $privatePerson = $user->getPrivatePerson();
+            $animal->setPrivatePerson($privatePerson);
+        }
         
-        $animal->setShelter($shelter);      
         $animal->setName($animalData['name']);
         $animal->setStatus($animalData['status']);
         $animal->setBirthdate(new \DateTime($animalData['birthdate']));
@@ -142,8 +150,8 @@ class AnimalController extends AbstractController
     public function update(Animal $animal = null, Request $request, EntityManagerInterface $entityManager, SerializerInterface $serializer, ValidatorInterface $validator)
     {
 
-        if ($this->getUser()->getShelter() === null) {
-            return $this->json(['error' => 'Refuge non trouvé.'], Response::HTTP_NOT_FOUND);
+        if ($this->getUser()->getShelter() === null && $this->getUser()->getPrivatePerson() == null) {
+            return $this->json(['error' => 'Profil ou refuge non trouvé.'], Response::HTTP_NOT_FOUND);
         }
 
         // Notre JSON qui se trouve dans le body

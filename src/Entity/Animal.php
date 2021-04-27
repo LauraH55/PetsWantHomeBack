@@ -169,6 +169,11 @@ class Animal
      */
     private $childCohabitation;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=PrivatePerson::class, inversedBy="animals")
+     */
+    private $privatePerson;
+
     public function __construct()
     {
         $this->createdAt = new \DateTime();
@@ -368,6 +373,18 @@ class Animal
     public function setChildCohabitation(?bool $childCohabitation): self
     {
         $this->childCohabitation = $childCohabitation;
+
+        return $this;
+    }
+
+    public function getPrivatePerson(): ?PrivatePerson
+    {
+        return $this->privatePerson;
+    }
+
+    public function setPrivatePerson(?PrivatePerson $privatePerson): self
+    {
+        $this->privatePerson = $privatePerson;
 
         return $this;
     }
