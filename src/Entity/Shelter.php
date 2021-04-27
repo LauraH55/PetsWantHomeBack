@@ -111,11 +111,17 @@ class Shelter
 
     /**
      * @ORM\Column(type="string", length=10)
+     * 
+     * @Groups("shelter_list")
+     * @Groups("animal_list")
      */
     private $zip;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * 
+     * @Groups("shelter_list")
+     * @Groups("animal_list")
      */
     private $city;
 
@@ -131,7 +137,8 @@ class Shelter
 
     public function __construct()
     {
-        $this->animals = new ArrayCollection();    
+        $this->animals = new ArrayCollection();
+        $this->createdAt = new \DateTime();    
         
     }
 
