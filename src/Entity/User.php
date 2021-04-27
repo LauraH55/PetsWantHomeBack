@@ -48,6 +48,21 @@ class User implements UserInterface
      */
     private $shelter;
 
+    /**
+     * @ORM\Column(type="datetime")
+     */
+    private $createdAt;
+
+    /**
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    private $updatedAt;
+
+    /**
+     * @ORM\OneToOne(targetEntity=PrivatePerson::class, inversedBy="user", cascade={"persist", "remove"})
+     */
+    private $privatePerson;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -150,4 +165,41 @@ class User implements UserInterface
 
         return $this;
     }
+
+    public function getCreatedAt(): ?\DateTimeInterface
+    {
+        return $this->createdAt;
+    }
+
+    public function setCreatedAt(\DateTimeInterface $createdAt): self
+    {
+        $this->createdAt = $createdAt;
+
+        return $this;
+    }
+
+    public function getUpdatedAt(): ?\DateTimeInterface
+    {
+        return $this->updatedAt;
+    }
+
+    public function setUpdatedAt(?\DateTimeInterface $updatedAt): self
+    {
+        $this->updatedAt = $updatedAt;
+
+        return $this;
+    }
+
+    public function getPrivatePerson(): ?PrivatePerson
+    {
+        return $this->privatePerson;
+    }
+
+    public function setPrivatePerson(?PrivatePerson $privatePerson): self
+    {
+        $this->privatePerson = $privatePerson;
+
+        return $this;
+    }
+
 }
