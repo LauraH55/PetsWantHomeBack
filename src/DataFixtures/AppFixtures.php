@@ -8,6 +8,7 @@ use App\Entity\User;
 use App\Entity\Animal;
 use App\Entity\Shelter;
 use App\Entity\Species;
+use App\Entity\PrivatePerson;
 use Doctrine\DBAL\Connection;
 use Doctrine\Persistence\ObjectManager;
 use Doctrine\Bundle\FixturesBundle\Fixture;
@@ -43,6 +44,7 @@ class AppFixtures extends Fixture
         $animals = $this->connection->executeQuery('TRUNCATE TABLE shelter');
         $animals = $this->connection->executeQuery('TRUNCATE TABLE species');
         $animals = $this->connection->executeQuery('TRUNCATE TABLE user');
+        $animals = $this->connection->executeQuery('TRUNCATE TABLE private_person');
     }
 
     public function load(ObjectManager $manager)
@@ -62,6 +64,7 @@ class AppFixtures extends Fixture
         $encodedPassword = $this->passwordEncoder->encodePassword($chatsteignes, 'chatsteignes');
         $chatsteignes->setPassword($encodedPassword);
         $chatsteignes->setRoles(['ROLE_SHELTER']);
+        $chatsteignes->setCreatedAt(new \DateTime());
         $manager->persist($chatsteignes);
 
         $patounes = new User();
@@ -69,6 +72,7 @@ class AppFixtures extends Fixture
         $encodedPassword = $this->passwordEncoder->encodePassword($patounes, 'patounes');
         $patounes->setPassword($encodedPassword);
         $patounes->setRoles(['ROLE_SHELTER']);
+        $patounes->setCreatedAt(new \DateTime());
         $manager->persist($patounes);
 
         $mordant = new User();
@@ -76,8 +80,25 @@ class AppFixtures extends Fixture
         $encodedPassword = $this->passwordEncoder->encodePassword($mordant, 'mordant');
         $mordant->setPassword($encodedPassword);
         $mordant->setRoles(['ROLE_SHELTER']);
+        $mordant->setCreatedAt(new \DateTime());
         $manager->persist($mordant);
 
+        $privateUser = new User();
+        $privateUser->setEmail('laura@laura.com');
+        $encodedPassword = $this->passwordEncoder->encodePassword($privateUser, 'laura');
+        $privateUser->setPassword($encodedPassword);
+        $privateUser->setRoles(['ROLE_USER']);
+        $privateUser->setCreatedAt(new \DateTime());
+        $manager->persist($privateUser);
+
+        // Private Person
+        $laura = new PrivatePerson();
+        $laura->setFirstname('Laura');
+        $laura->setLastname('Hantz');
+        $laura->setPicture('default_image_01.png');
+        $laura->setCreatedAt(new \DateTime());
+        $laura->setUser($privateUser);
+        $manager->persist($laura);
 
         $catSpeciesObject = [];
 
@@ -277,10 +298,13 @@ class AppFixtures extends Fixture
 
         $shelter1 = new Shelter();
         $shelter1->setName('Le Refuge des Patounes');
-        $shelter1->setAddress('2 rue des chatons 17000 La Rochelle');
+        $shelter1->setAddress('2 rue des chatons');
+        $shelter1->setZip('17000');
+        $shelter1->setCity('La Rochelle');
         $shelter1->setPhoneNumber('0635262245');
         $shelter1->setEmail('le-refuge-des-patounes@patounes.com');
         $shelter1->setPicture('shelters/shelter1.jpg');
+        $shelter1->setCreatedAt(new \DateTime());
         $shelter1->setUser($patounes);
 
         shuffle($catAnimals);
@@ -308,9 +332,12 @@ class AppFixtures extends Fixture
         $shelter2 = new Shelter();
         $shelter2->setName('Les Chats Teignes');
         $shelter2->setAddress('85 rue des grosminets 54000 Nancy');
+        $shelter2->setZip('54000');
+        $shelter2->setCity('Nancy');
         $shelter2->setPhoneNumber('0666778899');
         $shelter2->setEmail('chats-teignes@chat.com');
         $shelter2->setPicture('shelters/shelter2.jpg');
+        $shelter2->setCreatedAt(new \DateTime());
         $shelter2->setUser($chatsteignes);
 
         shuffle($catAnimals);
@@ -337,10 +364,13 @@ class AppFixtures extends Fixture
 
         $shelter3 = new Shelter();
         $shelter3->setName('Le refuge du Mordant');
-        $shelter3->setAddress('77 avenue du port 54200 Toul');
+        $shelter3->setAddress('77 avenue du port');
+        $shelter3->setZip('54200');
+        $shelter3->setCity('Toul');
         $shelter3->setPhoneNumber('0636224255');
         $shelter3->setEmail('refuge-mordant@refuge.com');
         $shelter3->setPicture('shelters/shelter3.jpg');
+        $shelter3->setCreatedAt(new \DateTime());
         $shelter3->setUser($mordant);
 
         shuffle($catAnimals);

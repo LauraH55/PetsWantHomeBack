@@ -50,7 +50,7 @@ class PrivatePerson
     private $animals;
 
     /**
-     * @ORM\OneToOne(targetEntity=User::class, mappedBy="privatePerson", cascade={"persist", "remove"})
+     * @ORM\OneToOne(targetEntity=User::class, inversedBy="privatePerson", cascade={"persist", "remove"})
      */
     private $user;
 
@@ -161,18 +161,9 @@ class PrivatePerson
 
     public function setUser(?User $user): self
     {
-        // unset the owning side of the relation if necessary
-        if ($user === null && $this->user !== null) {
-            $this->user->setPrivatePerson(null);
-        }
-
-        // set the owning side of the relation if necessary
-        if ($user !== null && $user->getPrivatePerson() !== $this) {
-            $user->setPrivatePerson($this);
-        }
-
         $this->user = $user;
 
         return $this;
     }
+
 }

@@ -59,7 +59,7 @@ class User implements UserInterface
     private $updatedAt;
 
     /**
-     * @ORM\OneToOne(targetEntity=PrivatePerson::class, inversedBy="user", cascade={"persist", "remove"})
+     * @ORM\OneToOne(targetEntity=PrivatePerson::class, mappedBy="user", cascade={"persist", "remove"})
      */
     private $privatePerson;
 
@@ -197,6 +197,16 @@ class User implements UserInterface
 
     public function setPrivatePerson(?PrivatePerson $privatePerson): self
     {
+        // unset the owning side of the relation if necessary
+        if ($privatePerson === null && $this->privatePerson !== null) {
+            $this->privatePerson->setUser(null);
+        }
+
+        // set the owning side of the relation if necessary
+        if ($privatePerson !== null && $privatePerson->getUser() !== $this) {
+            $privatePerson->setUser($this);
+        }
+
         $this->privatePerson = $privatePerson;
 
         return $this;
