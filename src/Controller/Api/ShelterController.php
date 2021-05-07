@@ -89,6 +89,8 @@ class ShelterController extends AbstractController
         $shelter->setName($shelterData['name']);
         $shelter->setEmail($shelterData['email']);
         $shelter->setAddress($shelterData['address']);
+        $shelter->setZip($shelterData['zip']);
+        $shelter->setCity($shelterData['city']);
         $user->setRoles(['ROLE_SHELTER']);
 
 
@@ -107,7 +109,7 @@ class ShelterController extends AbstractController
         // We redirect to api_shelter_read
         return $this->json([
             'shelter' => $shelter,
-        ], Response::HTTP_CREATED);
+        ], Response::HTTP_CREATED, [], ['groups' => 'shelter_list']);
     }
 
     /**
@@ -143,7 +145,7 @@ class ShelterController extends AbstractController
         $entityManager->flush();
 
 
-        return $this->json(['message' => 'Refuge modifié.'], Response::HTTP_OK);
+        return $this->json(['message' => 'Refuge modifié.'], Response::HTTP_OK, [], ['groups' => 'shelter_list']);
 
         
 
