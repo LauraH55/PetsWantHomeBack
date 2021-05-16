@@ -23,6 +23,7 @@ class Animal
      * 
      * @Groups("animal_list")
      * @Groups("shelter_list")
+     * @Groups("race_list")
      */
     private $id;
 
@@ -33,6 +34,7 @@ class Animal
      * 
      * @Groups("animal_list")
      * @Groups("shelter_list")
+     * @Groups("race_list")
      */
     private $name;
 
