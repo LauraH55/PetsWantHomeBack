@@ -245,4 +245,13 @@ class AnimalController extends AbstractController
 
     }
 
+    /**
+     * @Route("/api/races", name="api_races", methods="GET")
+     */
+    public function races(RaceRepository $raceRepository): Response
+    {
+        $races = $raceRepository->findAll();
+        return $this->json($races, 200, [], ['groups' => 'race_list']);
+    }
+
 }

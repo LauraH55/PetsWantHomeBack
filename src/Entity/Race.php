@@ -20,6 +20,7 @@ class Race
      * 
      * @Groups("animal_list")
      * @Groups("shelter_list")
+     * @Groups("race_list")
      * 
      */
     private $id;
@@ -29,21 +30,25 @@ class Race
      * 
      * @Groups("animal_list")
      * @Groups("shelter_list")
+     * @Groups("race_list")
      */
     private $name;
 
     /**
      * @ORM\Column(type="datetime")
+     * @Groups("race_list")
      */
     private $createdAt;
 
     /**
      * @ORM\Column(type="datetime", nullable=true)
+     * @Groups("race_list")
      */
     private $updatedAt;
 
     /**
      * @ORM\OneToMany(targetEntity=Animal::class, mappedBy="race")
+     * @Groups("race_list")
      *
      */
     private $animals;
@@ -51,6 +56,7 @@ class Race
     /**
      * @ORM\ManyToOne(targetEntity=Species::class, inversedBy="race")
      * @ORM\JoinColumn(nullable=false)
+     * @Groups("race_list")
      * 
      * 
      */
