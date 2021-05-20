@@ -62,10 +62,12 @@ security:
     - { path: ^/api/animals, roles: IS_AUTHENTICATED_ANONYMOUSLY }
     - { path: ^/api/users, roles: IS_AUTHENTICATED_ANONYMOUSLY }
     - { path: ^/api/shelter/create, methods: [GET, POST], roles: ROLE_USER }
-    - { path: ^/api/person/(update|delete|create), methods: [GET, POST], roles: ROLE_USER }
+    - { path: ^/api/shelter/update, methods: [PUT, PATCH], roles: ROLE_SHELTER }
+    - { path: ^/api/shelter/update/image, methods: [POST], roles: ROLE_SHELTER }
     - { path: ^/api/animal/create, methods: [GET, POST], roles: ROLE_USER }
-    - { path: ^/api/(.+)/(update|delete|create), methods: [GET, POST], roles: ROLE_SHELTER }
-    
+    - { path: ^/api/(.+)/(update|delete|create), methods: [GET, POST, PUT, PATCH], roles: ROLE_SHELTER }
+    - { path: ^/api/person/(update|delete|create), methods: [GET, POST], roles: ROLE_USER }  
+
     # - { path: ^/api/logout, roles: ROLE_SHELTER }
     # - { path: ^/api, roles: IS_AUTHENTICATED_FULLY }
 
